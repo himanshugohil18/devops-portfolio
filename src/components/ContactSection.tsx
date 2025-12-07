@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Mail, Linkedin, Github, FileText } from "lucide-react";
+import { Mail, Linkedin, Github, FileText, Instagram } from "lucide-react";
+
+// X (Twitter) icon component
+const XIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
 
 export function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -47,7 +54,7 @@ export function ContactSection() {
           </Button>
 
           {/* Social Links */}
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3">
             <Button
               variant="ghost"
               size="lg"
@@ -76,6 +83,36 @@ export function ContactSection() {
               >
                 <Linkedin className="mr-2 w-5 h-5" />
                 LinkedIn
+              </a>
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              asChild
+              className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+            >
+              <a
+                href="https://x.com/himanshu_g4"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <XIcon />
+                <span className="ml-2">X</span>
+              </a>
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              asChild
+              className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+            >
+              <a
+                href="https://instagram.com/himanshu.gohil18"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram className="mr-2 w-5 h-5" />
+                Instagram
               </a>
             </Button>
             <Button
