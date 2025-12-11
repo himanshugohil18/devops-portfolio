@@ -2,18 +2,18 @@ import { motion } from "framer-motion";
 import { Wrench } from "lucide-react";
 
 const tools = [
-  { name: "Docker", color: "#2496ED", icon: "🐳" },
-  { name: "Kubernetes", color: "#326CE5", icon: "☸️" },
-  { name: "Jenkins", color: "#D24939", icon: "🔧" },
-  { name: "AWS", color: "#FF9900", icon: "☁️" },
-  { name: "GitHub Actions", color: "#2088FF", icon: "⚡" },
-  { name: "Terraform", color: "#7B42BC", icon: "🏗️" },
-  { name: "Prometheus", color: "#E6522C", icon: "📊" },
-  { name: "Grafana", color: "#F46800", icon: "📈" },
-  { name: "Linux", color: "#FCC624", icon: "🐧" },
-  { name: "Nginx", color: "#009639", icon: "🌐" },
-  { name: "ArgoCD", color: "#EF7B4D", icon: "🔄" },
-  { name: "Helm", color: "#0F1689", icon: "⛵" },
+  { name: "Docker", color: "#2496ED", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "Kubernetes", color: "#326CE5", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+  { name: "Jenkins", color: "#D24939", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
+  { name: "AWS", color: "#FF9900", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
+  { name: "GitHub Actions", color: "#2088FF", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { name: "Terraform", color: "#7B42BC", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" },
+  { name: "Prometheus", color: "#E6522C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+  { name: "Grafana", color: "#F46800", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
+  { name: "Linux", color: "#FCC624", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
+  { name: "Nginx", color: "#009639", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" },
+  { name: "ArgoCD", color: "#EF7B4D", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg" },
+  { name: "Ansible", color: "#EE0000", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" },
 ];
 
 export function ToolsGridSection() {
@@ -65,8 +65,12 @@ export function ToolsGridSection() {
                 }}
               >
                 <div className="text-center">
-                  <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                    {tool.icon}
+                  <div className="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                    <img 
+                      src={tool.logo} 
+                      alt={`${tool.name} logo`}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <div className="text-sm font-medium text-foreground">{tool.name}</div>
                 </div>
