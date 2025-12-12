@@ -12,12 +12,12 @@ import { SkillsSection } from "@/components/SkillsSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
-import { FloatingElements } from "@/components/FloatingElements";
+import { DevOpsBackground } from "@/components/DevOpsBackground";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <FloatingElements />
+      <DevOpsBackground />
       <Navbar />
       <main>
         <HeroSection />
