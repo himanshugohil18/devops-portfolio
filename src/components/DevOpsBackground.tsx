@@ -1,25 +1,14 @@
 import { motion } from "framer-motion";
 
-const PipelinePath = ({ delay = 0, duration = 8, color = "primary" }: { delay?: number; duration?: number; color?: string }) => (
-  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <linearGradient id={`pipelineGrad-${delay}`} x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="transparent" />
-        <stop offset="50%" stopColor={`hsl(var(--${color}))`} stopOpacity="0.6" />
-        <stop offset="100%" stopColor="transparent" />
-      </linearGradient>
-    </defs>
-    <motion.path
-      d="M-100,540 Q400,300 600,540 T1000,540 T1400,540 T1800,540 T2200,540"
-      fill="none"
-      stroke={`url(#pipelineGrad-${delay})`}
-      strokeWidth="2"
-      strokeLinecap="round"
-      initial={{ pathLength: 0, opacity: 0 }}
-      animate={{ 
-        pathLength: [0, 1, 0],
-        opacity: [0, 0.8, 0]
-      }}
+const FlowingLine = ({ y, delay = 0, duration = 20 }: { y: string; delay?: number; duration?: number }) => (
+  <motion.div
+    className="absolute h-px w-full"
+    style={{ top: y }}
+  >
+    <motion.div
+      className="h-full bg-gradient-to-r from-transparent via-primary/[0.08] to-transparent"
+      style={{ width: '40%' }}
+      animate={{ x: ['-40%', '140%'] }}
       transition={{
         duration,
         delay,
@@ -27,23 +16,38 @@ const PipelinePath = ({ delay = 0, duration = 8, color = "primary" }: { delay?: 
         ease: "linear"
       }}
     />
-  </svg>
+  </motion.div>
 );
 
-const DataPacket = ({ startX, startY, endX, endY, delay = 0, duration = 3 }: { 
-  startX: number; startY: number; endX: number; endY: number; delay?: number; duration?: number 
+const DataDot = ({ startX, y, delay = 0, duration = 15 }: { 
+  startX: string; y: string; delay?: number; duration?: number 
 }) => (
   <motion.div
-    className="absolute w-2 h-2 rounded-full bg-primary/60 shadow-[0_0_10px_hsl(var(--primary)/0.5)]"
-    initial={{ x: startX, y: startY, opacity: 0, scale: 0 }}
-    animate={{
-      x: [startX, endX],
-      y: [startY, endY],
-      opacity: [0, 1, 1, 0],
-      scale: [0, 1, 1, 0]
+    className="absolute w-1 h-1 rounded-full bg-primary/[0.06]"
+    style={{ top: y, left: startX }}
+    animate={{ 
+      x: [0, 800],
+      opacity: [0, 0.08, 0.08, 0]
     }}
     transition={{
       duration,
+      delay,
+      repeat: Infinity,
+      ease: "linear"
+    }}
+  />
+);
+
+const SoftNode = ({ x, y, delay = 0 }: { x: string; y: string; delay?: number }) => (
+  <motion.div
+    className="absolute w-2 h-2 rounded-full bg-primary/[0.04]"
+    style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
+    animate={{
+      scale: [1, 1.5, 1],
+      opacity: [0.03, 0.06, 0.03]
+    }}
+    transition={{
+      duration: 4,
       delay,
       repeat: Infinity,
       ease: "easeInOut"
@@ -51,262 +55,144 @@ const DataPacket = ({ startX, startY, endX, endY, delay = 0, duration = 3 }: {
   />
 );
 
-const PulsingNode = ({ x, y, size = 40, delay = 0, label }: { 
-  x: string; y: string; size?: number; delay?: number; label: string 
-}) => (
-  <motion.div
-    className="absolute flex items-center justify-center"
-    style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
-  >
-    <motion.div
-      className="absolute rounded-full bg-primary/10 border border-primary/20"
-      style={{ width: size * 2, height: size * 2 }}
-      animate={{
-        scale: [1, 1.5, 1],
-        opacity: [0.3, 0.1, 0.3]
-      }}
+const CircuitPath = ({ delay = 0 }: { delay?: number }) => (
+  <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.03]" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+    <motion.path
+      d="M0,400 L300,400 L350,350 L600,350 L650,400 L900,400"
+      fill="none"
+      stroke="hsl(var(--primary))"
+      strokeWidth="0.5"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: [0, 1] }}
       transition={{
-        duration: 3,
+        duration: 8,
         delay,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "linear"
       }}
     />
-    <motion.div
-      className="rounded-xl bg-card/40 backdrop-blur-sm border border-primary/20 px-3 py-2 flex items-center gap-2"
+    <motion.path
+      d="M1920,600 L1600,600 L1550,650 L1300,650 L1250,600 L1000,600"
+      fill="none"
+      stroke="hsl(var(--primary))"
+      strokeWidth="0.5"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: [0, 1] }}
+      transition={{
+        duration: 10,
+        delay: delay + 2,
+        repeat: Infinity,
+        ease: "linear"
+      }}
+    />
+  </svg>
+);
+
+const WaveformLine = ({ y, delay = 0 }: { y: string; delay?: number }) => (
+  <svg className="absolute w-full h-8 opacity-[0.02]" style={{ top: y }} viewBox="0 0 1920 32" preserveAspectRatio="none">
+    <motion.path
+      d="M0,16 Q60,8 120,16 T240,16 T360,16 T480,16 T600,16 T720,16 T840,16 T960,16 T1080,16 T1200,16 T1320,16 T1440,16 T1560,16 T1680,16 T1800,16 T1920,16"
+      fill="none"
+      stroke="hsl(var(--primary))"
+      strokeWidth="1"
       animate={{
-        boxShadow: [
-          "0 0 20px hsl(var(--primary) / 0.1)",
-          "0 0 40px hsl(var(--primary) / 0.2)",
-          "0 0 20px hsl(var(--primary) / 0.1)"
+        d: [
+          "M0,16 Q60,8 120,16 T240,16 T360,16 T480,16 T600,16 T720,16 T840,16 T960,16 T1080,16 T1200,16 T1320,16 T1440,16 T1560,16 T1680,16 T1800,16 T1920,16",
+          "M0,16 Q60,24 120,16 T240,16 T360,16 T480,16 T600,16 T720,16 T840,16 T960,16 T1080,16 T1200,16 T1320,16 T1440,16 T1560,16 T1680,16 T1800,16 T1920,16",
+          "M0,16 Q60,8 120,16 T240,16 T360,16 T480,16 T600,16 T720,16 T840,16 T960,16 T1080,16 T1200,16 T1320,16 T1440,16 T1560,16 T1680,16 T1800,16 T1920,16"
         ]
       }}
       transition={{
-        duration: 2,
+        duration: 6,
         delay,
         repeat: Infinity,
         ease: "easeInOut"
       }}
-    >
-      <motion.div
-        className="w-2 h-2 rounded-full bg-emerald-400"
-        animate={{ opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 1, repeat: Infinity }}
-      />
-      <span className="text-xs text-muted-foreground font-medium">{label}</span>
-    </motion.div>
-  </motion.div>
-);
-
-const SpinningContainer = ({ x, y, delay = 0 }: { x: string; y: string; delay?: number }) => (
-  <motion.div
-    className="absolute"
-    style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
-    animate={{ rotate: 360 }}
-    transition={{ duration: 20, repeat: Infinity, ease: "linear", delay }}
-  >
-    <motion.div
-      className="w-12 h-12 rounded-lg border-2 border-primary/30 bg-primary/5 backdrop-blur-sm flex items-center justify-center"
-      animate={{
-        borderColor: ["hsl(var(--primary) / 0.2)", "hsl(var(--primary) / 0.5)", "hsl(var(--primary) / 0.2)"]
-      }}
-      transition={{ duration: 3, repeat: Infinity, delay }}
-    >
-      <svg className="w-6 h-6 text-primary/60" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185zm-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.186zm0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186zm-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186zm2.93 2.714h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185zm-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186H8.1a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185zm-2.929 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.185-.186h-2.12a.186.186 0 00-.185.186v1.887c0 .102.083.185.186.185zm5.859 2.715h2.118a.186.186 0 00.186-.186v-1.887a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.186v1.887c0 .102.082.186.185.186zm-2.93 0h2.12a.185.185 0 00.184-.186v-1.887a.185.185 0 00-.184-.186H8.1a.185.185 0 00-.185.186v1.887c0 .102.083.186.185.186zm-2.929 0h2.119a.186.186 0 00.185-.186v-1.887a.186.186 0 00-.185-.186h-2.12a.186.186 0 00-.185.186v1.887c0 .102.083.186.186.186zm8.764-5.43h2.12a.186.186 0 00.185-.186V6.29a.185.185 0 00-.186-.185h-2.119a.185.185 0 00-.184.185v1.887c0 .102.083.185.184.186zm0 2.715h2.12a.186.186 0 00.185-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.184.185v1.888c0 .102.083.185.184.185zm2.927 2.714h2.12a.186.186 0 00.185-.186v-1.887a.186.186 0 00-.186-.186h-2.119a.186.186 0 00-.185.186v1.887c0 .102.083.186.185.186zm0-5.429h2.12a.186.186 0 00.185-.186V6.29a.186.186 0 00-.186-.185h-2.119a.186.186 0 00-.185.185v1.887c0 .102.083.185.185.186zm0-2.715h2.12a.186.186 0 00.185-.186V3.574a.186.186 0 00-.186-.185h-2.119a.186.186 0 00-.185.185v1.888c0 .102.083.185.185.186zm-5.857 0h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.186zm-5.857 0h2.119a.185.185 0 00.185-.186V3.574a.186.186 0 00-.185-.185h-2.12a.186.186 0 00-.185.186v1.887c0 .102.083.185.186.186zm2.928 0h2.12a.185.185 0 00.184-.186V3.574a.185.185 0 00-.184-.185H8.1a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.186zm-5.857 5.43h2.119a.185.185 0 00.185-.186V9.006a.185.185 0 00-.185-.186h-2.12a.186.186 0 00-.185.186v1.887c0 .102.083.185.186.185zm0-2.715h2.119a.185.185 0 00.185-.186V6.29a.185.185 0 00-.185-.185h-2.12a.186.186 0 00-.185.185v1.887c0 .102.083.185.186.186zm0 5.43h2.119a.185.185 0 00.185-.186v-1.887a.186.186 0 00-.185-.186h-2.12a.186.186 0 00-.185.186v1.887c0 .102.083.186.186.186zm0 2.714h2.119a.186.186 0 00.185-.186v-1.886a.186.186 0 00-.185-.186h-2.12a.186.186 0 00-.185.186v1.886c0 .102.083.186.186.186zm2.928 0h2.12a.185.185 0 00.184-.186v-1.886a.185.185 0 00-.184-.186H8.1a.185.185 0 00-.185.186v1.886c0 .102.083.186.185.186zm2.929 0h2.118a.185.185 0 00.186-.186v-1.886a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.186v1.886c0 .102.082.186.185.186zm5.857 0h2.12a.186.186 0 00.185-.186v-1.886a.186.186 0 00-.186-.186h-2.119a.186.186 0 00-.185.186v1.886c0 .102.083.186.185.186zm-2.929 0h2.119a.186.186 0 00.185-.186v-1.886a.186.186 0 00-.185-.186h-2.119a.185.185 0 00-.184.186v1.886c0 .102.083.186.184.186zm5.858 0h2.119a.186.186 0 00.185-.186v-1.886a.186.186 0 00-.185-.186h-2.12a.186.186 0 00-.185.186v1.886c0 .102.083.186.186.186z"/>
-      </svg>
-    </motion.div>
-  </motion.div>
-);
-
-const CircuitLine = ({ path, delay = 0, duration = 4 }: { path: string; delay?: number; duration?: number }) => (
-  <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
-    <motion.path
-      d={path}
-      fill="none"
-      stroke="hsl(var(--primary) / 0.15)"
-      strokeWidth="1"
-      strokeDasharray="5 5"
     />
-    <motion.circle
-      r="4"
-      fill="hsl(var(--primary))"
-      filter="url(#glow)"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: [0, 1, 0] }}
-      transition={{ duration, delay, repeat: Infinity }}
-    >
-      <animateMotion dur={`${duration}s`} repeatCount="indefinite" begin={`${delay}s`}>
-        <mpath href={`#circuit-${delay}`} />
-      </animateMotion>
-    </motion.circle>
-    <defs>
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-        <feMerge>
-          <feMergeNode in="coloredBlur"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
-      <path id={`circuit-${delay}`} d={path} />
-    </defs>
   </svg>
 );
 
-const MonitoringGraph = ({ x, y, delay = 0 }: { x: string; y: string; delay?: number }) => (
-  <motion.div
-    className="absolute"
-    style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: delay + 1 }}
-  >
-    <div className="w-24 h-16 rounded-lg bg-card/30 backdrop-blur-sm border border-primary/10 p-2 overflow-hidden">
-      <div className="flex items-end justify-between h-full gap-0.5">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="w-2 bg-gradient-to-t from-primary/40 to-primary/80 rounded-t"
-            animate={{
-              height: [`${20 + Math.random() * 30}%`, `${40 + Math.random() * 50}%`, `${20 + Math.random() * 30}%`]
-            }}
-            transition={{
-              duration: 2 + Math.random(),
-              delay: delay + i * 0.1,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  </motion.div>
-);
-
-const PipelineStage = ({ x, y, label, delay = 0, isActive = false }: { 
-  x: string; y: string; label: string; delay?: number; isActive?: boolean 
-}) => (
-  <motion.div
-    className="absolute"
-    style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
-  >
-    <motion.div
-      className="px-4 py-2 rounded-full bg-card/40 backdrop-blur-sm border border-primary/20 text-xs font-medium text-muted-foreground"
-      animate={{
-        borderColor: isActive 
-          ? ["hsl(var(--primary) / 0.2)", "hsl(var(--primary) / 0.6)", "hsl(var(--primary) / 0.2)"]
-          : "hsl(var(--primary) / 0.2)",
-        boxShadow: isActive
-          ? ["0 0 0px hsl(var(--primary) / 0)", "0 0 20px hsl(var(--primary) / 0.3)", "0 0 0px hsl(var(--primary) / 0)"]
-          : "none"
-      }}
-      transition={{
-        duration: 2,
-        delay,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
-    >
-      {label}
-    </motion.div>
-  </motion.div>
-);
-
-const HexGrid = () => (
-  <svg className="absolute inset-0 w-full h-full opacity-[0.03]" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(0.5)">
-        <polygon 
-          points="24.8,22 37.3,29.2 37.3,43.7 24.8,50.9 12.3,43.7 12.3,29.2" 
-          fill="none" 
-          stroke="hsl(var(--primary))" 
-          strokeWidth="0.5"
-        />
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#hexagons)" />
-  </svg>
+const SubtleGrid = () => (
+  <div 
+    className="absolute inset-0 opacity-[0.015]"
+    style={{
+      backgroundImage: `
+        linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
+        linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)
+      `,
+      backgroundSize: '100px 100px'
+    }}
+  />
 );
 
 export function DevOpsBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Base gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+      {/* Very subtle grid */}
+      <SubtleGrid />
       
-      {/* Hex grid pattern */}
-      <HexGrid />
+      {/* Soft flowing horizontal lines */}
+      <FlowingLine y="20%" delay={0} duration={25} />
+      <FlowingLine y="40%" delay={5} duration={22} />
+      <FlowingLine y="60%" delay={10} duration={28} />
+      <FlowingLine y="80%" delay={15} duration={24} />
       
-      {/* Flowing pipeline lines */}
-      <PipelinePath delay={0} duration={10} />
-      <PipelinePath delay={3} duration={12} />
-      <PipelinePath delay={6} duration={8} />
+      {/* Tiny data dots moving slowly */}
+      <DataDot startX="5%" y="25%" delay={0} duration={18} />
+      <DataDot startX="10%" y="45%" delay={4} duration={20} />
+      <DataDot startX="0%" y="65%" delay={8} duration={16} />
+      <DataDot startX="15%" y="75%" delay={12} duration={22} />
       
-      {/* Circuit lines with moving dots */}
-      <CircuitLine path="M100,200 L400,200 L400,400 L700,400 L700,300" delay={0} duration={6} />
-      <CircuitLine path="M1820,300 L1500,300 L1500,500 L1200,500 L1200,400" delay={2} duration={8} />
-      <CircuitLine path="M960,100 L960,300 L1100,300 L1100,500" delay={4} duration={5} />
+      {/* Very soft pulsing nodes */}
+      <SoftNode x="15%" y="30%" delay={0} />
+      <SoftNode x="35%" y="50%" delay={1} />
+      <SoftNode x="55%" y="35%" delay={2} />
+      <SoftNode x="75%" y="55%" delay={3} />
+      <SoftNode x="85%" y="25%" delay={4} />
+      <SoftNode x="25%" y="70%" delay={5} />
+      <SoftNode x="65%" y="75%" delay={6} />
       
-      {/* Pipeline stages */}
-      <PipelineStage x="15%" y="25%" label="Build" delay={0} isActive />
-      <PipelineStage x="30%" y="25%" label="Test" delay={0.5} isActive />
-      <PipelineStage x="45%" y="25%" label="Deploy" delay={1} isActive />
+      {/* Light circuit paths */}
+      <CircuitPath delay={0} />
       
-      {/* Spinning containers */}
-      <SpinningContainer x="75%" y="20%" delay={0} />
-      <SpinningContainer x="85%" y="35%" delay={2} />
-      <SpinningContainer x="80%" y="50%" delay={4} />
+      {/* Faint waveform lines */}
+      <WaveformLine y="30%" delay={0} />
+      <WaveformLine y="70%" delay={2} />
       
-      {/* Pulsing nodes (Kubernetes style) */}
-      <PulsingNode x="20%" y="60%" label="Node 1" delay={0} />
-      <PulsingNode x="35%" y="70%" label="Node 2" delay={1} />
-      <PulsingNode x="50%" y="65%" label="Node 3" delay={2} />
-      
-      {/* Monitoring graphs */}
-      <MonitoringGraph x="85%" y="75%" delay={0} />
-      <MonitoringGraph x="70%" y="85%" delay={1} />
-      
-      {/* Data packets flowing */}
-      <DataPacket startX={200} startY={400} endX={600} endY={400} delay={0} duration={4} />
-      <DataPacket startX={800} startY={300} endX={1200} endY={500} delay={1} duration={5} />
-      <DataPacket startX={1400} startY={200} endX={1000} endY={400} delay={2} duration={4} />
-      <DataPacket startX={300} startY={600} endX={700} endY={500} delay={3} duration={3} />
-      <DataPacket startX={1600} startY={400} endX={1200} endY={300} delay={4} duration={5} />
-      
-      {/* Ambient glow */}
+      {/* Very soft ambient glow */}
       <motion.div
-        className="absolute w-[800px] h-[800px] rounded-full"
+        className="absolute w-[600px] h-[600px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 60%)',
-          left: '60%',
-          top: '40%',
+          background: 'radial-gradient(circle, hsl(var(--primary) / 0.02) 0%, transparent 70%)',
+          left: '70%',
+          top: '30%',
           transform: 'translate(-50%, -50%)',
         }}
         animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.4, 0.7, 0.4],
+          scale: [1, 1.1, 1],
+          opacity: [0.5, 0.8, 0.5],
         }}
         transition={{
-          duration: 10,
+          duration: 15,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
       
       <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full"
+        className="absolute w-[500px] h-[500px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, hsl(180 70% 50% / 0.05) 0%, transparent 60%)',
-          left: '20%',
-          top: '60%',
+          background: 'radial-gradient(circle, hsl(180 50% 50% / 0.015) 0%, transparent 70%)',
+          left: '25%',
+          top: '65%',
           transform: 'translate(-50%, -50%)',
         }}
         animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.3, 0.6, 0.3],
+          scale: [1.1, 1, 1.1],
+          opacity: [0.4, 0.7, 0.4],
         }}
         transition={{
-          duration: 12,
+          duration: 18,
           repeat: Infinity,
           ease: "easeInOut",
         }}
