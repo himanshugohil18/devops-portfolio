@@ -1,48 +1,48 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Music, Cloud, GitBranch, Shield, Sparkles } from "lucide-react";
+import { ArrowUpRight, Container, Layers, GitBranch, Zap, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { ProjectModal } from "./ProjectModal";
 
 const projects = [
   {
-    icon: Music,
-    tag: "Full-Stack · MERN",
-    title: "Spotify Clone – MERN Stack",
-    description: "A Spotify-style music streaming app built with the MERN stack. Implemented auth, playlists and audio player UI. Dockerized the backend and used GitHub Actions for deployment.",
-    stack: ["React", "Node.js", "Express", "MongoDB", "JWT", "Docker", "GitHub Actions"],
-    link: "#",
-    gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
-    accentColor: "emerald"
-  },
-  {
-    icon: Cloud,
+    icon: Container,
     tag: "Cloud · AWS",
-    title: "AWS VPC + EC2 Deployment",
-    description: "Designed a complete VPC with public/private subnets, route tables, IGW and NAT. Launched EC2 instances, configured security groups and deployed a web app via Nginx.",
-    stack: ["AWS VPC", "EC2", "Subnets", "NAT", "IGW", "IAM", "Security Groups", "Linux", "Nginx"],
+    title: "Real-World Containerized Application Deployment using AWS ECS & ECR",
+    description: "Built and deployed a production-ready containerized application using Docker, Amazon ECR, and ECS Fargate. Implemented CI/CD-based image builds, automated deployments, load balancing, and centralized logging using CloudWatch.",
+    stack: ["AWS ECS (Fargate)", "Amazon ECR", "Docker", "IAM", "ALB", "CloudWatch", "CI/CD"],
     link: "#",
     gradient: "from-orange-500/20 via-amber-500/10 to-transparent",
     accentColor: "orange"
   },
   {
+    icon: Layers,
+    tag: "Containers · Docker",
+    title: "Django + Nginx + MySQL (Dockerized Multi-Container Architecture)",
+    description: "Designed a multi-container Docker architecture with Django backend, Nginx reverse proxy, and MySQL database. Used Docker Compose for orchestration, persistent volumes, and secure service networking.",
+    stack: ["Docker", "Docker Compose", "Django", "Nginx", "MySQL", "Linux"],
+    link: "#",
+    gradient: "from-sky-500/20 via-cyan-500/10 to-transparent",
+    accentColor: "sky"
+  },
+  {
     icon: GitBranch,
-    tag: "DevOps · GitOps",
-    title: "Cloud-Native CI/CD with Kubernetes & ArgoCD",
-    description: "End-to-end CI/CD pipeline: Jenkins for build and test, Docker for images, Kubernetes + ArgoCD for GitOps deployments. Integrated Prometheus & Grafana for observability.",
-    stack: ["Jenkins", "Docker", "Kubernetes", "ArgoCD", "Helm", "Prometheus", "Grafana", "Git"],
+    tag: "DevOps · CI/CD",
+    title: "Enterprise Git Workflow Automation with CI Pipeline",
+    description: "Implemented an enterprise-grade Git workflow with feature branches, pull requests, and CI validation. Automated build and test stages to ensure code quality and safe merges.",
+    stack: ["Git", "GitHub", "CI Pipelines", "GitHub Actions", "Jenkins", "Linux"],
     link: "#",
     gradient: "from-violet-500/20 via-purple-500/10 to-transparent",
     accentColor: "violet"
   },
   {
-    icon: Shield,
-    tag: "Security · DevSecOps",
-    title: "DevSecOps Pipeline",
-    description: "Pipeline with SonarQube, OWASP Dependency-Check and Trivy to scan code and container images, blocking unsafe builds from progressing to production.",
-    stack: ["Jenkins", "SonarQube", "OWASP Dependency-Check", "Trivy", "Docker"],
+    icon: Zap,
+    tag: "Serverless · AWS",
+    title: "Serverless Application Deployment on AWS",
+    description: "Developed and deployed a serverless application using AWS Lambda and API Gateway. Configured IAM roles and CloudWatch monitoring to deliver a scalable, cost-efficient backend without managing servers.",
+    stack: ["AWS Lambda", "API Gateway", "IAM", "CloudWatch", "Serverless Architecture"],
     link: "#",
-    gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
-    accentColor: "rose"
+    gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
+    accentColor: "emerald"
   }
 ];
 
