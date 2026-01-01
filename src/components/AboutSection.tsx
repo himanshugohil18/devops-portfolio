@@ -5,7 +5,7 @@ const focusAreas = [
   "Designing CI/CD pipelines with Jenkins and GitHub Actions.",
   "Containerizing services with Docker and orchestrating with Kubernetes.",
   "Deploying to AWS with secure, production-style networking.",
-  "Building MERN applications with clean, responsive UI."
+  "Infrastructure automation and monitoring with Prometheus & Grafana."
 ];
 
 export function AboutSection() {
@@ -41,17 +41,17 @@ export function AboutSection() {
             
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm a DevOps enthusiast and MERN stack practitioner based in Ahmedabad, Gujarat. 
+                I'm a DevOps Engineer based in Ahmedabad, Gujarat. 
                 Currently pursuing my MCA with a focus on AI/ML, I'm passionate about building 
-                scalable systems and automating everything in between.
+                scalable infrastructure and automating everything in between.
               </p>
               <p>
-                My journey combines the world of infrastructure automation with full-stack 
-                development. I believe in writing clean, maintainable code and designing systems 
-                that are not just functional, but elegant in their architecture.
+                My journey focuses on infrastructure automation and cloud-native technologies. 
+                I believe in designing systems that are not just functional, but elegant in 
+                their architecture and resilient in production.
               </p>
               <p>
-                When I'm not configuring Kubernetes clusters or building React components, 
+                When I'm not configuring Kubernetes clusters or optimizing CI/CD pipelines, 
                 I'm exploring new DevOps tools and contributing to making development workflows 
                 more efficient for teams.
               </p>

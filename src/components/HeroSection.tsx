@@ -25,7 +25,7 @@ export function HeroSection() {
             >
               <span className="pill pill-primary">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse mr-2" />
-                Open to DevOps & MERN Roles
+                Open to DevOps Roles
               </span>
             </motion.div>
 
@@ -40,7 +40,7 @@ export function HeroSection() {
                 I build{" "}
                 <span className="italic">fast, reliable</span>
                 <br />
-                <span className="gradient-text font-semibold">DevOps pipelines</span> & full-stack apps.
+                <span className="gradient-text font-semibold">DevOps pipelines</span> & cloud infrastructure.
               </h1>
             </motion.div>
 
@@ -51,9 +51,9 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              DevOps & MERN developer focused on automated CI/CD, cloud-native deployments, 
-              and modern web apps. I combine Docker, Kubernetes, Jenkins and the MERN stack 
-              to ship production-ready systems.
+              DevOps Engineer focused on automated CI/CD, cloud-native deployments, 
+              and scalable infrastructure. I combine Docker, Kubernetes, and Jenkins 
+              to ship production-ready systems on AWS.
             </motion.p>
 
             {/* Buttons */}
@@ -90,7 +90,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               {[
-                { icon: GitBranch, text: "MERN + DevOps Projects" },
+                { icon: GitBranch, text: "DevOps Projects" },
                 { icon: Container, text: "CI/CD · Docker · Kubernetes" },
                 { icon: Cloud, text: "AWS Cloud Deployments" },
               ].map((stat, index) => (
