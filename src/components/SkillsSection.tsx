@@ -4,9 +4,9 @@ import { Wrench } from "lucide-react";
 const skills = [
   "Linux", "Git", "GitHub", "Jenkins", "GitHub Actions", "Docker", 
   "Kubernetes", "ArgoCD", "Helm", "Prometheus", "Grafana", "Nginx",
-  "AWS EC2", "AWS S3", "AWS IAM", "AWS VPC", "ECS Fargate", "CloudWatch",
-  "Networking", "Shell Scripting", "JavaScript", "Python", "MongoDB", 
-  "MySQL", "REST APIs", "CI/CD Pipelines", "Terraform", "Serverless"
+  "AWS (EC2, S3, IAM, VPC)", "CloudWatch", "ECS Fargate", "Terraform", 
+  "Ansible", "Bash", "Shell Scripting", "JavaScript", "Python", "YAML", 
+  "MongoDB", "MySQL", "REST APIs", "CI/CD Pipelines", "Postman", "Serverless Architecture"
 ];
 
 export function SkillsSection() {
