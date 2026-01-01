@@ -2,11 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Wrench } from "lucide-react";
 
 const skills = [
-  "Linux", "Git", "GitHub", "Jenkins", "GitHub Actions", "Docker", 
-  "Kubernetes", "ArgoCD", "Helm", "Prometheus", "Grafana", "Nginx",
-  "AWS (EC2, S3, IAM, VPC)", "CloudWatch", "ECS Fargate", "Terraform", 
-  "Ansible", "Bash", "Shell Scripting", "JavaScript", "Python", "YAML", 
-  "MongoDB", "MySQL", "REST APIs", "CI/CD Pipelines", "Postman", "Serverless Architecture"
+  // Row 1
+  "Linux", "Git", "GitHub", "Jenkins", "GitHub Actions", "Docker", "Kubernetes", "ArgoCD", "Helm",
+  // Row 2
+  "Prometheus", "Grafana", "Nginx", "AWS (EC2, S3, IAM, VPC)", "CloudWatch", "ECS Fargate", "Terraform",
+  // Row 3
+  "Ansible", "Bash", "Shell Scripting", "JavaScript", "Python", "YAML", "MongoDB", "MySQL",
+  // Row 4
+  "REST APIs", "CI/CD Pipelines", "Postman", "Serverless Architecture"
 ];
 
 export function SkillsSection() {
