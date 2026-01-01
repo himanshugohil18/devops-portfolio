@@ -79,7 +79,7 @@ export function AnimatedToolsSlider() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          Expertise across DevOps, Cloud & Full-Stack Development
+          Expertise across DevOps, Cloud & Infrastructure Automation
         </p>
       </div>
 

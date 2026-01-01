@@ -15,10 +15,10 @@ const testimonials = [
     avatar: "PM",
   },
   {
-    quote: "Excellent full-stack developer with deep DevOps knowledge. His MERN applications are clean, well-documented, and production-ready.",
-    author: "Senior Developer",
+    quote: "Excellent DevOps engineer with strong infrastructure automation skills. His containerized deployments are clean, well-documented, and production-ready.",
+    author: "Senior Engineer",
     company: "Freelance Project",
-    avatar: "SD",
+    avatar: "SE",
   },
 ];
 
