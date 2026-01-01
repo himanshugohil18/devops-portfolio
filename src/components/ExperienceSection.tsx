@@ -48,7 +48,7 @@ export function ExperienceSection() {
               {/* Header */}
               <div>
                 <h3 className="text-xl font-semibold mb-1">
-                  Project Intern – MERN + DevOps
+                  Project Intern – DevOps Engineer
                 </h3>
                 <p className="text-primary font-medium">
                   Do Incredible Pvt. Ltd.
@@ -70,10 +70,10 @@ export function ExperienceSection() {
               {/* Responsibilities */}
               <ul className="space-y-3 pt-2">
                 {[
-                  "Contributed to a MERN-based Spotify clone, implementing new features and resolving bugs.",
+                  "Implemented CI/CD pipelines using Jenkins and GitHub Actions for automated builds and deployments.",
                   "Collaborated with the team using Git/GitHub for version control and code reviews.",
-                  "Dockerized backend services to ensure consistent development and deployment environments.",
-                  "Gained hands-on experience with the complete software development lifecycle."
+                  "Dockerized backend services to ensure consistent deployment environments across staging and production.",
+                  "Gained hands-on experience with cloud infrastructure, monitoring, and DevOps best practices."
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
