@@ -1,16 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Server, Code2 } from "lucide-react";
+import { Wrench } from "lucide-react";
 
-const devopsSkills = [
+const skills = [
   "Linux", "Git", "GitHub", "Jenkins", "GitHub Actions", "Docker", 
   "Kubernetes", "ArgoCD", "Helm", "Prometheus", "Grafana", "Nginx",
-  "AWS EC2", "AWS S3", "AWS IAM", "AWS VPC", "Terraform", "Shell Scripting"
-];
-
-const webDevSkills = [
-  "HTML5", "CSS3", "JavaScript (ES6+)", "TypeScript", "React.js", 
-  "Tailwind CSS", "Node.js", "Express.js", "REST API", "MongoDB",
-  "Mongoose", "Postman", "Java", "Python", "SQL"
+  "AWS EC2", "AWS S3", "AWS IAM", "AWS VPC", "ECS Fargate", "CloudWatch",
+  "Networking", "Shell Scripting", "JavaScript", "Python", "MongoDB", 
+  "MySQL", "REST APIs", "CI/CD Pipelines", "Terraform", "Serverless"
 ];
 
 export function SkillsSection() {
@@ -43,54 +39,32 @@ export function SkillsSection() {
             Technical <span className="italic">Skills</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            A comprehensive toolkit for building and deploying modern applications.
+            A comprehensive DevOps toolkit for building, deploying, and scaling modern infrastructure.
           </p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* DevOps Card */}
-          <div className={`card-elevated p-6 md:p-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Server className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold">DevOps & Cloud</h3>
+        {/* Skills Card */}
+        <div className={`max-w-4xl mx-auto card-elevated p-6 md:p-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Wrench className="w-6 h-6 text-primary" />
             </div>
-            
-            <div className="flex flex-wrap gap-2">
-              {devopsSkills.map((skill, index) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1.5 text-sm bg-accent text-accent-foreground rounded-lg border border-border transition-all duration-200 hover:border-primary/30 hover:bg-primary/5"
-                  style={{ animationDelay: `${index * 30}ms` }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+            <h3 className="text-xl font-semibold">DevOps & Tools</h3>
           </div>
-
-          {/* Web Dev Card */}
-          <div className={`card-elevated p-6 md:p-8 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Code2 className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold">Web Development</h3>
-            </div>
-            
-            <div className="flex flex-wrap gap-2">
-              {webDevSkills.map((skill, index) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1.5 text-sm bg-accent text-accent-foreground rounded-lg border border-border transition-all duration-200 hover:border-primary/30 hover:bg-primary/5"
-                  style={{ animationDelay: `${index * 30}ms` }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+          
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill, index) => (
+              <span
+                key={skill}
+                className={`px-3 py-1.5 text-sm bg-accent text-accent-foreground rounded-full border border-border transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:scale-105 cursor-default ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                style={{ 
+                  animationDelay: `${index * 30}ms`,
+                  transitionDelay: `${index * 20}ms`
+                }}
+              >
+                {skill}
+              </span>
+            ))}
           </div>
         </div>
       </div>
