@@ -43,6 +43,16 @@ const projects = [
     link: "#",
     gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
     accentColor: "emerald"
+  },
+  {
+    icon: GitBranch,
+    tag: "CI/CD · Jenkins",
+    title: "Django Notes App – CI/CD Automation with Jenkins",
+    description: "Built a Django-based Notes application and implemented a complete CI/CD pipeline using Jenkins to automate build, test, and deployment workflows. The pipeline triggers on GitHub commits, installs dependencies, runs application checks, and prepares the application for deployment.",
+    stack: ["Jenkins", "GitHub", "Django", "Python", "CI/CD Pipelines", "Linux", "Shell Scripting"],
+    link: "https://github.com/himanshugohil18/django-notes-app",
+    gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
+    accentColor: "rose"
   }
 ];
 
