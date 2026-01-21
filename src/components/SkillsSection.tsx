@@ -3,7 +3,7 @@ import { Wrench } from "lucide-react";
 
 const skills = [
   // Row 1
-  "Linux", "Git", "GitHub", "Jenkins", "GitHub Actions", "Docker", "Kubernetes", "ArgoCD", "Helm",
+  "Linux", "Git", "GitHub", "GitLab", "Jenkins", "GitHub Actions", "Docker", "Kubernetes", "ArgoCD", "Helm",
   // Row 2
   "Prometheus", "Grafana", "Nginx", "AWS (EC2, S3, IAM, VPC)", "CloudWatch", "ECS Fargate", "Terraform",
   // Row 3
