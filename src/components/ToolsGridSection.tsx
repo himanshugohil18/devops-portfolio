@@ -19,8 +19,6 @@ const tools = [
 export function ToolsGridSection() {
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
-      
       <div className="container-wide relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -29,12 +27,12 @@ export function ToolsGridSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-            <Wrench className="w-4 h-4 mr-2" />
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 border border-primary/20">
+            <Wrench className="w-4 h-4" />
             Automation Arsenal
           </span>
-          <h2 className="text-3xl md:text-5xl font-display mb-4">
-            Tools I <span className="italic text-primary">Automate</span> With
+          <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
+            Tools I <span className="gradient-text">Automate</span> With
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Industry-standard DevOps tools for building reliable, scalable infrastructure.
@@ -52,18 +50,7 @@ export function ToolsGridSection() {
               whileHover={{ scale: 1.05, y: -5 }}
               className="group relative"
             >
-              <div 
-                className="relative p-6 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg"
-                style={{ 
-                  boxShadow: `0 0 0 0 ${tool.color}00`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 10px 40px -10px ${tool.color}40`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 0 0 0 ${tool.color}00`;
-                }}
-              >
+              <div className="relative p-6 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
                 <div className="text-center">
                   <div className="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
                     <img 

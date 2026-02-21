@@ -10,11 +10,7 @@ const stats = [
 ];
 
 function StatCard({ icon: Icon, label, value, suffix, index }: { 
-  icon: typeof Code; 
-  label: string; 
-  value: number; 
-  suffix: string;
-  index: number;
+  icon: typeof Code; label: string; value: number; suffix: string; index: number;
 }) {
   const { count, ref } = useAnimatedCounter(value, 2000);
 
@@ -27,20 +23,19 @@ function StatCard({ icon: Icon, label, value, suffix, index }: {
       viewport={{ once: true }}
       className="relative group"
     >
-      <div className="relative p-8 rounded-2xl bg-card/50 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
-        {/* Glow effect */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="relative p-8 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <div className="relative">
-          <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
-            <Icon className="w-7 h-7 text-primary" />
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
+            <Icon className="w-6 h-6 text-primary" />
           </div>
           
-          <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+          <div className="text-4xl md:text-5xl font-bold font-display text-foreground mb-2">
             {count}{suffix}
           </div>
           
-          <div className="text-muted-foreground font-medium">
+          <div className="text-muted-foreground text-sm font-medium">
             {label}
           </div>
         </div>
@@ -52,8 +47,6 @@ function StatCard({ icon: Icon, label, value, suffix, index }: {
 export function StatsSection() {
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent" />
-      
       <div className="container-wide relative">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (

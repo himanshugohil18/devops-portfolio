@@ -1,11 +1,29 @@
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Server, Cloud, GitBranch } from "lucide-react";
 
 const focusAreas = [
   "Designing CI/CD pipelines with Jenkins and GitHub Actions.",
   "Containerizing services with Docker and orchestrating with Kubernetes.",
   "Deploying to AWS with secure, production-style networking.",
   "Infrastructure automation and monitoring with Prometheus & Grafana."
+];
+
+const featureCards = [
+  {
+    icon: Server,
+    title: "Infrastructure",
+    description: "Building scalable, resilient cloud infrastructure with best practices."
+  },
+  {
+    icon: GitBranch,
+    title: "Automation",
+    description: "End-to-end CI/CD pipelines for faster, safer deployments."
+  },
+  {
+    icon: Cloud,
+    title: "Cloud Native",
+    description: "Kubernetes-first approach to container orchestration at scale."
+  },
 ];
 
 export function AboutSection() {
@@ -15,28 +33,24 @@ export function AboutSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.2 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="section-padding bg-secondary/30">
+    <section ref={sectionRef} id="about" className="section-padding relative">
       <div className="container-wide">
+        {/* Two column layout */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left Column */}
           <div className={`space-y-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-3xl md:text-4xl font-display">
-              About <span className="italic">Me</span>
+            <span className="pill pill-primary text-xs font-semibold uppercase tracking-wider">About Me</span>
+            <h2 className="text-3xl md:text-4xl font-display font-bold">
+              DevOps Engineer building for <span className="gradient-text">scale</span>
             </h2>
             
             <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -60,21 +74,34 @@ export function AboutSection() {
 
           {/* Right Column */}
           <div className={`space-y-6 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h3 className="text-xl font-semibold">What I Focus On</h3>
+            <h3 className="text-xl font-semibold font-display">What I Focus On</h3>
             
-            <div className="space-y-4">
+            <div className="space-y-3">
               {focusAreas.map((area, index) => (
                 <div
                   key={index}
-                  className="flex items-start gap-3 p-4 bg-card rounded-xl border border-border transition-all duration-300 hover:border-primary/30 hover:shadow-sm"
+                  className="flex items-start gap-3 p-4 glass-card rounded-xl"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <span className="text-foreground">{area}</span>
+                  <span className="text-foreground text-sm">{area}</span>
                 </div>
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Feature Cards */}
+        <div className={`grid md:grid-cols-3 gap-6 mt-16 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {featureCards.map((card, index) => (
+            <div key={index} className="glass-card p-6 text-center group">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                <card.icon className="w-7 h-7 text-primary" />
+              </div>
+              <h4 className="font-display font-semibold text-lg mb-2">{card.title}</h4>
+              <p className="text-sm text-muted-foreground">{card.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

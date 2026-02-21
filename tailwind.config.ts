@@ -9,12 +9,12 @@ export default {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1200px",
       },
     },
     extend: {
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
@@ -88,6 +88,10 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -95,10 +99,7 @@ export default {
         "fade-in": "fade-in 0.6s ease forwards",
         "scale-in": "scale-in 0.4s ease forwards",
         float: "float 4s ease-in-out infinite",
-      },
-      boxShadow: {
-        'elevated': '0 4px 24px -4px hsla(160, 30%, 15%, 0.08)',
-        'elevated-hover': '0 12px 40px -8px hsla(160, 30%, 15%, 0.15)',
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
       },
     },
   },

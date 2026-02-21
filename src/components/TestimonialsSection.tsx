@@ -25,8 +25,6 @@ const testimonials = [
 export function TestimonialsSection() {
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-muted/20 to-background" />
-      
       <div className="container-wide relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -35,12 +33,12 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-            <Star className="w-4 h-4 mr-2" />
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 border border-primary/20">
+            <Star className="w-4 h-4" />
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-5xl font-display mb-4">
-            What People <span className="italic text-primary">Say</span>
+          <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
+            What People <span className="gradient-text">Say</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Feedback from colleagues and clients I've worked with.
@@ -57,7 +55,7 @@ export function TestimonialsSection() {
               viewport={{ once: true }}
               className="group relative"
             >
-              <div className="relative h-full p-8 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5">
+              <div className="relative h-full p-8 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1">
                 {/* Quote icon */}
                 <div className="absolute -top-4 left-8">
                   <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
@@ -73,18 +71,18 @@ export function TestimonialsSection() {
                 </div>
 
                 {/* Quote */}
-                <p className="text-muted-foreground mb-8 leading-relaxed italic">
+                <p className="text-muted-foreground mb-8 leading-relaxed text-sm italic">
                   "{testimonial.quote}"
                 </p>
 
                 {/* Author */}
                 <div className="flex items-center gap-4 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                  <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm border border-primary/20">
                     {testimonial.avatar}
                   </div>
                   <div>
-                    <div className="font-semibold text-foreground">{testimonial.author}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.company}</div>
+                    <div className="font-semibold text-foreground text-sm">{testimonial.author}</div>
+                    <div className="text-xs text-muted-foreground">{testimonial.company}</div>
                   </div>
                 </div>
               </div>

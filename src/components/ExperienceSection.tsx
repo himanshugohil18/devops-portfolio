@@ -8,27 +8,22 @@ export function ExperienceSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.2 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="section-padding">
+    <section ref={sectionRef} id="experience" className="section-padding relative">
       <div className="container-tight">
         {/* Section Header */}
         <div className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="text-3xl md:text-4xl font-display mb-4">
-            Work <span className="italic">Experience</span>
+          <span className="pill pill-primary text-xs font-semibold uppercase tracking-wider">Experience</span>
+          <h2 className="text-3xl md:text-4xl font-display font-bold mt-4 mb-4">
+            Work <span className="gradient-text">Experience</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Hands-on experience building real products with modern technologies.
@@ -36,7 +31,7 @@ export function ExperienceSection() {
         </div>
 
         {/* Experience Card */}
-        <div className={`card-elevated p-6 md:p-10 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`glass-card p-6 md:p-10 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="flex flex-col md:flex-row md:items-start gap-6">
             {/* Icon */}
             <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -45,9 +40,8 @@ export function ExperienceSection() {
 
             {/* Content */}
             <div className="flex-1 space-y-4">
-              {/* Header */}
               <div>
-                <h3 className="text-xl font-semibold mb-1">
+                <h3 className="text-xl font-display font-semibold mb-1">
                   Project Intern – DevOps Engineer
                 </h3>
                 <p className="text-primary font-medium">
@@ -55,7 +49,6 @@ export function ExperienceSection() {
                 </p>
               </div>
 
-              {/* Meta */}
               <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                   <Calendar className="w-4 h-4" />
@@ -67,7 +60,6 @@ export function ExperienceSection() {
                 </div>
               </div>
 
-              {/* Responsibilities */}
               <ul className="space-y-3 pt-2">
                 {[
                   "Implemented CI/CD pipelines using Jenkins and GitHub Actions for automated builds and deployments.",
@@ -77,7 +69,7 @@ export function ExperienceSection() {
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                    <span className="text-muted-foreground">{item}</span>
+                    <span className="text-muted-foreground text-sm">{item}</span>
                   </li>
                 ))}
               </ul>
