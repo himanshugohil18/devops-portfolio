@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Container, Layers, GitBranch, Zap, Sparkles } from "lucide-react";
+import { ArrowUpRight, Container, Layers, GitBranch, Zap, Sparkles, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { ProjectModal } from "./ProjectModal";
+import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
@@ -11,6 +12,7 @@ const projects = [
     description: "Built and deployed a production-ready containerized application using Docker, Amazon ECR, and ECS Fargate. Implemented CI/CD-based image builds, automated deployments, load balancing, and centralized logging using CloudWatch.",
     stack: ["AWS ECS (Fargate)", "Amazon ECR", "Docker", "IAM", "ALB", "CloudWatch", "CI/CD"],
     link: "#",
+    slug: "/projects/aws-ecs-container-deployment",
     gradient: "from-primary/20 via-blue-500/10 to-transparent",
     accentColor: "primary"
   },
@@ -21,6 +23,7 @@ const projects = [
     description: "Designed a multi-container Docker architecture with Django backend, Nginx reverse proxy, and MySQL database. Used Docker Compose for orchestration, persistent volumes, and secure service networking.",
     stack: ["Docker", "Docker Compose", "Django", "Nginx", "MySQL", "Linux"],
     link: "#",
+    slug: "/projects/django-nginx-mysql-docker",
     gradient: "from-blue-500/20 via-cyan-500/10 to-transparent",
     accentColor: "blue"
   },
@@ -31,6 +34,7 @@ const projects = [
     description: "Implemented an enterprise-grade Git workflow with feature branches, pull requests, and CI validation. Automated build and test stages to ensure code quality and safe merges.",
     stack: ["Git", "GitHub", "CI Pipelines", "GitHub Actions", "Jenkins", "Linux"],
     link: "#",
+    slug: "/projects/git-workflow-ci-governance",
     gradient: "from-purple-500/20 via-violet-500/10 to-transparent",
     accentColor: "purple"
   },
@@ -41,6 +45,7 @@ const projects = [
     description: "Developed and deployed a serverless application using AWS Lambda and API Gateway. Configured IAM roles and CloudWatch monitoring to deliver a scalable, cost-efficient backend without managing servers.",
     stack: ["AWS Lambda", "API Gateway", "IAM", "CloudWatch", "Serverless Architecture"],
     link: "#",
+    slug: "/projects/aws-serverless-lambda",
     gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
     accentColor: "emerald"
   },
@@ -51,6 +56,7 @@ const projects = [
     description: "Built a Django-based Notes application and implemented a complete CI/CD pipeline using Jenkins to automate build, test, and deployment workflows. The pipeline triggers on GitHub commits, installs dependencies, runs application checks, and prepares the application for deployment.",
     stack: ["Jenkins", "GitHub", "Django", "Python", "CI/CD Pipelines", "Linux", "Shell Scripting"],
     link: "https://github.com/himanshugohil18/django-notes-app",
+    slug: "/projects/django-jenkins-cicd",
     gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
     accentColor: "rose"
   }
@@ -62,6 +68,8 @@ export function ProjectsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -178,10 +186,19 @@ export function ProjectsSection() {
                     </div>
 
                     {/* CTA */}
-                    <div className="flex items-center gap-2 text-primary font-medium text-sm">
-                      <span>View Details</span>
-                      <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                        <ArrowUpRight className="w-3.5 h-3.5 group-hover:text-primary-foreground transition-colors" />
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); navigate(project.slug); }}
+                        className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                      >
+                        <FileText className="w-3.5 h-3.5" />
+                        View Full Documentation
+                      </button>
+                      <div className="flex items-center gap-2 text-primary font-medium text-sm">
+                        <span>Quick View</span>
+                        <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                          <ArrowUpRight className="w-3.5 h-3.5 group-hover:text-primary-foreground transition-colors" />
+                        </div>
                       </div>
                     </div>
                   </div>
