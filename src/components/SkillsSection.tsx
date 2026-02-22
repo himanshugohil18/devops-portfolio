@@ -25,7 +25,7 @@ const skillCategories = [
   {
     icon: Server,
     label: "Backend",
-    skills: ["Python", "Django", "REST APIs", "MongoDB", "MySQL", "Nginx"],
+    skills: ["Python", "Django", "REST APIs", "MySQL", "Nginx"],
   },
   {
     icon: Code,
