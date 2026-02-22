@@ -50,14 +50,14 @@ export function AboutSection() {
           <div className={`space-y-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <span className="pill pill-primary text-xs font-semibold uppercase tracking-wider">About Me</span>
             <h2 className="text-3xl md:text-4xl font-display font-bold">
-              DevOps Engineer building for <span className="gradient-text">scale</span>
+              DevOps & Cloud Engineer building for <span className="gradient-text">scale</span>
             </h2>
             
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm a DevOps Engineer based in Ahmedabad, Gujarat. 
-                Currently pursuing my MCA with a focus on AI/ML, I'm passionate about building 
-                scalable infrastructure and automating everything in between.
+                I'm a DevOps & Cloud Engineer based in Ahmedabad, Gujarat. 
+                I specialize in building scalable infrastructure, automating CI/CD workflows, 
+                and delivering cloud-native solutions on AWS.
               </p>
               <p>
                 My journey focuses on infrastructure automation and cloud-native technologies. 

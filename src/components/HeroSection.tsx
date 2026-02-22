@@ -40,7 +40,7 @@ export function HeroSection() {
             >
               <span className="pill pill-primary">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse mr-2" />
-                Open to DevOps Roles
+                Open to Opportunities
               </span>
             </motion.div>
 
@@ -52,10 +52,8 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold leading-[1.1] tracking-tight">
-                I build{" "}
-                <span className="gradient-text">fast, reliable</span>
-                <br />
-                DevOps pipelines.
+                DevOps &{" "}
+                <span className="gradient-text">Cloud Engineer</span>
               </h1>
             </motion.div>
 
@@ -66,9 +64,9 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              DevOps Engineer focused on automated CI/CD, cloud-native deployments, 
-              and scalable infrastructure. I combine Docker, Kubernetes, and Jenkins 
-              to ship production-ready systems on AWS.
+              Specializing in AWS, Kubernetes, CI/CD automation, and scalable 
+              cloud infrastructure. I architect and deliver production-ready systems 
+              using Docker, Jenkins, and cloud-native technologies.
             </motion.p>
 
             {/* Buttons */}
