@@ -1,17 +1,35 @@
 import { useEffect, useRef, useState } from "react";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { Rocket, BookOpen, Globe } from "lucide-react";
 
-const experiences = [
+const capabilities = [
   {
-    title: "Project Intern – DevOps Engineer",
-    company: "Do Incredible Pvt. Ltd.",
-    period: "Jul 2024 – Mar 2025",
-    location: "Remote",
+    icon: Rocket,
+    title: "DevOps Self-Projects & Labs",
     points: [
-      "Implemented CI/CD pipelines using Jenkins and GitHub Actions for automated builds and deployments.",
-      "Collaborated with the team using Git/GitHub for version control and code reviews.",
-      "Dockerized backend services to ensure consistent deployment environments across staging and production.",
-      "Gained hands-on experience with cloud infrastructure, monitoring, and DevOps best practices."
+      "Designed and deployed production-style AWS and Kubernetes environments.",
+      "Built CI/CD pipelines using Jenkins and GitHub Actions.",
+      "Implemented containerized deployments with Docker and ECS.",
+      "Practiced infrastructure automation and monitoring setup.",
+    ],
+  },
+  {
+    icon: BookOpen,
+    title: "Continuous Learning & Tool Mastery",
+    points: [
+      "Actively mastering cloud-native technologies and DevOps automation.",
+      "Focused on infrastructure optimization and cost efficiency.",
+      "Exploring advanced Kubernetes and serverless architectures.",
+      "Practicing real-world deployment patterns.",
+    ],
+  },
+  {
+    icon: Globe,
+    title: "Freelance & Production Ready",
+    points: [
+      "Ready to collaborate on DevOps and cloud infrastructure projects.",
+      "Comfortable designing scalable and secure deployment pipelines.",
+      "Strong understanding of CI/CD governance and automation.",
+      "Prepared for remote and international cloud consulting work.",
     ],
   },
 ];
@@ -38,57 +56,44 @@ export function ExperienceSection() {
         <div className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <span className="pill pill-primary text-xs font-semibold uppercase tracking-wider">Experience</span>
           <h2 className="text-3xl md:text-4xl font-display font-bold mt-4 mb-4">
-            Experience & <span className="gradient-text">Learning Journey</span>
+            Experience & <span className="gradient-text">DevOps Journey</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Hands-on experience building real products with modern technologies.
+            Hands-on DevOps implementation across real-world production-style projects.
           </p>
         </div>
 
-        {/* Vertical Timeline */}
-        <div className="relative pl-8 md:pl-12">
-          {/* Vertical line */}
-          <div className="absolute left-3 md:left-5 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent" />
-
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className={`relative mb-12 last:mb-0 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            >
-              {/* Timeline node */}
-              <div className="absolute -left-8 md:-left-12 top-1 w-6 h-6 md:w-10 md:h-10 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center">
-                <Briefcase className="w-3 h-3 md:w-5 md:h-5 text-primary" />
-              </div>
-
-              {/* Content card */}
-              <div className="glass-card p-6 md:p-8 ml-2">
-                <h3 className="text-xl font-display font-semibold mb-1 text-foreground">
-                  {exp.title}
-                </h3>
-                <p className="text-primary font-medium mb-3">{exp.company}</p>
-
-                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4" />
-                    <span>{exp.period}</span>
+        {/* Capability Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {capabilities.map((cap, index) => {
+            const Icon = cap.icon;
+            return (
+              <div
+                key={index}
+                className={`glass-card p-6 md:p-8 transition-all duration-700 hover:scale-[1.02] hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                style={{ transitionDelay: `${200 + index * 150}ms` }}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center shrink-0">
+                    <Icon className="w-6 h-6 text-primary" />
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4" />
-                    <span>{exp.location}</span>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-display font-semibold mb-4 text-foreground">
+                      {cap.title}
+                    </h3>
+                    <ul className="space-y-3">
+                      {cap.points.map((point, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                          <span className="text-muted-foreground text-sm">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-
-                <ul className="space-y-3">
-                  {exp.points.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                      <span className="text-muted-foreground text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
