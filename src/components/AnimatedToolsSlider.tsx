@@ -23,8 +23,7 @@ const tools = [
   { name: "Terraform", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" },
 ];
 
-const row1Tools = [...tools, ...tools, ...tools];
-const row2Tools = [...tools.slice().reverse(), ...tools.slice().reverse(), ...tools.slice().reverse()];
+const marqueeTools = [...tools, ...tools, ...tools];
 
 export function AnimatedToolsSlider() {
   const [isVisible, setIsVisible] = useState(false);
@@ -42,12 +41,12 @@ export function AnimatedToolsSlider() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 overflow-hidden">
-      <div className="container-wide mb-10">
-        <p className={`text-sm font-semibold text-primary uppercase tracking-widest text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          Technologies & Tools
-        </p>
-        <p className={`text-center text-muted-foreground mt-2 text-sm transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+    <section ref={sectionRef} className="py-20 overflow-hidden">
+      <div className="container-wide mb-12">
+        <h2 className={`text-3xl md:text-4xl font-display font-bold text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          Technical <span className="gradient-text">Expertise</span>
+        </h2>
+        <p className={`text-center text-muted-foreground mt-3 text-base transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           Expertise across DevOps, Cloud & Infrastructure Automation
         </p>
       </div>
@@ -56,27 +55,12 @@ export function AnimatedToolsSlider() {
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-        {/* Row 1 */}
-        <div className={`relative h-20 mb-4 transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          <div className="flex items-center gap-4 absolute animate-curve-slide-left">
-            {row1Tools.map((tool, index) => (
-              <div key={`r1-${tool.name}-${index}`} className="flex-shrink-0 group">
-                <div className="flex items-center gap-2.5 px-4 py-2.5 bg-card/60 backdrop-blur-sm rounded-xl border border-border/30 transition-all duration-300 hover:border-primary/40 hover:bg-card/80 hover:scale-105">
-                  <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
-                  <span className="font-medium text-foreground whitespace-nowrap text-sm">{tool.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Row 2 */}
-        <div className={`relative h-20 transition-opacity duration-1000 delay-200 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          <div className="flex items-center gap-4 absolute animate-curve-slide-right">
-            {row2Tools.map((tool, index) => (
-              <div key={`r2-${tool.name}-${index}`} className="flex-shrink-0 group">
-                <div className="flex items-center gap-2.5 px-4 py-2.5 bg-card/60 backdrop-blur-sm rounded-xl border border-border/30 transition-all duration-300 hover:border-primary/40 hover:bg-card/80 hover:scale-105">
-                  <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
+        <div className={`relative h-24 transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+          <div className="flex items-center gap-6 absolute animate-marquee-scroll">
+            {marqueeTools.map((tool, index) => (
+              <div key={`m-${tool.name}-${index}`} className="flex-shrink-0 group">
+                <div className="flex items-center gap-3 px-5 py-3 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/30 transition-all duration-300 hover:border-primary/40 hover:bg-card/80 hover:scale-105 hover:shadow-[0_0_20px_hsla(250,80%,65%,0.15)]">
+                  <img src={tool.logo} alt={tool.name} className="w-7 h-7 object-contain" />
                   <span className="font-medium text-foreground whitespace-nowrap text-sm">{tool.name}</span>
                 </div>
               </div>
@@ -86,22 +70,14 @@ export function AnimatedToolsSlider() {
       </div>
 
       <style>{`
-        @keyframes curve-slide-left {
+        @keyframes marquee-scroll {
           0% { transform: translateX(0); }
           100% { transform: translateX(-33.333%); }
         }
-        @keyframes curve-slide-right {
-          0% { transform: translateX(-33.333%); }
-          100% { transform: translateX(0); }
+        .animate-marquee-scroll {
+          animation: marquee-scroll 40s linear infinite;
         }
-        .animate-curve-slide-left {
-          animation: curve-slide-left 35s linear infinite;
-        }
-        .animate-curve-slide-right {
-          animation: curve-slide-right 35s linear infinite;
-        }
-        .animate-curve-slide-left:hover,
-        .animate-curve-slide-right:hover {
+        .animate-marquee-scroll:hover {
           animation-play-state: paused;
         }
       `}</style>
