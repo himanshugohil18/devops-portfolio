@@ -68,7 +68,6 @@ export function ProjectsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -87,33 +86,96 @@ export function ProjectsSection() {
     setIsModalOpen(true);
   };
 
+  const featured = projects[0];
+  const rest = projects.slice(1);
+
   return (
     <>
       <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden">
         <div className="container-wide relative">
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center max-w-2xl mx-auto mb-16"
+            className="text-center max-w-3xl mx-auto mb-16"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 border border-primary/20">
               <Sparkles className="w-4 h-4" />
               Featured Work
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold mb-4">
-              Highlighted <span className="gradient-text">Projects</span>
+              Production-Level <span className="gradient-text">DevOps Projects</span>
             </h2>
             <p className="text-muted-foreground text-lg">
               Real-world DevOps and cloud projects focusing on automation, reliability and scalability.
             </p>
           </motion.div>
 
-          {/* Projects Grid */}
+          {/* Featured Project */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="group relative cursor-pointer mb-8"
+            onMouseEnter={() => setHoveredIndex(0)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => openModal(featured)}
+          >
+            <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-card/60 backdrop-blur-xl transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_40px_hsla(250,80%,65%,0.15)] group-hover:-translate-y-1">
+              <div className={`absolute inset-0 bg-gradient-to-br ${featured.gradient} opacity-40`} />
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+              <div className="relative p-8 md:p-12">
+                <div className="flex items-center justify-between mb-6">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
+                    Featured Project
+                  </span>
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                    <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-primary-foreground transition-colors" />
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row md:items-start gap-6">
+                  <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                    <featured.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <div className="flex-1 space-y-4">
+                    <div>
+                      <span className="text-xs font-medium text-muted-foreground">{featured.tag}</span>
+                      <h3 className="text-2xl md:text-3xl font-display font-semibold mt-1 text-foreground group-hover:text-primary transition-colors duration-300">
+                        {featured.title}
+                      </h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">{featured.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {featured.stack.map((tech) => (
+                        <span key={tech} className="px-3 py-1.5 text-xs font-medium bg-muted/60 rounded-full text-muted-foreground border border-border/50 group-hover:border-primary/20 transition-all">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="pt-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); navigate(featured.slug); }}
+                        className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-xl bg-primary text-primary-foreground glow-button hover:scale-[1.02] transition-all duration-300"
+                      >
+                        <FileText className="w-4 h-4" />
+                        View Full Documentation
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Grid Projects */}
           <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project, index) => (
+            {rest.map((project, index) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 40 }}
@@ -121,89 +183,60 @@ export function ProjectsSection() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className="group relative cursor-pointer"
-                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseEnter={() => setHoveredIndex(index + 1)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => openModal(project)}
               >
-                <div className="relative h-full overflow-hidden rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2 group-hover:scale-[1.01]">
-                  
-                  {/* Gradient background */}
+                <div className="relative h-full overflow-hidden rounded-2xl border border-border/50 bg-card/60 backdrop-blur-xl transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-[0_0_30px_hsla(250,80%,65%,0.1)] group-hover:-translate-y-1 group-hover:scale-[1.02]">
                   <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                  
-                  {/* Top glow line */}
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Number */}
-                  <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-muted/50 backdrop-blur-sm flex items-center justify-center border border-border/50 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300">
-                    <span className="text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">
-                      0{index + 1}
-                    </span>
+
+                  {/* Arrow top right */}
+                  <div className="absolute top-6 right-6 w-8 h-8 rounded-full bg-muted/50 flex items-center justify-center border border-border/50 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300">
+                    <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
 
                   <div className="relative p-8">
-                    {/* Icon */}
-                    <div className="relative mb-6 inline-block">
-                      <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
-                        <project.icon className="w-7 h-7 text-primary" />
+                    <div className="relative mb-5 inline-block">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
+                        <project.icon className="w-6 h-6 text-primary" />
                       </div>
                     </div>
 
-                    {/* Tag */}
-                    <div className="mb-4">
-                      <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-muted/80 text-muted-foreground border border-border/50 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30 transition-all duration-300">
+                    <div className="mb-3">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-muted/80 text-muted-foreground border border-border/50 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/30 transition-all duration-300">
                         {project.tag}
                       </span>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-xl font-display font-semibold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-lg font-display font-semibold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">
                       {project.title}
                     </h3>
 
-                    {/* Description */}
-                    <p className="text-muted-foreground mb-6 leading-relaxed text-sm line-clamp-3">
+                    <p className="text-muted-foreground mb-5 leading-relaxed text-sm line-clamp-3">
                       {project.description}
                     </p>
 
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.stack.slice(0, 5).map((tech, techIndex) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-1 text-xs font-medium bg-muted/60 rounded-md text-muted-foreground border border-transparent group-hover:border-border/50 transition-all duration-300"
-                          style={{ 
-                            transitionDelay: hoveredIndex === index ? `${techIndex * 30}ms` : '0ms'
-                          }}
-                        >
+                    <div className="flex flex-wrap gap-2 mb-5">
+                      {project.stack.slice(0, 5).map((tech) => (
+                        <span key={tech} className="px-2.5 py-1 text-xs font-medium bg-muted/60 rounded-full text-muted-foreground border border-border/50 group-hover:border-primary/20 transition-all">
                           {tech}
                         </span>
                       ))}
                       {project.stack.length > 5 && (
-                        <span className="px-2.5 py-1 text-xs font-medium text-muted-foreground">
-                          +{project.stack.length - 5}
-                        </span>
+                        <span className="px-2.5 py-1 text-xs font-medium text-muted-foreground">+{project.stack.length - 5}</span>
                       )}
                     </div>
 
-                    {/* CTA */}
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); navigate(project.slug); }}
-                        className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                      >
-                        <FileText className="w-3.5 h-3.5" />
-                        View Full Documentation
-                      </button>
-                      <div className="flex items-center gap-2 text-primary font-medium text-sm">
-                        <span>Quick View</span>
-                        <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                          <ArrowUpRight className="w-3.5 h-3.5 group-hover:text-primary-foreground transition-colors" />
-                        </div>
-                      </div>
-                    </div>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); navigate(project.slug); }}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-xl bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      View Full Documentation
+                    </button>
                   </div>
 
-                  {/* Bottom accent */}
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
                 </div>
               </motion.div>
@@ -212,7 +245,7 @@ export function ProjectsSection() {
         </div>
       </section>
 
-      <ProjectModal 
+      <ProjectModal
         project={selectedProject}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

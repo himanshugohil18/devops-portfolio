@@ -1,18 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Mail, Linkedin, Github, FileText, Instagram } from "lucide-react";
+import { Mail, Linkedin, Github, FileText, Send } from "lucide-react";
 
-const XIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
-const socialLinks = [
-  { icon: Github, label: "GitHub", href: "https://github.com/himanshugohil18" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/himanshugohil4/" },
-  { icon: XIcon, label: "X", href: "https://x.com/himanshu_g4", isComponent: true },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/himanshu.gohil18" },
-  { icon: FileText, label: "Resume", href: "/resume.pdf" },
+const contactCards = [
+  { icon: Github, label: "GitHub", value: "himanshugohil18", href: "https://github.com/himanshugohil18" },
+  { icon: Linkedin, label: "LinkedIn", value: "himanshugohil4", href: "https://linkedin.com/in/himanshugohil4/" },
+  { icon: Mail, label: "Email", value: "himanshu828@gmail.com", href: "mailto:himanshu828@gmail.com" },
 ];
 
 export function ContactSection() {
@@ -32,51 +24,69 @@ export function ContactSection() {
 
   return (
     <section ref={sectionRef} id="contact" className="section-padding relative">
-      <div className="container-tight">
-        <div className={`relative rounded-3xl overflow-hidden transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          {/* Background */}
-          <div className="absolute inset-0 cta-section" />
-          <div className="absolute inset-0">
-            <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-primary/20 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[80px]" />
+      <div className="container-wide">
+        <div className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4">
+            Let's Build Scalable Systems <span className="gradient-text">Together.</span>
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            Open for DevOps Freelance & Cloud Projects
+          </p>
+        </div>
+
+        <div className={`grid lg:grid-cols-2 gap-8 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* Left - Contact Form */}
+          <div className="glass-card p-8">
+            <h3 className="text-xl font-display font-semibold mb-6 text-foreground">Send a Message</h3>
+            <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); window.location.href = "mailto:himanshu828@gmail.com"; }}>
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Name</label>
+                <input type="text" placeholder="Your name" className="w-full px-4 py-3 bg-muted/50 border border-border/50 rounded-2xl text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Email</label>
+                <input type="email" placeholder="your@email.com" className="w-full px-4 py-3 bg-muted/50 border border-border/50 rounded-2xl text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Message</label>
+                <textarea rows={4} placeholder="Tell me about your project..." className="w-full px-4 py-3 bg-muted/50 border border-border/50 rounded-2xl text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors resize-none" />
+              </div>
+              <button type="submit" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-2xl glow-button hover:scale-[1.02] transition-all duration-300 w-full justify-center">
+                <Send className="w-4 h-4" />
+                Send Message
+              </button>
+            </form>
           </div>
-          
-          <div className="relative p-8 md:p-12 lg:p-16 text-center">
-            {/* Heading */}
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6 text-foreground">
-              Let's Build Scalable Systems <span className="gradient-text">Together.</span>
-            </h2>
 
-            {/* Description */}
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-              Open to DevOps, cloud and MERN roles, internships and freelance projects. 
-              If you need someone to own CI/CD, infrastructure and full-stack delivery, let's talk.
-            </p>
+          {/* Right - Info Cards + Resume */}
+          <div className="space-y-5">
+            {contactCards.map((card) => (
+              <a
+                key={card.label}
+                href={card.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 p-5 glass-card transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_25px_hsla(250,80%,65%,0.12)]"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-all">
+                  <card.icon className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-display font-semibold text-foreground">{card.label}</h4>
+                  <p className="text-sm text-muted-foreground">{card.value}</p>
+                </div>
+              </a>
+            ))}
 
-            {/* CTA Button */}
-            <a 
-              href="mailto:himanshu828@gmail.com"
-              className="inline-flex items-center px-8 py-4 bg-primary text-primary-foreground font-semibold text-base rounded-xl transition-all duration-300 glow-button hover:scale-[1.02] mb-10"
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 w-full justify-center bg-card border border-border/50 text-foreground font-semibold rounded-2xl transition-all duration-300 hover:border-primary/30 hover:bg-card/80 hover:scale-[1.02]"
             >
-              <Mail className="mr-2 w-5 h-5" />
-              Email Me
+              <FileText className="w-4 h-4" />
+              Download Resume
             </a>
-
-            {/* Social Links */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 text-sm font-medium text-muted-foreground hover:text-foreground bg-card/30 backdrop-blur-sm border border-border/30 rounded-xl transition-all duration-300 hover:border-primary/30 hover:bg-card/50 hover:scale-105"
-                >
-                  {'isComponent' in link ? <XIcon /> : <link.icon className="w-4 h-4" />}
-                  {link.label}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </div>
