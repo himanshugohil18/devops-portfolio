@@ -8,8 +8,7 @@ const platforms = [
     buttonText: "View Fiverr Profile",
     href: "https://www.fiverr.com/himanshugohil18",
     accentColor: "#1DBF73",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/1/18/Fiverr_Logo_09.2020.svg",
+    logo: "https://cdn.worldvectorlogo.com/logos/fiverr-1.svg",
   },
   {
     title: "Upwork",
@@ -17,6 +16,7 @@ const platforms = [
     buttonText: "View Upwork Profile",
     href: "https://www.upwork.com/freelancers/~0125176514d4108f51",
     accentColor: "#14A800",
+    logo: "https://cdn.worldvectorlogo.com/logos/upwork-roundedsquare-1.svg",
   },
 ];
 
@@ -62,16 +62,20 @@ export function WorkWithMeSection() {
                 (e.currentTarget as HTMLElement).style.boxShadow = '';
               }}
             >
-              {/* Platform icon */}
+              {/* Platform logo */}
               <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl font-display font-bold"
+                className="w-16 h-16 rounded-2xl flex items-center justify-center p-3 transition-all duration-300 group-hover:scale-105"
                 style={{
-                  backgroundColor: `${platform.accentColor}15`,
-                  border: `1px solid ${platform.accentColor}30`,
-                  color: platform.accentColor,
+                  backgroundColor: `${platform.accentColor}12`,
+                  border: `1px solid ${platform.accentColor}25`,
+                  boxShadow: `0 0 20px ${platform.accentColor}10`,
                 }}
               >
-                {platform.title[0]}
+                <img
+                  src={platform.logo}
+                  alt={`${platform.title} logo`}
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               <div>
