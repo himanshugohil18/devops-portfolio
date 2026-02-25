@@ -4,7 +4,7 @@ import { AnimatedToolsSlider } from "@/components/AnimatedToolsSlider";
 import { StatsSection } from "@/components/StatsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { PipelineSection } from "@/components/PipelineSection";
-import { ToolsGridSection } from "@/components/ToolsGridSection";
+
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
