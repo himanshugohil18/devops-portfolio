@@ -1,14 +1,16 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
+import { HeroMetricsSection } from "@/components/HeroMetricsSection";
 import { AnimatedToolsSlider } from "@/components/AnimatedToolsSlider";
 import { StatsSection } from "@/components/StatsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { PipelineSection } from "@/components/PipelineSection";
-
+import { DevOpsToolchainFlow } from "@/components/DevOpsToolchainFlow";
+import { TerminalSimulation } from "@/components/TerminalSimulation";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
-
+import { GitHubActivitySection } from "@/components/GitHubActivitySection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { WorkWithMeSection } from "@/components/WorkWithMeSection";
 import { ContactSection } from "@/components/ContactSection";
@@ -27,15 +29,17 @@ const Index = () => {
         <Navbar />
         <main>
           <HeroSection />
+          <HeroMetricsSection />
           <AnimatedToolsSlider />
           <StatsSection />
+          <DevOpsToolchainFlow />
           <PipelineSection />
           <ProjectsSection />
-          
+          <TerminalSimulation />
           <BeforeAfterSection />
           <AboutSection />
           <ExperienceSection />
-          
+          <GitHubActivitySection />
           <TestimonialsSection />
           <WorkWithMeSection />
           <ContactSection />

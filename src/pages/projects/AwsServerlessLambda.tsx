@@ -4,11 +4,28 @@ import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
 import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
+import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
+import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
+import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 
+const architectureDiagram = `┌──────────┐     ┌──────────────────┐     ┌──────────────┐
+│  Client  │────▶│  API Gateway     │────▶│  AWS Lambda   │
+│  (HTTP)  │     │  (REST API)      │     │  (Functions)  │
+└──────────┘     └──────────────────┘     └──────┬───────┘
+                                                  │
+                         ┌────────────────────────┼────────────────┐
+                         │                        │                │
+                         ▼                        ▼                ▼
+                  ┌──────────────┐     ┌──────────────┐   ┌──────────────┐
+                  │  DynamoDB    │     │  S3 Bucket   │   │  CloudWatch  │
+                  │  (Database)  │     │  (Storage)   │   │  (Logs)      │
+                  └──────────────┘     └──────────────┘   └──────────────┘`;
+
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
+  { id: "architecture-overview", title: "Architecture Overview" },
   { id: "problem-statement", title: "Problem Statement" },
   { id: "architecture", title: "High-Level Architecture" },
   { id: "tech-stack", title: "Technology Stack" },
@@ -17,6 +34,8 @@ const tocItems = [
   { id: "monitoring", title: "Monitoring & Logging" },
   { id: "scalability", title: "Scalability Strategy" },
   { id: "cost", title: "Cost Optimization" },
+  { id: "production-metrics", title: "Production Metrics" },
+  { id: "project-impact", title: "Project Impact" },
   { id: "improvements", title: "Production Improvements" },
   { id: "skills", title: "DevOps Skills Demonstrated" },
   { id: "business-value", title: "Business Value" },
@@ -39,7 +58,11 @@ export default function AwsServerlessLambda() {
         </p>
       </DocSection>
 
-      <DocSection id="problem-statement" title="Problem Statement" index={2}>
+      <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
+        <ArchitectureOverview diagram={architectureDiagram} title="Serverless Architecture Overview" />
+      </DocSection>
+
+      <DocSection id="problem-statement" title="Problem Statement" index={3}>
         <p>
           Traditional server-based backends require constant provisioning, patching, and capacity planning. Teams pay for idle servers during low-traffic periods and struggle to scale during traffic spikes. There's a need for a compute model that scales automatically and charges only for actual usage.
         </p>
@@ -51,22 +74,11 @@ export default function AwsServerlessLambda() {
         </ul>
       </DocSection>
 
-      <DocSection id="architecture" title="High-Level Architecture" index={3}>
+      <DocSection id="architecture" title="High-Level Architecture" index={4}>
         <CodeBlock
           title="Serverless Architecture"
           language="text"
-          code={`┌──────────┐     ┌──────────────────┐     ┌──────────────┐
-│  Client  │────▶│  API Gateway     │────▶│  AWS Lambda   │
-│  (HTTP)  │     │  (REST API)      │     │  (Functions)  │
-└──────────┘     └──────────────────┘     └──────┬───────┘
-                                                  │
-                         ┌────────────────────────┼────────────────┐
-                         │                        │                │
-                         ▼                        ▼                ▼
-                  ┌──────────────┐     ┌──────────────┐   ┌──────────────┐
-                  │  DynamoDB    │     │  S3 Bucket   │   │  CloudWatch  │
-                  │  (Database)  │     │  (Storage)   │   │  (Logs)      │
-                  └──────────────┘     └──────────────┘   └──────────────┘
+          code={`${architectureDiagram}
 
 Request Flow:
   1. Client sends HTTP request
@@ -78,7 +90,7 @@ Request Flow:
         />
       </DocSection>
 
-      <DocSection id="tech-stack" title="Technology Stack" index={4}>
+      <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable
           rows={[
             { layer: "Compute", technology: "AWS Lambda (Python 3.11)" },
@@ -92,7 +104,7 @@ Request Flow:
         />
       </DocSection>
 
-      <DocSection id="implementation" title="Detailed Implementation Steps" index={5}>
+      <DocSection id="implementation" title="Detailed Implementation Steps" index={6}>
         <h3 className="text-foreground font-semibold text-base mb-3">Lambda Function Code</h3>
         <CodeBlock
           title="lambda_function.py"
@@ -197,7 +209,7 @@ def response(status_code, body):
         />
       </DocSection>
 
-      <DocSection id="security" title="Security Architecture" index={6}>
+      <DocSection id="security" title="Security Architecture" index={7}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Least Privilege IAM:</strong> Lambda role has only the permissions it needs — no wildcard policies</li>
           <li><strong>API Gateway Authorization:</strong> API keys and usage plans for rate limiting</li>
@@ -208,7 +220,7 @@ def response(status_code, body):
         </ul>
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring & Logging" index={7}>
+      <DocSection id="monitoring" title="Monitoring & Logging" index={8}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>CloudWatch Logs:</strong> All Lambda invocations logged with execution details</li>
           <li><strong>CloudWatch Metrics:</strong> Duration, errors, throttles, concurrent executions</li>
@@ -223,7 +235,7 @@ def response(status_code, body):
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="scalability" title="Scalability Strategy" index={8}>
+      <DocSection id="scalability" title="Scalability Strategy" index={9}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Lambda automatically scales from 0 to 1000+ concurrent executions</li>
           <li>API Gateway handles millions of API calls with built-in caching</li>
@@ -239,7 +251,7 @@ def response(status_code, body):
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="cost" title="Cost Optimization" index={9}>
+      <DocSection id="cost" title="Cost Optimization" index={10}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Pay-per-use:</strong> Lambda charges only for actual execution time (per 1ms)</li>
           <li><strong>Free tier:</strong> 1M free requests and 400,000 GB-seconds per month</li>
@@ -250,7 +262,21 @@ def response(status_code, body):
         </ul>
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={10}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={11}>
+        <ProductionMetrics metrics={[
+          { label: "Deployment Automation", value: 88 },
+          { label: "System Reliability", value: 96 },
+          { label: "Monitoring Coverage", value: 90 },
+          { label: "Infrastructure Scalability", value: 95 },
+          { label: "Security Implementation", value: 85 },
+        ]} />
+      </DocSection>
+
+      <DocSection id="project-impact" title="Project Impact" index={12}>
+        <ProjectImpact />
+      </DocSection>
+
+      <DocSection id="improvements" title="Production Improvements" index={13}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -270,7 +296,7 @@ def response(status_code, body):
         </Collapsible>
       </DocSection>
 
-      <DocSection id="skills" title="DevOps Skills Demonstrated" index={11}>
+      <DocSection id="skills" title="DevOps Skills Demonstrated" index={14}>
         <div className="flex flex-wrap gap-2">
           {["AWS Lambda", "API Gateway", "DynamoDB", "IAM", "CloudWatch", "Serverless", "Python", "REST APIs", "Event-Driven Architecture", "Cost Optimization", "Infrastructure as Code"].map((skill) => (
             <span key={skill} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -280,7 +306,7 @@ def response(status_code, body):
         </div>
       </DocSection>
 
-      <DocSection id="business-value" title="Business Value" index={12}>
+      <DocSection id="business-value" title="Business Value" index={15}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Zero infrastructure management</strong> — focus entirely on business logic</li>
           <li><strong>60-80% cost reduction</strong> compared to always-on EC2 instances</li>
@@ -290,13 +316,13 @@ def response(status_code, body):
         </ul>
       </DocSection>
 
-      <DocSection id="impact" title="Real-World Impact" index={13}>
+      <DocSection id="impact" title="Real-World Impact" index={16}>
         <p>
           Serverless architecture is rapidly becoming the default for modern applications. AWS Lambda processes trillions of requests monthly across industries. This project demonstrates the patterns and practices used by companies like Netflix, Coca-Cola, and Capital One for building scalable, cost-efficient backends without server management.
         </p>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={14}>
+      <DocSection id="author" title="Author" index={17}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>
