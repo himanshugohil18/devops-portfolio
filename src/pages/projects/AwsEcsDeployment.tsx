@@ -4,11 +4,33 @@ import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
 import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
+import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
+import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
+import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 
+const architectureDiagram = `┌──────────────┐     ┌──────────────┐     ┌──────────────────────┐
+│  Developer   │────▶│   GitHub     │────▶│  AWS CodeBuild       │
+│  Workstation │     │   Repository │     │  (Build & Push)      │
+└──────────────┘     └──────────────┘     └──────────┬───────────┘
+                                                      │
+                                                      ▼
+                                          ┌──────────────────────┐
+                                          │   Amazon ECR          │
+                                          │   (Container Registry)│
+                                          └──────────┬───────────┘
+                                                      │
+                                                      ▼
+┌──────────────┐     ┌──────────────┐     ┌──────────────────────┐
+│   CloudWatch │◀────│   ALB        │◀────│   Amazon ECS         │
+│   (Logging)  │     │   (Load      │     │   (Fargate Tasks)    │
+│              │     │    Balancer) │     │                      │
+└──────────────┘     └──────────────┘     └──────────────────────┘`;
+
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
+  { id: "architecture-overview", title: "Architecture Overview" },
   { id: "problem-statement", title: "Problem Statement" },
   { id: "architecture", title: "High-Level Architecture" },
   { id: "tech-stack", title: "Technology Stack" },
@@ -17,6 +39,8 @@ const tocItems = [
   { id: "cicd", title: "CI/CD Pipeline" },
   { id: "monitoring", title: "Monitoring & Logging" },
   { id: "scalability", title: "Scalability Strategy" },
+  { id: "production-metrics", title: "Production Metrics" },
+  { id: "project-impact", title: "Project Impact" },
   { id: "improvements", title: "Production Improvements" },
   { id: "skills", title: "DevOps Skills Demonstrated" },
   { id: "business-value", title: "Business Value" },
@@ -39,7 +63,11 @@ export default function AwsEcsDeployment() {
         </p>
       </DocSection>
 
-      <DocSection id="problem-statement" title="Problem Statement" index={2}>
+      <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
+        <ArchitectureOverview diagram={architectureDiagram} title="AWS ECS Deployment Architecture" />
+      </DocSection>
+
+      <DocSection id="problem-statement" title="Problem Statement" index={3}>
         <p>
           Traditional server-based deployments suffer from inconsistent environments, manual scaling, and high operational overhead. Teams waste hours debugging "works on my machine" issues, managing server patches, and handling traffic spikes manually. There's a critical need for a containerized, auto-scaling deployment pipeline that eliminates these pain points.
         </p>
@@ -52,31 +80,15 @@ export default function AwsEcsDeployment() {
         </ul>
       </DocSection>
 
-      <DocSection id="architecture" title="High-Level Architecture" index={3}>
+      <DocSection id="architecture" title="High-Level Architecture" index={4}>
         <CodeBlock
           title="Architecture Diagram"
           language="text"
-          code={`┌──────────────┐     ┌──────────────┐     ┌──────────────────────┐
-│  Developer   │────▶│   GitHub     │────▶│  AWS CodeBuild       │
-│  Workstation │     │   Repository │     │  (Build & Push)      │
-└──────────────┘     └──────────────┘     └──────────┬───────────┘
-                                                      │
-                                                      ▼
-                                          ┌──────────────────────┐
-                                          │   Amazon ECR          │
-                                          │   (Container Registry)│
-                                          └──────────┬───────────┘
-                                                      │
-                                                      ▼
-┌──────────────┐     ┌──────────────┐     ┌──────────────────────┐
-│   CloudWatch │◀────│   ALB        │◀────│   Amazon ECS         │
-│   (Logging)  │     │   (Load      │     │   (Fargate Tasks)    │
-│              │     │    Balancer) │     │                      │
-└──────────────┘     └──────────────┘     └──────────────────────┘`}
+          code={architectureDiagram}
         />
       </DocSection>
 
-      <DocSection id="tech-stack" title="Technology Stack" index={4}>
+      <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable
           rows={[
             { layer: "Containerization", technology: "Docker" },
@@ -91,7 +103,7 @@ export default function AwsEcsDeployment() {
         />
       </DocSection>
 
-      <DocSection id="implementation" title="Detailed Implementation Steps" index={5}>
+      <DocSection id="implementation" title="Detailed Implementation Steps" index={6}>
         <h3 className="text-foreground font-semibold text-base mb-3">Step 1: Dockerize the Application</h3>
         <CodeBlock
           title="Dockerfile"
@@ -173,7 +185,7 @@ docker push \\
         <p>Set up Application Auto Scaling policies based on CPU and memory utilization. Configure target tracking with a 70% CPU threshold to scale between 2-10 tasks automatically.</p>
       </DocSection>
 
-      <DocSection id="security" title="Security Architecture" index={6}>
+      <DocSection id="security" title="Security Architecture" index={7}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>IAM Roles:</strong> Separate execution and task roles with least-privilege policies</li>
           <li><strong>ECR Image Scanning:</strong> Automated vulnerability scanning on every push</li>
@@ -184,7 +196,7 @@ docker push \\
         </ul>
       </DocSection>
 
-      <DocSection id="cicd" title="CI/CD Pipeline" index={7}>
+      <DocSection id="cicd" title="CI/CD Pipeline" index={8}>
         <CodeBlock
           title="buildspec.yml"
           language="yaml"
@@ -216,7 +228,7 @@ artifacts:
         />
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring & Logging" index={8}>
+      <DocSection id="monitoring" title="Monitoring & Logging" index={9}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>CloudWatch Logs:</strong> All container stdout/stderr streamed to CloudWatch log groups</li>
           <li><strong>CloudWatch Alarms:</strong> CPU &gt; 80%, Memory &gt; 75%, 5xx error rate thresholds</li>
@@ -230,7 +242,7 @@ artifacts:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="scalability" title="Scalability Strategy" index={9}>
+      <DocSection id="scalability" title="Scalability Strategy" index={10}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Fargate auto-scaling from 2 to 10 tasks based on CPU/memory metrics</li>
           <li>ALB distributes traffic with health-check based routing</li>
@@ -246,7 +258,21 @@ artifacts:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={10}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={11}>
+        <ProductionMetrics metrics={[
+          { label: "Deployment Automation", value: 92 },
+          { label: "System Reliability", value: 95 },
+          { label: "Monitoring Coverage", value: 88 },
+          { label: "Infrastructure Scalability", value: 90 },
+          { label: "Security Implementation", value: 85 },
+        ]} />
+      </DocSection>
+
+      <DocSection id="project-impact" title="Project Impact" index={12}>
+        <ProjectImpact />
+      </DocSection>
+
+      <DocSection id="improvements" title="Production Improvements" index={13}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -266,7 +292,7 @@ artifacts:
         </Collapsible>
       </DocSection>
 
-      <DocSection id="skills" title="DevOps Skills Demonstrated" index={11}>
+      <DocSection id="skills" title="DevOps Skills Demonstrated" index={14}>
         <div className="flex flex-wrap gap-2">
           {["Docker", "AWS ECS", "AWS ECR", "Fargate", "CI/CD", "IAM", "CloudWatch", "ALB", "VPC", "Auto Scaling", "Infrastructure as Code", "Container Orchestration", "Security Best Practices", "Load Balancing"].map((skill) => (
             <span key={skill} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -276,7 +302,7 @@ artifacts:
         </div>
       </DocSection>
 
-      <DocSection id="business-value" title="Business Value" index={12}>
+      <DocSection id="business-value" title="Business Value" index={15}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>60% reduction</strong> in deployment time through automated CI/CD pipelines</li>
           <li><strong>99.9% uptime</strong> with multi-AZ Fargate deployment and health checks</li>
@@ -286,13 +312,13 @@ artifacts:
         </ul>
       </DocSection>
 
-      <DocSection id="impact" title="Real-World Impact" index={13}>
+      <DocSection id="impact" title="Real-World Impact" index={16}>
         <p>
           This architecture pattern is used by organizations ranging from startups to enterprises for running production workloads on AWS. The containerized approach ensures consistency across environments, while Fargate eliminates the operational burden of managing EC2 instances. The CI/CD pipeline enables rapid iteration with confidence, shipping multiple deployments per day with automated testing and rollback capabilities.
         </p>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={14}>
+      <DocSection id="author" title="Author" index={17}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>

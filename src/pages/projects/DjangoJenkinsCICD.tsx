@@ -4,70 +4,13 @@ import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
 import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
+import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
+import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
+import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 
-const tocItems = [
-  { id: "executive-summary", title: "Executive Summary" },
-  { id: "problem-statement", title: "Problem Statement" },
-  { id: "architecture", title: "Pipeline Architecture" },
-  { id: "tech-stack", title: "Technology Stack" },
-  { id: "implementation", title: "Implementation Steps" },
-  { id: "security", title: "Security Architecture" },
-  { id: "webhook", title: "Webhook Integration" },
-  { id: "monitoring", title: "Monitoring & Logging" },
-  { id: "scalability", title: "Scalability Strategy" },
-  { id: "improvements", title: "Production Improvements" },
-  { id: "skills", title: "DevOps Skills Demonstrated" },
-  { id: "business-value", title: "Business Value" },
-  { id: "impact", title: "Real-World Impact" },
-  { id: "author", title: "Author" },
-];
-
-export default function DjangoJenkinsCICD() {
-  return (
-    <ProjectDocLayout
-      title="Django Notes App – CI/CD Automation with Jenkins"
-      subtitle="CI/CD · Jenkins · Automation"
-      tags={["Jenkins", "GitHub", "Django", "Python", "CI/CD Pipelines", "Linux", "Shell Scripting"]}
-      summary="Built a Django-based Notes application and implemented a complete CI/CD pipeline using Jenkins to automate build, test, and deployment workflows. The pipeline triggers on GitHub commits, installs dependencies, runs application checks, and prepares the application for deployment."
-      tocItems={tocItems}
-    >
-      <DocSection id="executive-summary" title="Executive Summary" index={1}>
-        <p>
-          This project demonstrates end-to-end CI/CD automation for a Django web application using Jenkins. From code commit to deployment readiness, every stage is automated — dependency installation, code quality checks, testing, and build preparation. The pipeline integrates with GitHub webhooks for automatic triggering on every push.
-        </p>
-      </DocSection>
-
-      <DocSection id="problem-statement" title="Problem Statement" index={2}>
-        <p>
-          Manual deployment processes are slow, error-prone, and inconsistent. Developers spend hours on repetitive build and deployment tasks instead of writing code. Without automated testing, bugs slip into production undetected. There's a critical need for a reliable, repeatable CI/CD pipeline.
-        </p>
-        <ul className="list-disc pl-5 space-y-2 mt-3">
-          <li>Manual build and deployment taking 30+ minutes per release</li>
-          <li>No automated testing gate — bugs reaching production</li>
-          <li>Inconsistent deployment procedures across team members</li>
-          <li>No rollback mechanism for failed deployments</li>
-          <li>Lack of visibility into build and deployment status</li>
-        </ul>
-
-        <h3 className="text-foreground font-semibold text-base mb-3 mt-6">Risk Comparison: Manual vs Automated</h3>
-        <TechTable
-          rows={[
-            { layer: "Deployment Time", technology: "30+ min manual → 5 min automated" },
-            { layer: "Human Error Rate", technology: "High → Near zero" },
-            { layer: "Rollback Time", technology: "Hours → Minutes" },
-            { layer: "Test Coverage", technology: "Inconsistent → Every build" },
-            { layer: "Audit Trail", technology: "None → Complete history" },
-          ]}
-        />
-      </DocSection>
-
-      <DocSection id="architecture" title="Pipeline Architecture" index={3}>
-        <CodeBlock
-          title="Jenkins Pipeline Flow"
-          language="text"
-          code={`┌──────────┐     ┌──────────────┐     ┌──────────────────────┐
+const architectureDiagram = `┌──────────┐     ┌──────────────┐     ┌──────────────────────┐
 │  GitHub  │────▶│   Webhook    │────▶│      Jenkins         │
 │  Push    │     │   Trigger    │     │    (CI Server)       │
 └──────────┘     └──────────────┘     └──────────┬───────────┘
@@ -92,11 +35,80 @@ export default function DjangoJenkinsCICD() {
                           ┌──────────────────┐
                           │  Notification    │
                           │  (Success/Fail)  │
-                          └──────────────────┘`}
+                          └──────────────────┘`;
+
+const tocItems = [
+  { id: "executive-summary", title: "Executive Summary" },
+  { id: "architecture-overview", title: "Architecture Overview" },
+  { id: "problem-statement", title: "Problem Statement" },
+  { id: "architecture", title: "Pipeline Architecture" },
+  { id: "tech-stack", title: "Technology Stack" },
+  { id: "implementation", title: "Implementation Steps" },
+  { id: "security", title: "Security Architecture" },
+  { id: "webhook", title: "Webhook Integration" },
+  { id: "monitoring", title: "Monitoring & Logging" },
+  { id: "scalability", title: "Scalability Strategy" },
+  { id: "production-metrics", title: "Production Metrics" },
+  { id: "project-impact", title: "Project Impact" },
+  { id: "improvements", title: "Production Improvements" },
+  { id: "skills", title: "DevOps Skills Demonstrated" },
+  { id: "business-value", title: "Business Value" },
+  { id: "impact", title: "Real-World Impact" },
+  { id: "author", title: "Author" },
+];
+
+export default function DjangoJenkinsCICD() {
+  return (
+    <ProjectDocLayout
+      title="Django Notes App – CI/CD Automation with Jenkins"
+      subtitle="CI/CD · Jenkins · Automation"
+      tags={["Jenkins", "GitHub", "Django", "Python", "CI/CD Pipelines", "Linux", "Shell Scripting"]}
+      summary="Built a Django-based Notes application and implemented a complete CI/CD pipeline using Jenkins to automate build, test, and deployment workflows. The pipeline triggers on GitHub commits, installs dependencies, runs application checks, and prepares the application for deployment."
+      tocItems={tocItems}
+    >
+      <DocSection id="executive-summary" title="Executive Summary" index={1}>
+        <p>
+          This project demonstrates end-to-end CI/CD automation for a Django web application using Jenkins. From code commit to deployment readiness, every stage is automated — dependency installation, code quality checks, testing, and build preparation. The pipeline integrates with GitHub webhooks for automatic triggering on every push.
+        </p>
+      </DocSection>
+
+      <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
+        <ArchitectureOverview diagram={architectureDiagram} title="Jenkins CI/CD Pipeline Architecture" />
+      </DocSection>
+
+      <DocSection id="problem-statement" title="Problem Statement" index={3}>
+        <p>
+          Manual deployment processes are slow, error-prone, and inconsistent. Developers spend hours on repetitive build and deployment tasks instead of writing code. Without automated testing, bugs slip into production undetected. There's a critical need for a reliable, repeatable CI/CD pipeline.
+        </p>
+        <ul className="list-disc pl-5 space-y-2 mt-3">
+          <li>Manual build and deployment taking 30+ minutes per release</li>
+          <li>No automated testing gate — bugs reaching production</li>
+          <li>Inconsistent deployment procedures across team members</li>
+          <li>No rollback mechanism for failed deployments</li>
+          <li>Lack of visibility into build and deployment status</li>
+        </ul>
+
+        <h3 className="text-foreground font-semibold text-base mb-3 mt-6">Risk Comparison: Manual vs Automated</h3>
+        <TechTable
+          rows={[
+            { layer: "Deployment Time", technology: "30+ min manual → 5 min automated" },
+            { layer: "Human Error Rate", technology: "High → Near zero" },
+            { layer: "Rollback Time", technology: "Hours → Minutes" },
+            { layer: "Test Coverage", technology: "Inconsistent → Every build" },
+            { layer: "Audit Trail", technology: "None → Complete history" },
+          ]}
         />
       </DocSection>
 
-      <DocSection id="tech-stack" title="Technology Stack" index={4}>
+      <DocSection id="architecture" title="Pipeline Architecture" index={4}>
+        <CodeBlock
+          title="Jenkins Pipeline Flow"
+          language="text"
+          code={architectureDiagram}
+        />
+      </DocSection>
+
+      <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable
           rows={[
             { layer: "Application", technology: "Django (Python 3.11)" },
@@ -110,7 +122,7 @@ export default function DjangoJenkinsCICD() {
         />
       </DocSection>
 
-      <DocSection id="implementation" title="Detailed Implementation Steps" index={5}>
+      <DocSection id="implementation" title="Detailed Implementation Steps" index={6}>
         <h3 className="text-foreground font-semibold text-base mb-3">Jenkinsfile</h3>
         <CodeBlock
           title="Jenkinsfile"
@@ -197,7 +209,7 @@ export default function DjangoJenkinsCICD() {
         />
       </DocSection>
 
-      <DocSection id="security" title="Security Architecture" index={6}>
+      <DocSection id="security" title="Security Architecture" index={7}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Jenkins Credentials:</strong> All secrets stored in Jenkins credential manager, never in Jenkinsfile</li>
           <li><strong>Webhook Secret:</strong> GitHub webhook configured with shared secret for request verification</li>
@@ -208,7 +220,7 @@ export default function DjangoJenkinsCICD() {
         </ul>
       </DocSection>
 
-      <DocSection id="webhook" title="Webhook Integration" index={7}>
+      <DocSection id="webhook" title="Webhook Integration" index={8}>
         <h3 className="text-foreground font-semibold text-base mb-3">GitHub Webhook Setup</h3>
         <p className="mb-4">Configure GitHub webhooks to trigger Jenkins builds automatically on every push or pull request event.</p>
         <CodeBlock
@@ -227,7 +239,7 @@ Jenkins Job Configuration:
         <p className="mt-4">The webhook ensures that every code push automatically triggers the CI pipeline, providing immediate feedback to developers on their changes.</p>
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring & Logging" index={8}>
+      <DocSection id="monitoring" title="Monitoring & Logging" index={9}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>Build History:</strong> Complete history of all builds with logs and artifacts</li>
           <li><strong>Console Output:</strong> Real-time build log streaming for each stage</li>
@@ -242,7 +254,7 @@ Jenkins Job Configuration:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="scalability" title="Scalability Strategy" index={9}>
+      <DocSection id="scalability" title="Scalability Strategy" index={10}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Jenkins distributed builds with master/agent architecture</li>
           <li>Multiple agents for parallel pipeline execution</li>
@@ -258,7 +270,21 @@ Jenkins Job Configuration:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={10}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={11}>
+        <ProductionMetrics metrics={[
+          { label: "Deployment Automation", value: 90 },
+          { label: "System Reliability", value: 88 },
+          { label: "Monitoring Coverage", value: 82 },
+          { label: "Infrastructure Scalability", value: 78 },
+          { label: "Security Implementation", value: 80 },
+        ]} />
+      </DocSection>
+
+      <DocSection id="project-impact" title="Project Impact" index={12}>
+        <ProjectImpact />
+      </DocSection>
+
+      <DocSection id="improvements" title="Production Improvements" index={13}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -279,7 +305,7 @@ Jenkins Job Configuration:
         </Collapsible>
       </DocSection>
 
-      <DocSection id="skills" title="DevOps Skills Demonstrated" index={11}>
+      <DocSection id="skills" title="DevOps Skills Demonstrated" index={14}>
         <div className="flex flex-wrap gap-2">
           {["Jenkins", "CI/CD", "Pipeline as Code", "GitHub Webhooks", "Django", "Python", "Shell Scripting", "Linux", "Build Automation", "Test Automation", "Deployment Automation"].map((skill) => (
             <span key={skill} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -289,7 +315,7 @@ Jenkins Job Configuration:
         </div>
       </DocSection>
 
-      <DocSection id="business-value" title="Business Value" index={12}>
+      <DocSection id="business-value" title="Business Value" index={15}>
         <TechTable
           rows={[
             { layer: "Deployment Speed", technology: "30 min → 5 min (83% faster)" },
@@ -301,13 +327,13 @@ Jenkins Job Configuration:
         />
       </DocSection>
 
-      <DocSection id="impact" title="Real-World Impact" index={13}>
+      <DocSection id="impact" title="Real-World Impact" index={16}>
         <p>
           Jenkins remains one of the most widely used CI/CD tools in the industry. This project demonstrates the core patterns of automated software delivery — from commit to deployment. The pipeline automates repetitive tasks, catches bugs early, and enables rapid, reliable releases. These practices are fundamental to modern DevOps culture and are used by organizations of all sizes.
         </p>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={14}>
+      <DocSection id="author" title="Author" index={17}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>

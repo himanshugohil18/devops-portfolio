@@ -4,59 +4,13 @@ import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
 import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
+import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
+import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
+import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 
-const tocItems = [
-  { id: "executive-summary", title: "Executive Summary" },
-  { id: "problem-statement", title: "Problem Statement" },
-  { id: "architecture", title: "Branching Model" },
-  { id: "tech-stack", title: "Technology Stack" },
-  { id: "implementation", title: "Implementation Steps" },
-  { id: "security", title: "Security & Governance" },
-  { id: "cicd", title: "CI Workflow" },
-  { id: "monitoring", title: "Monitoring & Quality" },
-  { id: "scalability", title: "Scalability Strategy" },
-  { id: "improvements", title: "Production Improvements" },
-  { id: "skills", title: "DevOps Skills Demonstrated" },
-  { id: "business-value", title: "Business Value" },
-  { id: "impact", title: "Real-World Impact" },
-  { id: "author", title: "Author" },
-];
-
-export default function GitWorkflowCI() {
-  return (
-    <ProjectDocLayout
-      title="Enterprise Git Workflow Automation with CI Pipeline"
-      subtitle="DevOps · CI/CD · Git Governance"
-      tags={["Git", "GitHub", "CI Pipelines", "GitHub Actions", "Jenkins", "Linux"]}
-      summary="Implemented an enterprise-grade Git workflow with feature branches, pull requests, and CI validation. Automated build and test stages to ensure code quality and safe merges. This project establishes governance, security enforcement, and automation principles for collaborative software development."
-      tocItems={tocItems}
-    >
-      <DocSection id="executive-summary" title="Executive Summary" index={1}>
-        <p>
-          This project establishes a standardized Git workflow for enterprise teams. It enforces branching strategies, code review processes, automated testing, and merge governance. The CI pipeline validates every change before it reaches the main branch, ensuring code quality and reducing production incidents.
-        </p>
-      </DocSection>
-
-      <DocSection id="problem-statement" title="Problem Statement" index={2}>
-        <p>
-          Without structured Git workflows, teams face merge conflicts, broken builds, and unreviewed code reaching production. Manual code review processes are inconsistent and slow. There's no automated way to enforce code standards or catch regressions before merge.
-        </p>
-        <ul className="list-disc pl-5 space-y-2 mt-3">
-          <li>Unstructured branching leads to merge conflicts and broken releases</li>
-          <li>No automated testing gate before merging to main branch</li>
-          <li>Inconsistent code review standards across teams</li>
-          <li>Production deployments from untested code</li>
-          <li>No audit trail for code changes and approvals</li>
-        </ul>
-      </DocSection>
-
-      <DocSection id="architecture" title="Branching Model" index={3}>
-        <CodeBlock
-          title="Git Branching Strategy"
-          language="text"
-          code={`                    main (protected)
+const architectureDiagram = `                    main (protected)
                       │
                       ├── release/v1.2.0
                       │     │
@@ -79,11 +33,69 @@ export default function GitWorkflowCI() {
 Branch Protection Rules:
   main    → 2 approvals + CI pass + no force push
   develop → 1 approval  + CI pass
-  staging → auto-deploy trigger`}
+  staging → auto-deploy trigger`;
+
+const tocItems = [
+  { id: "executive-summary", title: "Executive Summary" },
+  { id: "architecture-overview", title: "Architecture Overview" },
+  { id: "problem-statement", title: "Problem Statement" },
+  { id: "architecture", title: "Branching Model" },
+  { id: "tech-stack", title: "Technology Stack" },
+  { id: "implementation", title: "Implementation Steps" },
+  { id: "security", title: "Security & Governance" },
+  { id: "cicd", title: "CI Workflow" },
+  { id: "monitoring", title: "Monitoring & Quality" },
+  { id: "scalability", title: "Scalability Strategy" },
+  { id: "production-metrics", title: "Production Metrics" },
+  { id: "project-impact", title: "Project Impact" },
+  { id: "improvements", title: "Production Improvements" },
+  { id: "skills", title: "DevOps Skills Demonstrated" },
+  { id: "business-value", title: "Business Value" },
+  { id: "impact", title: "Real-World Impact" },
+  { id: "author", title: "Author" },
+];
+
+export default function GitWorkflowCI() {
+  return (
+    <ProjectDocLayout
+      title="Enterprise Git Workflow Automation with CI Pipeline"
+      subtitle="DevOps · CI/CD · Git Governance"
+      tags={["Git", "GitHub", "CI Pipelines", "GitHub Actions", "Jenkins", "Linux"]}
+      summary="Implemented an enterprise-grade Git workflow with feature branches, pull requests, and CI validation. Automated build and test stages to ensure code quality and safe merges. This project establishes governance, security enforcement, and automation principles for collaborative software development."
+      tocItems={tocItems}
+    >
+      <DocSection id="executive-summary" title="Executive Summary" index={1}>
+        <p>
+          This project establishes a standardized Git workflow for enterprise teams. It enforces branching strategies, code review processes, automated testing, and merge governance. The CI pipeline validates every change before it reaches the main branch, ensuring code quality and reducing production incidents.
+        </p>
+      </DocSection>
+
+      <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
+        <ArchitectureOverview diagram={architectureDiagram} title="Git Branching Strategy" />
+      </DocSection>
+
+      <DocSection id="problem-statement" title="Problem Statement" index={3}>
+        <p>
+          Without structured Git workflows, teams face merge conflicts, broken builds, and unreviewed code reaching production. Manual code review processes are inconsistent and slow. There's no automated way to enforce code standards or catch regressions before merge.
+        </p>
+        <ul className="list-disc pl-5 space-y-2 mt-3">
+          <li>Unstructured branching leads to merge conflicts and broken releases</li>
+          <li>No automated testing gate before merging to main branch</li>
+          <li>Inconsistent code review standards across teams</li>
+          <li>Production deployments from untested code</li>
+          <li>No audit trail for code changes and approvals</li>
+        </ul>
+      </DocSection>
+
+      <DocSection id="architecture" title="Branching Model" index={4}>
+        <CodeBlock
+          title="Git Branching Strategy"
+          language="text"
+          code={architectureDiagram}
         />
       </DocSection>
 
-      <DocSection id="tech-stack" title="Technology Stack" index={4}>
+      <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable
           rows={[
             { layer: "Version Control", technology: "Git" },
@@ -97,7 +109,7 @@ Branch Protection Rules:
         />
       </DocSection>
 
-      <DocSection id="implementation" title="Detailed Implementation Steps" index={5}>
+      <DocSection id="implementation" title="Detailed Implementation Steps" index={6}>
         <h3 className="text-foreground font-semibold text-base mb-3">Branch Protection Configuration</h3>
         <p className="mb-4">Configure branch protection rules on GitHub to enforce review and CI requirements before any merge to protected branches.</p>
 
@@ -140,7 +152,7 @@ chore: update dependencies`}
         />
       </DocSection>
 
-      <DocSection id="security" title="Security & Governance" index={6}>
+      <DocSection id="security" title="Security & Governance" index={7}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Branch Protection:</strong> Force push disabled on main and develop branches</li>
           <li><strong>Required Reviews:</strong> Minimum 2 approvals for main, 1 for develop</li>
@@ -162,7 +174,7 @@ chore: update dependencies`}
         />
       </DocSection>
 
-      <DocSection id="cicd" title="CI Workflow" index={7}>
+      <DocSection id="cicd" title="CI Workflow" index={8}>
         <CodeBlock
           title=".github/workflows/ci.yml"
           language="yaml"
@@ -225,7 +237,7 @@ jobs:
         />
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring & Quality" index={8}>
+      <DocSection id="monitoring" title="Monitoring & Quality" index={9}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>PR merge time tracking for process optimization</li>
           <li>CI pipeline duration and failure rate monitoring</li>
@@ -239,7 +251,7 @@ jobs:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="scalability" title="Scalability Strategy" index={9}>
+      <DocSection id="scalability" title="Scalability Strategy" index={10}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Workflow scales to teams of 50+ developers with consistent governance</li>
           <li>CODEOWNERS file automates reviewer assignment as team grows</li>
@@ -254,7 +266,21 @@ jobs:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={10}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={11}>
+        <ProductionMetrics metrics={[
+          { label: "Deployment Automation", value: 85 },
+          { label: "System Reliability", value: 92 },
+          { label: "Monitoring Coverage", value: 80 },
+          { label: "Infrastructure Scalability", value: 90 },
+          { label: "Security Implementation", value: 95 },
+        ]} />
+      </DocSection>
+
+      <DocSection id="project-impact" title="Project Impact" index={12}>
+        <ProjectImpact />
+      </DocSection>
+
+      <DocSection id="improvements" title="Production Improvements" index={13}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -273,7 +299,7 @@ jobs:
         </Collapsible>
       </DocSection>
 
-      <DocSection id="skills" title="DevOps Skills Demonstrated" index={11}>
+      <DocSection id="skills" title="DevOps Skills Demonstrated" index={14}>
         <div className="flex flex-wrap gap-2">
           {["Git", "GitHub Actions", "CI/CD", "Branch Protection", "Code Review", "Security Scanning", "Conventional Commits", "CODEOWNERS", "Workflow Automation", "Quality Gates"].map((skill) => (
             <span key={skill} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -283,7 +309,7 @@ jobs:
         </div>
       </DocSection>
 
-      <DocSection id="business-value" title="Business Value" index={12}>
+      <DocSection id="business-value" title="Business Value" index={15}>
         <TechTable
           rows={[
             { layer: "Deployment Failures", technology: "Reduced by 70% with CI gates" },
@@ -295,13 +321,13 @@ jobs:
         />
       </DocSection>
 
-      <DocSection id="impact" title="Real-World Impact" index={13}>
+      <DocSection id="impact" title="Real-World Impact" index={16}>
         <p>
           Enterprise Git workflows are foundational to modern software development. This project demonstrates the governance, automation, and security practices used by leading technology companies. The combination of branch protection, CI validation, and code review automation ensures reliable, secure, and efficient software delivery.
         </p>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={14}>
+      <DocSection id="author" title="Author" index={17}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>
