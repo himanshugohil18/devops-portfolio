@@ -2,7 +2,7 @@ import { ProjectDocLayout } from "@/components/docs/ProjectDocLayout";
 import { DocSection } from "@/components/docs/DocSection";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
-import { ProgressIndicator } from "@/components/docs/ProgressIndicator";
+import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -235,11 +235,11 @@ Jenkins Job Configuration:
           <li><strong>Email Notifications:</strong> Automated alerts on build failure</li>
           <li><strong>Stage Duration:</strong> Per-stage timing for performance optimization</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Monitoring Metrics">
           <ProgressIndicator label="Build Visibility" value={90} />
           <ProgressIndicator label="Alert Coverage" value={80} />
           <ProgressIndicator label="Log Retention" value={85} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="scalability" title="Scalability Strategy" index={9}>
@@ -250,12 +250,12 @@ Jenkins Job Configuration:
           <li>Pipeline as Code (Jenkinsfile) enables version-controlled CI configuration</li>
           <li>Shared libraries for reusable pipeline logic across projects</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Readiness Scores">
           <ProgressIndicator label="Scalability" value={80} />
           <ProgressIndicator label="Automation Level" value={90} />
           <ProgressIndicator label="Security" value={75} />
           <ProgressIndicator label="Production Readiness" value={80} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="improvements" title="Production Improvements" index={10}>

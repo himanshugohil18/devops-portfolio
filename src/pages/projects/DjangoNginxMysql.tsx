@@ -2,7 +2,7 @@ import { ProjectDocLayout } from "@/components/docs/ProjectDocLayout";
 import { DocSection } from "@/components/docs/DocSection";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
-import { ProgressIndicator } from "@/components/docs/ProgressIndicator";
+import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -261,11 +261,11 @@ DEBUG=False`}
           <li>Django logging framework with structured output</li>
           <li>MySQL slow query log enabled for performance analysis</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Monitoring Metrics">
           <ProgressIndicator label="Log Coverage" value={80} />
           <ProgressIndicator label="Health Check Coverage" value={90} />
           <ProgressIndicator label="Error Tracking" value={70} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="scalability" title="Scalability Strategy" index={8}>
@@ -276,12 +276,12 @@ DEBUG=False`}
           <li>Static files served directly by Nginx, reducing backend load</li>
           <li>Stateless Django design enables easy horizontal scaling</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Readiness Scores">
           <ProgressIndicator label="Scalability" value={80} />
           <ProgressIndicator label="Automation Level" value={75} />
           <ProgressIndicator label="Security" value={80} />
           <ProgressIndicator label="Production Readiness" value={75} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="improvements" title="Production Improvements" index={9}>
