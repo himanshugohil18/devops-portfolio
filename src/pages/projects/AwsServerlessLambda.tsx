@@ -2,7 +2,7 @@ import { ProjectDocLayout } from "@/components/docs/ProjectDocLayout";
 import { DocSection } from "@/components/docs/DocSection";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
-import { ProgressIndicator } from "@/components/docs/ProgressIndicator";
+import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -216,11 +216,11 @@ def response(status_code, body):
           <li><strong>API Gateway Metrics:</strong> Request count, latency, 4xx/5xx error rates</li>
           <li><strong>X-Ray Tracing:</strong> Distributed tracing for request flow analysis</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Monitoring Metrics">
           <ProgressIndicator label="Log Coverage" value={95} />
           <ProgressIndicator label="Alert Coverage" value={90} />
           <ProgressIndicator label="Tracing Coverage" value={75} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="scalability" title="Scalability Strategy" index={8}>
@@ -231,12 +231,12 @@ def response(status_code, body):
           <li>No capacity planning or server management required</li>
           <li>Cold starts minimized with provisioned concurrency for critical functions</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Readiness Scores">
           <ProgressIndicator label="Scalability" value={95} />
           <ProgressIndicator label="Automation Level" value={90} />
           <ProgressIndicator label="Security" value={85} />
           <ProgressIndicator label="Production Readiness" value={85} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="cost" title="Cost Optimization" index={9}>

@@ -2,7 +2,7 @@ import { ProjectDocLayout } from "@/components/docs/ProjectDocLayout";
 import { DocSection } from "@/components/docs/DocSection";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
-import { ProgressIndicator } from "@/components/docs/ProgressIndicator";
+import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -232,11 +232,11 @@ jobs:
           <li>Code coverage trend tracking across releases</li>
           <li>Review turnaround time metrics</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Quality Metrics">
           <ProgressIndicator label="Code Coverage" value={85} />
           <ProgressIndicator label="CI Pass Rate" value={95} />
           <ProgressIndicator label="Review Compliance" value={100} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="scalability" title="Scalability Strategy" index={9}>
@@ -246,12 +246,12 @@ jobs:
           <li>Reusable CI workflows reduce maintenance across multiple repositories</li>
           <li>Branch naming conventions enable automated deployment triggers</li>
         </ul>
-        <div className="space-y-3">
+        <ProgressCard title="Readiness Scores">
           <ProgressIndicator label="Scalability" value={90} />
           <ProgressIndicator label="Automation Level" value={85} />
           <ProgressIndicator label="Security" value={95} />
           <ProgressIndicator label="Production Readiness" value={90} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="improvements" title="Production Improvements" index={10}>

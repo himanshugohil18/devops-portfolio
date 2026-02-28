@@ -2,7 +2,7 @@ import { ProjectDocLayout } from "@/components/docs/ProjectDocLayout";
 import { DocSection } from "@/components/docs/DocSection";
 import { CodeBlock } from "@/components/docs/CodeBlock";
 import { TechTable } from "@/components/docs/TechTable";
-import { ProgressIndicator } from "@/components/docs/ProgressIndicator";
+import { ProgressIndicator, ProgressCard } from "@/components/docs/ProgressIndicator";
 import { AuthorSection } from "@/components/docs/AuthorSection";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
@@ -223,11 +223,11 @@ artifacts:
           <li><strong>ALB Access Logs:</strong> Request-level logging to S3 for traffic analysis</li>
           <li><strong>Container Insights:</strong> ECS cluster-level metrics for task and service monitoring</li>
         </ul>
-        <div className="space-y-3 mt-4">
+        <ProgressCard title="Monitoring Metrics">
           <ProgressIndicator label="Log Coverage" value={95} />
           <ProgressIndicator label="Alert Coverage" value={85} />
           <ProgressIndicator label="Dashboard Completeness" value={80} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="scalability" title="Scalability Strategy" index={9}>
@@ -238,12 +238,12 @@ artifacts:
           <li>ECR image caching reduces cold-start times</li>
           <li>Multi-AZ deployment for high availability</li>
         </ul>
-        <div className="space-y-3 mt-4">
+        <ProgressCard title="Readiness Scores">
           <ProgressIndicator label="Scalability" value={90} />
           <ProgressIndicator label="Automation Level" value={85} />
           <ProgressIndicator label="Security" value={80} />
           <ProgressIndicator label="Production Readiness" value={85} />
-        </div>
+        </ProgressCard>
       </DocSection>
 
       <DocSection id="improvements" title="Production Improvements" index={10}>
