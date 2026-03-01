@@ -30,6 +30,7 @@ const Index = () => {
         <main>
           <HeroSection />
           <HeroMetricsSection />
+          <div className="py-10" />
           <AnimatedToolsSlider />
           <StatsSection />
           <DevOpsToolchainFlow />

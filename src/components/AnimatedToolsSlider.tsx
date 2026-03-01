@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Code2, Workflow, Cloud, GitBranch } from "lucide-react";
 
 const tools = [
   { name: "Ansible", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" },
@@ -16,9 +18,17 @@ const tools = [
   { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "ArgoCD", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg" },
   { name: "Helm", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/helm/helm-original.svg" },
+  { name: "GitLab CI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" },
 ];
 
 const marqueeTools = [...tools, ...tools, ...tools];
+
+const stats = [
+  { icon: Code2, value: "25+", label: "Skills Mastered" },
+  { icon: Workflow, value: "12+", label: "Projects Deployed" },
+  { icon: Cloud, value: "8+", label: "Cloud Deployments" },
+  { icon: GitBranch, value: "15+", label: "CI/CD Pipelines" },
+];
 
 export function AnimatedToolsSlider() {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,25 +46,26 @@ export function AnimatedToolsSlider() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 overflow-hidden">
-      <div className="container-wide mb-16">
+    <section ref={sectionRef} className="py-28 overflow-hidden">
+      <div className="container-wide mb-14">
         <h2 className={`text-3xl md:text-4xl lg:text-5xl font-display font-bold transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           Technical <span className="gradient-text">Expertise</span>
         </h2>
       </div>
 
-      <div className="relative">
+      {/* Marquee */}
+      <div className="relative mb-20">
         <div className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         <div className={`relative transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          <div className="flex items-center gap-16 md:gap-20 absolute animate-marquee-scroll py-8">
+          <div className="flex items-center gap-20 md:gap-24 absolute animate-marquee-scroll py-8">
             {marqueeTools.map((tool, index) => (
               <div key={`m-${tool.name}-${index}`} className="flex-shrink-0 flex flex-col items-center gap-4 group cursor-pointer">
                 <img
                   src={tool.logo}
                   alt={tool.name}
-                  className="w-14 h-14 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-lg"
+                  className="w-16 h-16 md:w-20 md:h-20 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-lg"
                 />
                 <span className="text-sm text-muted-foreground font-medium whitespace-nowrap group-hover:text-foreground transition-colors duration-300">
                   {tool.name}
@@ -62,6 +73,28 @@ export function AnimatedToolsSlider() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Stat Cards */}
+      <div className="container-wide mt-40">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group relative p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_30px_hsla(250,80%,65%,0.12)] hover:-translate-y-1"
+            >
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+                <stat.icon className="w-5 h-5 text-primary" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold font-display text-foreground mb-1">{stat.value}</div>
+              <div className="text-muted-foreground text-sm font-medium">{stat.label}</div>
+            </motion.div>
+          ))}
         </div>
       </div>
 
