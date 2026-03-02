@@ -2,7 +2,6 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { HeroMetricsSection } from "@/components/HeroMetricsSection";
 import { AnimatedToolsSlider } from "@/components/AnimatedToolsSlider";
-import { StatsSection } from "@/components/StatsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { DevOpsToolchainFlow } from "@/components/DevOpsToolchainFlow";
 import { TerminalSimulation } from "@/components/TerminalSimulation";
@@ -31,7 +30,6 @@ const Index = () => {
           <HeroMetricsSection />
           <div className="py-10" />
           <AnimatedToolsSlider />
-          <StatsSection />
           <DevOpsToolchainFlow />
           <ProjectsSection />
           <TerminalSimulation />
