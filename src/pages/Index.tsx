@@ -4,7 +4,6 @@ import { HeroMetricsSection } from "@/components/HeroMetricsSection";
 import { AnimatedToolsSlider } from "@/components/AnimatedToolsSlider";
 import { StatsSection } from "@/components/StatsSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
-import { PipelineSection } from "@/components/PipelineSection";
 import { DevOpsToolchainFlow } from "@/components/DevOpsToolchainFlow";
 import { TerminalSimulation } from "@/components/TerminalSimulation";
 import { BeforeAfterSection } from "@/components/BeforeAfterSection";
@@ -34,7 +33,6 @@ const Index = () => {
           <AnimatedToolsSlider />
           <StatsSection />
           <DevOpsToolchainFlow />
-          <PipelineSection />
           <ProjectsSection />
           <TerminalSimulation />
           <BeforeAfterSection />
@@ -52,3 +50,4 @@ const Index = () => {
 };
 
 export default Index;
+
