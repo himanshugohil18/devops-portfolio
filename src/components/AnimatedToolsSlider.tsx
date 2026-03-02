@@ -108,7 +108,7 @@ export function AnimatedToolsSlider() {
           100% { transform: translateX(-33.333%); }
         }
         .animate-marquee-scroll {
-          animation: marquee-scroll 20s linear infinite;
+          animation: marquee-scroll 14s linear infinite;
         }
         .animate-marquee-scroll:hover {
           animation-play-state: paused;
