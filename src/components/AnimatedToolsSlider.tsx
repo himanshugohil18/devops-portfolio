@@ -60,7 +60,7 @@ export function AnimatedToolsSlider() {
         <div className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         <div className={`transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          <div className="flex items-center gap-20 md:gap-24 animate-marquee-scroll whitespace-nowrap">
+          <div className="flex items-center gap-12 md:gap-16 animate-marquee-scroll whitespace-nowrap">
             {marqueeTools.map((tool, index) => (
               <div key={`m-${tool.name}-${index}`} className="flex-shrink-0 flex flex-col items-center gap-3 group cursor-pointer">
                 <img
