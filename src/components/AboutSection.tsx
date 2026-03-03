@@ -2,27 +2,27 @@ import { useEffect, useRef, useState } from "react";
 import { CheckCircle2, Server, Cloud, GitBranch } from "lucide-react";
 
 const focusAreas = [
-  "Designing CI/CD pipelines with Jenkins and GitHub Actions.",
-  "Containerizing services with Docker and orchestrating with Kubernetes.",
-  "Deploying to AWS with secure, production-style networking.",
-  "Infrastructure automation and monitoring with Prometheus & Grafana."
+  "Architecting CI/CD pipelines that reduce deployment time by 90%+.",
+  "Containerizing microservices with Docker and orchestrating at scale with Kubernetes.",
+  "Designing secure, cost-optimized AWS infrastructure for production workloads.",
+  "Implementing observability stacks with Prometheus, Grafana, and CloudWatch."
 ];
 
 const featureCards = [
   {
     icon: Server,
     title: "Infrastructure",
-    description: "Building scalable, resilient cloud infrastructure with best practices."
+    description: "Production-grade cloud infrastructure built for reliability, scalability, and cost efficiency."
   },
   {
     icon: GitBranch,
     title: "Automation",
-    description: "End-to-end CI/CD pipelines for faster, safer deployments."
+    description: "End-to-end CI/CD pipelines that eliminate manual toil and accelerate delivery velocity."
   },
   {
     icon: Cloud,
     title: "Cloud Native",
-    description: "Kubernetes-first approach to container orchestration at scale."
+    description: "Kubernetes-first container orchestration with auto-scaling and zero-downtime deployments."
   },
 ];
 
@@ -55,19 +55,18 @@ export function AboutSection() {
             
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I'm a DevOps & Cloud Engineer based in Ahmedabad, Gujarat. 
-                I specialize in building scalable infrastructure, automating CI/CD workflows, 
-                and delivering cloud-native solutions on AWS.
+                I'm a DevOps & Cloud Engineer based in Ahmedabad, Gujarat, 
+                specializing in building production-grade infrastructure, automating deployment workflows, 
+                and delivering scalable cloud-native solutions on AWS.
               </p>
               <p>
-                My journey focuses on infrastructure automation and cloud-native technologies. 
-                I believe in designing systems that are not just functional, but elegant in 
-                their architecture and resilient in production.
+                My approach centers on automation-first engineering and infrastructure as code. 
+                I design systems that are not just functional, but architecturally sound, 
+                cost-optimized, and resilient under real-world production loads.
               </p>
               <p>
-                When I'm not configuring Kubernetes clusters or optimizing CI/CD pipelines, 
-                I'm exploring new DevOps tools and contributing to making development workflows 
-                more efficient for teams.
+                I'm driven by measurable impact — reducing deployment times, eliminating downtime, 
+                and enabling engineering teams to ship with confidence at scale.
               </p>
             </div>
           </div>
