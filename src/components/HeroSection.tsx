@@ -65,8 +65,8 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               Specializing in AWS, Kubernetes, CI/CD automation, and scalable 
-              cloud infrastructure. I architect and deliver production-ready systems 
-              using Docker, Jenkins, and cloud-native technologies.
+              cloud infrastructure. I architect production-ready systems that drive 
+              reliability, reduce costs, and accelerate delivery velocity.
             </motion.p>
 
             {/* Buttons */}

@@ -2,26 +2,29 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Code2, Workflow, Cloud, GitBranch } from "lucide-react";
 
-const tools = [
-  { name: "Ansible", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" },
+const coreStack = [
   { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-  { name: "Prometheus", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
-  { name: "Grafana", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
+  { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { name: "Jenkins", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
+  { name: "Terraform", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" },
+];
+
+const ecosystemTools = [
   { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
   { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
   { name: "Nginx", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" },
   { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-  { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-  { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
-  { name: "Jenkins", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
-  { name: "Terraform", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" },
-  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Prometheus", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+  { name: "Grafana", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
   { name: "ArgoCD", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg" },
   { name: "Helm", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/helm/helm-original.svg" },
+  { name: "Ansible", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" },
+  { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "GitLab CI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg" },
 ];
 
-const marqueeTools = [...tools, ...tools, ...tools];
+const marqueeEcosystem = [...ecosystemTools, ...ecosystemTools, ...ecosystemTools];
 
 const stats = [
   { icon: Code2, value: "25+", label: "Skills Mastered" },
@@ -48,27 +51,65 @@ export function AnimatedToolsSlider() {
   return (
     <section ref={sectionRef} className="py-28 overflow-hidden">
       {/* Title */}
-      <div className="container-wide mb-14">
+      <div className="container-wide mb-16">
         <h2 className={`text-3xl md:text-4xl lg:text-5xl font-display font-bold transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           Technical <span className="gradient-text">Expertise</span>
         </h2>
       </div>
 
-      {/* Marquee Container */}
-      <div className="relative h-28 md:h-32 flex items-center">
+      {/* Core Stack - Static Grid */}
+      <div className="container-wide mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-6 block">Core Stack</span>
+          <div className="flex flex-wrap items-center gap-10 md:gap-14">
+            {coreStack.map((tool, i) => (
+              <motion.div
+                key={tool.name}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center gap-3 group cursor-pointer"
+              >
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-card/60 border border-border/50 flex items-center justify-center group-hover:border-primary/30 group-hover:shadow-[0_0_24px_hsla(250,80%,65%,0.12)] transition-all duration-300 group-hover:-translate-y-1">
+                  <img
+                    src={tool.logo}
+                    alt={tool.name}
+                    className="w-10 h-10 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <span className="text-xs md:text-sm text-muted-foreground font-medium group-hover:text-foreground transition-colors duration-300">
+                  {tool.name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Supporting & Ecosystem Tools - Marquee */}
+      <div className="container-wide mb-6">
+        <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4 block">Supporting & Ecosystem</span>
+      </div>
+      <div className="relative h-24 md:h-28 flex items-center">
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
         <div className={`transition-opacity duration-1000 w-full ${isVisible ? "opacity-100" : "opacity-0"}`}>
-          <div className="flex items-center gap-10 md:gap-12 animate-marquee-scroll whitespace-nowrap">
-            {marqueeTools.map((tool, index) => (
-              <div key={`m-${tool.name}-${index}`} className="flex-shrink-0 flex flex-col items-center gap-3 group cursor-pointer">
+          <div className="flex items-center gap-14 md:gap-16 animate-marquee-scroll whitespace-nowrap">
+            {marqueeEcosystem.map((tool, index) => (
+              <div key={`m-${tool.name}-${index}`} className="flex-shrink-0 flex flex-col items-center gap-2.5 group cursor-pointer">
                 <img
                   src={tool.logo}
                   alt={tool.name}
-                  className="w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-lg"
+                  className="w-10 h-10 md:w-12 md:h-12 object-contain transition-transform duration-300 group-hover:scale-110 opacity-70 group-hover:opacity-100"
                 />
-                <span className="text-xs md:text-sm text-muted-foreground font-medium group-hover:text-foreground transition-colors duration-300">
+                <span className="text-xs text-muted-foreground font-medium group-hover:text-foreground transition-colors duration-300">
                   {tool.name}
                 </span>
               </div>
@@ -87,9 +128,9 @@ export function AnimatedToolsSlider() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group relative p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_30px_hsla(250,80%,65%,0.12)] hover:-translate-y-1"
+              className="group relative p-6 md:p-8 rounded-2xl bg-card/60 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-[0_0_30px_hsla(250,80%,65%,0.12)] hover:-translate-y-1"
             >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex flex-col items-start">
                 <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
                   <stat.icon className="w-5 h-5 text-primary" />
@@ -108,7 +149,7 @@ export function AnimatedToolsSlider() {
           100% { transform: translateX(-33.333%); }
         }
         .animate-marquee-scroll {
-          animation: marquee-scroll 12s linear infinite;
+          animation: marquee-scroll 18s linear infinite;
         }
         .animate-marquee-scroll:hover {
           animation-play-state: paused;

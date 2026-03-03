@@ -213,7 +213,7 @@
 
 @layer utilities {
   .section-padding {
-    @apply py-24 md:py-32 lg:py-40;
+    @apply py-28 md:py-36 lg:py-44;
   }
 
   .container-tight {
