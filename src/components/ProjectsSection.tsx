@@ -6,6 +6,25 @@ import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
+    icon: Zap,
+    tag: "Full-Stack DevOps · AWS EKS",
+    title: "Wanderlust – Production DevOps Architecture on AWS EKS",
+    description: "A full production-grade DevOps pipeline implementing CI/CD with Jenkins, GitOps with ArgoCD, security scanning (OWASP, SonarQube, Trivy), container orchestration on AWS EKS, infrastructure provisioning with Terraform, and full observability with Prometheus & Grafana.",
+    caseStudy: {
+      problem: "Fragmented DevOps tooling with no unified pipeline — manual deployments, no security scanning, no GitOps, and zero observability into production workloads.",
+      solution: "Architected an end-to-end DevOps platform integrating CI/CD, shift-left security, GitOps deployment, Kubernetes orchestration, and full-stack monitoring on AWS EKS.",
+      architecture: "GitHub → Jenkins CI → OWASP/SonarQube/Trivy → Docker → ArgoCD GitOps → AWS EKS (Helm) → Prometheus → Grafana → Email Alerts",
+      results: "80% faster deployments, zero critical CVEs in production, 99.95% uptime with self-healing infrastructure and automated rollbacks.",
+      impact: "Delivered enterprise-grade DevOps maturity — every commit is scanned, tested, containerized, and deployed automatically with complete audit trail.",
+    },
+    stack: ["AWS", "EKS", "Terraform", "Jenkins", "Docker", "Kubernetes", "ArgoCD", "Prometheus", "Grafana", "SonarQube", "OWASP", "Trivy"],
+    link: "https://github.com/himanshugohil18/Wanderlust-Mega-Project",
+    slug: "/projects/wanderlust-mega-project",
+    gradient: "from-amber-500/20 via-orange-500/10 to-primary/10",
+    accentColor: "amber",
+    isMegaProject: true,
+  },
+  {
     icon: Container,
     tag: "Cloud · AWS",
     title: "Real-World Containerized Application Deployment using AWS ECS & ECR",
@@ -66,6 +85,28 @@ const projects = [
     slug: "/projects/django-jenkins-cicd",
     gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
     accentColor: "rose"
+  },
+  {
+    icon: Container,
+    tag: "Kubernetes · Microservices",
+    title: "Chat Application – Kubernetes 3-Tier Architecture (Minikube)",
+    description: "A real-time 3-tier chat application deployed on Kubernetes using Minikube. Separates frontend, backend API, and database into containerized microservices with Kubernetes deployments, services, ConfigMaps, Secrets, and horizontal scaling.",
+    stack: ["Kubernetes", "Docker", "Minikube", "Node.js", "React", "MongoDB"],
+    link: "#",
+    slug: "/projects/kubernetes-chat-app",
+    gradient: "from-cyan-500/20 via-sky-500/10 to-transparent",
+    accentColor: "cyan"
+  },
+  {
+    icon: Layers,
+    tag: "Observability · Monitoring",
+    title: "Multi-Service Monitoring Architecture (.NET + Python) on Kubernetes",
+    description: "A multi-service monitoring solution with .NET and Python microservices on a Kind Kubernetes cluster, monitored with Prometheus metrics scraping and Grafana dashboards. Includes alerting, kube-state-metrics, and observability best practices.",
+    stack: ["Kubernetes", "Kind", "Prometheus", "Grafana", "Python", ".NET", "Docker"],
+    link: "#",
+    slug: "/projects/multi-service-monitoring",
+    gradient: "from-teal-500/20 via-green-500/10 to-transparent",
+    accentColor: "teal"
   }
 ];
 

@@ -13,6 +13,9 @@ const DjangoNginxMysql = lazy(() => import("./pages/projects/DjangoNginxMysql"))
 const GitWorkflowCI = lazy(() => import("./pages/projects/GitWorkflowCI"));
 const AwsServerlessLambda = lazy(() => import("./pages/projects/AwsServerlessLambda"));
 const DjangoJenkinsCICD = lazy(() => import("./pages/projects/DjangoJenkinsCICD"));
+const KubernetesChatApp = lazy(() => import("./pages/projects/KubernetesChatApp"));
+const MultiServiceMonitoring = lazy(() => import("./pages/projects/MultiServiceMonitoring"));
+const WanderlustMegaProject = lazy(() => import("./pages/projects/WanderlustMegaProject"));
 
 const queryClient = new QueryClient();
 
@@ -31,6 +34,9 @@ const App = () => (
               <Route path="/projects/git-workflow-ci-governance" element={<GitWorkflowCI />} />
               <Route path="/projects/aws-serverless-lambda" element={<AwsServerlessLambda />} />
               <Route path="/projects/django-jenkins-cicd" element={<DjangoJenkinsCICD />} />
+              <Route path="/projects/kubernetes-chat-app" element={<KubernetesChatApp />} />
+              <Route path="/projects/multi-service-monitoring" element={<MultiServiceMonitoring />} />
+              <Route path="/projects/wanderlust-mega-project" element={<WanderlustMegaProject />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
