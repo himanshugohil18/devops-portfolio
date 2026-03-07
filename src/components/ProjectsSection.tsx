@@ -6,6 +6,25 @@ import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
+    icon: Zap,
+    tag: "Full-Stack DevOps · AWS EKS",
+    title: "Wanderlust – Production DevOps Architecture on AWS EKS",
+    description: "A full production-grade DevOps pipeline implementing CI/CD with Jenkins, GitOps with ArgoCD, security scanning (OWASP, SonarQube, Trivy), container orchestration on AWS EKS, infrastructure provisioning with Terraform, and full observability with Prometheus & Grafana.",
+    caseStudy: {
+      problem: "Fragmented DevOps tooling with no unified pipeline — manual deployments, no security scanning, no GitOps, and zero observability into production workloads.",
+      solution: "Architected an end-to-end DevOps platform integrating CI/CD, shift-left security, GitOps deployment, Kubernetes orchestration, and full-stack monitoring on AWS EKS.",
+      architecture: "GitHub → Jenkins CI → OWASP/SonarQube/Trivy → Docker → ArgoCD GitOps → AWS EKS (Helm) → Prometheus → Grafana → Email Alerts",
+      results: "80% faster deployments, zero critical CVEs in production, 99.95% uptime with self-healing infrastructure and automated rollbacks.",
+      impact: "Delivered enterprise-grade DevOps maturity — every commit is scanned, tested, containerized, and deployed automatically with complete audit trail.",
+    },
+    stack: ["AWS", "EKS", "Terraform", "Jenkins", "Docker", "Kubernetes", "ArgoCD", "Prometheus", "Grafana", "SonarQube", "OWASP", "Trivy"],
+    link: "https://github.com/himanshugohil18/Wanderlust-Mega-Project",
+    slug: "/projects/wanderlust-mega-project",
+    gradient: "from-amber-500/20 via-orange-500/10 to-primary/10",
+    accentColor: "amber",
+    isMegaProject: true,
+  },
+  {
     icon: Container,
     tag: "Cloud · AWS",
     title: "Real-World Containerized Application Deployment using AWS ECS & ECR",
@@ -66,6 +85,28 @@ const projects = [
     slug: "/projects/django-jenkins-cicd",
     gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
     accentColor: "rose"
+  },
+  {
+    icon: Container,
+    tag: "Kubernetes · Microservices",
+    title: "Chat Application – Kubernetes 3-Tier Architecture (Minikube)",
+    description: "A real-time 3-tier chat application deployed on Kubernetes using Minikube. Separates frontend, backend API, and database into containerized microservices with Kubernetes deployments, services, ConfigMaps, Secrets, and horizontal scaling.",
+    stack: ["Kubernetes", "Docker", "Minikube", "Node.js", "React", "MongoDB"],
+    link: "#",
+    slug: "/projects/kubernetes-chat-app",
+    gradient: "from-cyan-500/20 via-sky-500/10 to-transparent",
+    accentColor: "cyan"
+  },
+  {
+    icon: Layers,
+    tag: "Observability · Monitoring",
+    title: "Multi-Service Monitoring Architecture (.NET + Python) on Kubernetes",
+    description: "A multi-service monitoring solution with .NET and Python microservices on a Kind Kubernetes cluster, monitored with Prometheus metrics scraping and Grafana dashboards. Includes alerting, kube-state-metrics, and observability best practices.",
+    stack: ["Kubernetes", "Kind", "Prometheus", "Grafana", "Python", ".NET", "Docker"],
+    link: "#",
+    slug: "/projects/multi-service-monitoring",
+    gradient: "from-teal-500/20 via-green-500/10 to-transparent",
+    accentColor: "teal"
   }
 ];
 
@@ -129,15 +170,23 @@ export function ProjectsSection() {
             className="group relative cursor-pointer mb-8"
             onClick={() => openModal(featured)}
           >
-            <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-card/60 backdrop-blur-xl transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-[0_0_40px_hsla(250,80%,65%,0.15)] group-hover:-translate-y-1">
+            <div className={`relative overflow-hidden rounded-2xl border ${featured.isMegaProject ? 'border-amber-500/30 shadow-[0_0_60px_hsla(38,90%,50%,0.12)]' : 'border-primary/20'} bg-card/60 backdrop-blur-xl transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-[0_0_40px_hsla(250,80%,65%,0.15)] group-hover:-translate-y-1`}>
               <div className={`absolute inset-0 bg-gradient-to-br ${featured.gradient} opacity-40`} />
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${featured.isMegaProject ? 'via-amber-500/60' : 'via-primary/60'} to-transparent`} />
+              {featured.isMegaProject && <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />}
 
               <div className="relative p-8 md:p-12">
                 <div className="flex items-center justify-between mb-6">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
-                    Case Study
-                  </span>
+                  <div className="flex items-center gap-3">
+                    {featured.isMegaProject && (
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">
+                        ★ Mega Project
+                      </span>
+                    )}
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
+                      Case Study
+                    </span>
+                  </div>
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
                     <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-primary-foreground transition-colors" />
                   </div>
