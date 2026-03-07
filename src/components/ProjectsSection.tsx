@@ -170,14 +170,23 @@ export function ProjectsSection() {
             className="group relative cursor-pointer mb-8"
             onClick={() => openModal(featured)}
           >
-            <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-card/60 backdrop-blur-xl transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-[0_0_40px_hsla(250,80%,65%,0.15)] group-hover:-translate-y-1">
+            <div className={`relative overflow-hidden rounded-2xl border ${featured.isMegaProject ? 'border-amber-500/30 shadow-[0_0_60px_hsla(38,90%,50%,0.12)]' : 'border-primary/20'} bg-card/60 backdrop-blur-xl transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-[0_0_40px_hsla(250,80%,65%,0.15)] group-hover:-translate-y-1`}>
               <div className={`absolute inset-0 bg-gradient-to-br ${featured.gradient} opacity-40`} />
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+              <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${featured.isMegaProject ? 'via-amber-500/60' : 'via-primary/60'} to-transparent`} />
+              {featured.isMegaProject && <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />}
 
               <div className="relative p-8 md:p-12">
                 <div className="flex items-center justify-between mb-6">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
-                    Case Study
+                  <div className="flex items-center gap-3">
+                    {featured.isMegaProject && (
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">
+                        ★ Mega Project
+                      </span>
+                    )}
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
+                      Case Study
+                    </span>
+                  </div>
                   </span>
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
                     <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-primary-foreground transition-colors" />
