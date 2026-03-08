@@ -264,10 +264,6 @@ export function ProjectsSection() {
                   <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  {/* Arrow top right */}
-                  <div className="absolute top-6 right-6 w-8 h-8 rounded-full bg-muted/50 flex items-center justify-center border border-border/50 group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300">
-                    <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </div>
 
                   <div className="relative p-8">
                     <div className="relative mb-5 inline-block">
