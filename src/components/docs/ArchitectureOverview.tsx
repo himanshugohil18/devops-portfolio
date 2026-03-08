@@ -23,8 +23,8 @@ export function ArchitectureOverview({ diagram, title = "Architecture Diagram" }
         </div>
         <div className="p-6 md:p-8 group-hover:scale-[1.01] transition-transform duration-500 origin-center">
           <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">{title}</h4>
-          <div className="overflow-x-auto">
-            <pre className="text-xs md:text-sm text-muted-foreground font-mono leading-relaxed whitespace-pre">{diagram}</pre>
+          <div className="overflow-hidden max-w-full">
+            <pre className="text-xs md:text-sm text-muted-foreground font-mono leading-relaxed whitespace-pre-wrap break-words max-w-full">{diagram}</pre>
           </div>
         </div>
       </div>
