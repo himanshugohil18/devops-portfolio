@@ -9,12 +9,50 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { AdvancedDevOpsSections, advancedDevOpsTocItems } from "@/components/docs/AdvancedDevOpsSections";
 import archEcs from "@/assets/arch-ecs.png";
 
+const ecsLayers = [
+  { name: "CI/CD Layer", tools: [
+    { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+    { name: "CodeBuild", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  ]},
+  { name: "Container Layer", tools: [
+    { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+    { name: "ECR", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  ]},
+  { name: "Deployment Layer", tools: [
+    { name: "ECS Fargate", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  ]},
+  { name: "Infrastructure Layer", tools: [
+    { name: "VPC", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+    { name: "ALB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  ]},
+  { name: "Observability Layer", tools: [
+    { name: "CloudWatch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  ]},
+];
+
+const ecsPipeline = [
+  { label: "Developer", icon: "👨‍💻" },
+  { label: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { label: "CodeBuild", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { label: "Docker Build", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  { label: "ECR Push", icon: "📦" },
+  { label: "ECS Fargate", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { label: "ALB", icon: "🌐" },
+  { label: "CloudWatch", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+];
+
+const ecsChallenges = [
+  { problem: "Container deployment caused downtime during task replacements.", solution: "Implemented rolling deployments with ALB health checks and connection draining to achieve zero-downtime updates." },
+  { problem: "ECR images accumulated consuming significant storage costs.", solution: "Implemented lifecycle policies to automatically expire untagged images older than 7 days, reducing storage by 70%." },
+];
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
   { id: "architecture-overview", title: "Architecture Overview" },
+  ...advancedDevOpsTocItems,
   { id: "problem-statement", title: "Problem Statement" },
   { id: "architecture", title: "High-Level Architecture" },
   { id: "tech-stack", title: "Technology Stack" },
@@ -42,19 +80,27 @@ export default function AwsEcsDeployment() {
       tocItems={tocItems}
     >
       <DocSection id="executive-summary" title="Executive Summary" index={1}>
-        <p>
-          This project demonstrates a complete containerized application deployment pipeline on AWS. Starting from a Dockerized application, we push images to Amazon ECR, deploy using ECS Fargate with an Application Load Balancer, and monitor everything through CloudWatch. The architecture is designed for zero-downtime deployments, horizontal scaling, and production-grade reliability.
-        </p>
+        <p>This project demonstrates a complete containerized application deployment pipeline on AWS. Starting from a Dockerized application, we push images to Amazon ECR, deploy using ECS Fargate with an Application Load Balancer, and monitor everything through CloudWatch. The architecture is designed for zero-downtime deployments, horizontal scaling, and production-grade reliability.</p>
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
         <ArchitectureOverview imageSrc={archEcs} title="AWS ECS Deployment Architecture" caption="Developer → GitHub → AWS CodeBuild → Amazon ECR → ECS Fargate → ALB → CloudWatch" />
       </DocSection>
 
-      <DocSection id="problem-statement" title="Problem Statement" index={3}>
-        <p>
-          Traditional server-based deployments suffer from inconsistent environments, manual scaling, and high operational overhead. Teams waste hours debugging "works on my machine" issues, managing server patches, and handling traffic spikes manually. There's a critical need for a containerized, auto-scaling deployment pipeline that eliminates these pain points.
-        </p>
+      <AdvancedDevOpsSections
+        startIndex={3}
+        layers={ecsLayers}
+        pipelineSteps={ecsPipeline}
+        challenges={ecsChallenges}
+        observabilityTools={[
+          { name: "CloudWatch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg", role: "Logs & Metrics" },
+          { name: "Container Insights", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg", role: "ECS Monitoring" },
+        ]}
+        productionFeatures={["Fargate Auto-scaling", "Rolling Deployments", "ALB Health Checks", "Container Insights", "CloudWatch Alarms", "ECR Image Scanning", "VPC Isolation", "Multi-AZ Deployment"]}
+      />
+
+      <DocSection id="problem-statement" title="Problem Statement" index={12}>
+        <p>Traditional server-based deployments suffer from inconsistent environments, manual scaling, and high operational overhead. Teams waste hours debugging "works on my machine" issues, managing server patches, and handling traffic spikes manually.</p>
         <ul className="list-disc pl-5 space-y-2 mt-3">
           <li>Inconsistent deployment environments across development, staging, and production</li>
           <li>Manual server provisioning and scaling during traffic spikes</li>
@@ -64,31 +110,26 @@ export default function AwsEcsDeployment() {
         </ul>
       </DocSection>
 
-      <DocSection id="architecture" title="High-Level Architecture" index={4}>
+      <DocSection id="architecture" title="High-Level Architecture" index={13}>
         <p>The deployment pipeline follows: Developer pushes code → GitHub triggers CodeBuild → Docker image built and pushed to ECR → ECS Fargate pulls and deploys → ALB routes traffic → CloudWatch monitors.</p>
       </DocSection>
 
-      <DocSection id="tech-stack" title="Technology Stack" index={5}>
-        <TechTable
-          rows={[
-            { layer: "Containerization", technology: "Docker" },
-            { layer: "Container Registry", technology: "Amazon ECR" },
-            { layer: "Container Orchestration", technology: "Amazon ECS (Fargate)" },
-            { layer: "Load Balancing", technology: "Application Load Balancer (ALB)" },
-            { layer: "CI/CD", technology: "AWS CodeBuild / GitHub Actions" },
-            { layer: "Monitoring", technology: "Amazon CloudWatch" },
-            { layer: "Security", technology: "IAM Roles & Policies" },
-            { layer: "Networking", technology: "VPC, Subnets, Security Groups" },
-          ]}
-        />
+      <DocSection id="tech-stack" title="Technology Stack" index={14}>
+        <TechTable rows={[
+          { layer: "Containerization", technology: "Docker" },
+          { layer: "Container Registry", technology: "Amazon ECR" },
+          { layer: "Container Orchestration", technology: "Amazon ECS (Fargate)" },
+          { layer: "Load Balancing", technology: "Application Load Balancer (ALB)" },
+          { layer: "CI/CD", technology: "AWS CodeBuild / GitHub Actions" },
+          { layer: "Monitoring", technology: "Amazon CloudWatch" },
+          { layer: "Security", technology: "IAM Roles & Policies" },
+          { layer: "Networking", technology: "VPC, Subnets, Security Groups" },
+        ]} />
       </DocSection>
 
-      <DocSection id="implementation" title="Detailed Implementation Steps" index={6}>
+      <DocSection id="implementation" title="Detailed Implementation Steps" index={15}>
         <h3 className="text-foreground font-semibold text-base mb-3">Step 1: Dockerize the Application</h3>
-        <CodeBlock
-          title="Dockerfile"
-          language="dockerfile"
-          code={`FROM node:18-alpine AS builder
+        <CodeBlock title="Dockerfile" language="dockerfile" code={`FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
@@ -102,14 +143,10 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 EXPOSE 3000
 USER node
-CMD ["node", "dist/index.js"]`}
-        />
+CMD ["node", "dist/index.js"]`} />
 
         <h3 className="text-foreground font-semibold text-base mb-3 mt-6">Step 2: Push Image to Amazon ECR</h3>
-        <CodeBlock
-          title="ECR Commands"
-          language="bash"
-          code={`# Authenticate Docker with ECR
+        <CodeBlock title="ECR Commands" language="bash" code={`# Authenticate Docker with ECR
 aws ecr get-login-password --region ap-south-1 | \\
   docker login --username AWS --password-stdin \\
   <account-id>.dkr.ecr.ap-south-1.amazonaws.com
@@ -121,14 +158,10 @@ docker tag my-app:latest \\
 
 # Push to ECR
 docker push \\
-  <account-id>.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest`}
-        />
+  <account-id>.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest`} />
 
         <h3 className="text-foreground font-semibold text-base mb-3 mt-6">Step 3: Configure ECS Task Definition</h3>
-        <CodeBlock
-          title="ecs-task-definition.json"
-          language="json"
-          code={`{
+        <CodeBlock title="ecs-task-definition.json" language="json" code={`{
   "family": "my-app-task",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
@@ -155,8 +188,7 @@ docker push \\
       }
     }
   ]
-}`}
-        />
+}`} />
 
         <h3 className="text-foreground font-semibold text-base mb-3 mt-6">Step 4: Create ECS Service with ALB</h3>
         <p>Configure an ECS Service with desired task count, attach it to an Application Load Balancer target group, and set health check paths for automated traffic routing.</p>
@@ -165,7 +197,7 @@ docker push \\
         <p>Set up Application Auto Scaling policies based on CPU and memory utilization. Configure target tracking with a 70% CPU threshold to scale between 2-10 tasks automatically.</p>
       </DocSection>
 
-      <DocSection id="security" title="Security Architecture" index={7}>
+      <DocSection id="security" title="Security Architecture" index={16}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>IAM Roles:</strong> Separate execution and task roles with least-privilege policies</li>
           <li><strong>ECR Image Scanning:</strong> Automated vulnerability scanning on every push</li>
@@ -176,11 +208,8 @@ docker push \\
         </ul>
       </DocSection>
 
-      <DocSection id="cicd" title="CI/CD Pipeline" index={8}>
-        <CodeBlock
-          title="buildspec.yml"
-          language="yaml"
-          code={`version: 0.2
+      <DocSection id="cicd" title="CI/CD Pipeline" index={17}>
+        <CodeBlock title="buildspec.yml" language="yaml" code={`version: 0.2
 
 phases:
   pre_build:
@@ -204,11 +233,10 @@ phases:
       - echo Writing image definitions file...
       - printf '[{"name":"my-app","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
-  files: imagedefinitions.json`}
-        />
+  files: imagedefinitions.json`} />
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring & Logging" index={9}>
+      <DocSection id="monitoring" title="Monitoring & Logging" index={18}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>CloudWatch Logs:</strong> All container stdout/stderr streamed to CloudWatch log groups</li>
           <li><strong>CloudWatch Alarms:</strong> CPU &gt; 80%, Memory &gt; 75%, 5xx error rate thresholds</li>
@@ -222,7 +250,7 @@ artifacts:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="scalability" title="Scalability Strategy" index={10}>
+      <DocSection id="scalability" title="Scalability Strategy" index={19}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Fargate auto-scaling from 2 to 10 tasks based on CPU/memory metrics</li>
           <li>ALB distributes traffic with health-check based routing</li>
@@ -238,7 +266,7 @@ artifacts:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={11}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={20}>
         <ProductionMetrics metrics={[
           { label: "Deployment Automation", value: 92 },
           { label: "System Reliability", value: 95 },
@@ -248,11 +276,11 @@ artifacts:
         ]} />
       </DocSection>
 
-      <DocSection id="project-impact" title="Project Impact" index={12}>
+      <DocSection id="project-impact" title="Project Impact" index={21}>
         <ProjectImpact />
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={13}>
+      <DocSection id="improvements" title="Production Improvements" index={22}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -272,7 +300,7 @@ artifacts:
         </Collapsible>
       </DocSection>
 
-      <DocSection id="skills" title="DevOps Skills Demonstrated" index={14}>
+      <DocSection id="skills" title="DevOps Skills Demonstrated" index={23}>
         <div className="flex flex-wrap gap-2">
           {["Docker", "AWS ECS", "AWS ECR", "Fargate", "CI/CD", "IAM", "CloudWatch", "ALB", "VPC", "Auto Scaling", "Infrastructure as Code", "Container Orchestration", "Security Best Practices", "Load Balancing"].map((skill) => (
             <span key={skill} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -282,7 +310,7 @@ artifacts:
         </div>
       </DocSection>
 
-      <DocSection id="business-value" title="Business Value" index={15}>
+      <DocSection id="business-value" title="Business Value" index={24}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>60% reduction</strong> in deployment time through automated CI/CD pipelines</li>
           <li><strong>99.9% uptime</strong> with multi-AZ Fargate deployment and health checks</li>
@@ -292,13 +320,11 @@ artifacts:
         </ul>
       </DocSection>
 
-      <DocSection id="impact" title="Real-World Impact" index={16}>
-        <p>
-          This architecture pattern is used by organizations ranging from startups to enterprises for running production workloads on AWS. The containerized approach ensures consistency across environments, while Fargate eliminates the operational burden of managing EC2 instances. The CI/CD pipeline enables rapid iteration with confidence, shipping multiple deployments per day with automated testing and rollback capabilities.
-        </p>
+      <DocSection id="impact" title="Real-World Impact" index={25}>
+        <p>This architecture pattern is used by organizations ranging from startups to enterprises for running production workloads on AWS. The containerized approach ensures consistency across environments, while Fargate eliminates the operational burden of managing EC2 instances.</p>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={17}>
+      <DocSection id="author" title="Author" index={26}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>

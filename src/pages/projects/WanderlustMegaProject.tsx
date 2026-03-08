@@ -9,12 +9,13 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { AdvancedDevOpsSections, advancedDevOpsTocItems } from "@/components/docs/AdvancedDevOpsSections";
 import archWanderlust from "@/assets/arch-wanderlust-flow.png";
-
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
   { id: "system-architecture", title: "System Architecture" },
+  ...advancedDevOpsTocItems,
   { id: "terraform", title: "Infrastructure Provisioning (Terraform)" },
   { id: "aws-infra", title: "AWS Infrastructure Setup" },
   { id: "eks-cluster", title: "Kubernetes Cluster Architecture" },
@@ -29,6 +30,12 @@ const tocItems = [
   { id: "production-metrics", title: "Production Metrics" },
   { id: "project-impact", title: "Project Impact" },
   { id: "author", title: "Author" },
+];
+
+const wanderlustChallenges = [
+  { problem: "CI pipeline builds were slow, taking 15+ minutes per run.", solution: "Implemented Docker layer caching and parallel Jenkins stages, reducing build time by 40%." },
+  { problem: "Application scaling caused latency spikes during peak traffic.", solution: "Implemented Kubernetes HPA with pre-warming and PodDisruptionBudgets for zero-downtime scaling." },
+  { problem: "Security vulnerabilities were detected late in the release cycle.", solution: "Shifted security left with OWASP, SonarQube, and Trivy scans integrated into the CI pipeline." },
 ];
 
 export default function WanderlustMegaProject() {
@@ -54,11 +61,13 @@ export default function WanderlustMegaProject() {
         </div>
       </DocSection>
 
-       <DocSection id="system-architecture" title="System Architecture" index={2}>
-         <ArchitectureOverview imageSrc={archWanderlust} title="Project Deployment Flow" caption="Complete CI/CD and GitOps pipeline with security scanning, code quality gates, containerization, and Kubernetes deployment" />
-       </DocSection>
+      <DocSection id="system-architecture" title="System Architecture" index={2}>
+        <ArchitectureOverview imageSrc={archWanderlust} title="Project Deployment Flow" caption="Complete CI/CD and GitOps pipeline with security scanning, code quality gates, containerization, and Kubernetes deployment" />
+      </DocSection>
 
-      <DocSection id="terraform" title="Infrastructure Provisioning with Terraform" index={3}>
+      <AdvancedDevOpsSections startIndex={3} challenges={wanderlustChallenges} />
+
+      <DocSection id="terraform" title="Infrastructure Provisioning with Terraform" index={12}>
         <p>All AWS infrastructure is provisioned using Terraform with modular, reusable configurations:</p>
         <TechTable rows={[
           { layer: "Compute", technology: "AWS EC2 instances for Jenkins, SonarQube" },
@@ -104,7 +113,7 @@ export default function WanderlustMegaProject() {
 }`} />
       </DocSection>
 
-      <DocSection id="aws-infra" title="AWS Infrastructure Setup" index={4}>
+      <DocSection id="aws-infra" title="AWS Infrastructure Setup" index={13}>
         <CodeBlock title="VPC & Networking" language="hcl" code={`module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.0"
@@ -135,7 +144,7 @@ export default function WanderlustMegaProject() {
         </ul>
       </DocSection>
 
-      <DocSection id="eks-cluster" title="Kubernetes Cluster Architecture" index={5}>
+      <DocSection id="eks-cluster" title="Kubernetes Cluster Architecture" index={14}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Amazon EKS v1.28 with managed node groups (2-5 nodes auto-scaling)</li>
           <li>Helm-based application deployments for templated, versioned releases</li>
@@ -180,12 +189,12 @@ autoscaling:
   targetCPUUtilizationPercentage: 70`} />
       </DocSection>
 
-      <DocSection id="cicd-pipeline" title="CI/CD Pipeline Architecture" index={6}>
+      <DocSection id="cicd-pipeline" title="CI/CD Pipeline Architecture" index={15}>
         <p>The Jenkins CI pipeline implements a comprehensive build, test, scan, and deploy workflow:</p>
         <CodeBlock title="Jenkinsfile" language="groovy" code={"pipeline {\n    agent any\n\n    environment {\n        DOCKER_IMAGE = \"wanderlust-app\"\n        ECR_REPO = \"<account-id>.dkr.ecr.ap-south-1.amazonaws.com/wanderlust\"\n        SONAR_TOKEN = credentials('sonarqube-token')\n    }\n\n    stages {\n        stage('Checkout') {\n            steps {\n                git branch: 'main',\n                    url: 'https://github.com/himanshugohil18/Wanderlust-Mega-Project.git'\n            }\n        }\n\n        stage('OWASP Dependency Check') {\n            steps {\n                dependencyCheck additionalArguments: '''\n                    --scan ./ --format HTML --format JSON\n                    --prettyPrint''',\n                    odcInstallation: 'DP-Check'\n                dependencyCheckPublisher pattern: '**/dependency-check-report.json'\n            }\n        }\n\n        stage('SonarQube Analysis') {\n            steps {\n                withSonarQubeEnv('sonarqube-server') {\n                    sh \"\"\"\n                        sonar-scanner \\\\\n                          -Dsonar.projectKey=wanderlust \\\\\n                          -Dsonar.sources=. \\\\\n                          -Dsonar.host.url=http://sonarqube:9000 \\\\\n                          -Dsonar.login=${SONAR_TOKEN}\n                    \"\"\"\n                }\n            }\n        }\n\n        stage('Quality Gate') {\n            steps {\n                timeout(time: 5, unit: 'MINUTES') {\n                    waitForQualityGate abortPipeline: true\n                }\n            }\n        }\n\n        stage('Docker Build') {\n            steps {\n                sh \"docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .\"\n                sh \"docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${ECR_REPO}:${BUILD_NUMBER}\"\n            }\n        }\n\n        stage('Trivy Security Scan') {\n            steps {\n                sh \"\"\"\n                    trivy image --exit-code 1 --severity HIGH,CRITICAL \\\\\n                      --no-progress ${DOCKER_IMAGE}:${BUILD_NUMBER}\n                \"\"\"\n            }\n        }\n\n        stage('Push to ECR') {\n            steps {\n                sh \"\"\"\n                    aws ecr get-login-password --region ap-south-1 | \\\\\n                      docker login --username AWS --password-stdin ${ECR_REPO}\n                    docker push ${ECR_REPO}:${BUILD_NUMBER}\n                    docker push ${ECR_REPO}:latest\n                \"\"\"\n            }\n        }\n\n        stage('Update Manifests') {\n            steps {\n                sh \"\"\"\n                    sed -i 's|image:.*|image: ${ECR_REPO}:${BUILD_NUMBER}|' \\\\\n                      k8s/deployment.yaml\n                \"\"\"\n                sh \"git add . && git commit -m 'Update image to ${BUILD_NUMBER}'\"\n                sh \"git push origin main\"\n            }\n        }\n    }\n\n    post {\n        success {\n            emailext subject: \"Pipeline Success: ${BUILD_NUMBER}\",\n                body: \"Wanderlust pipeline completed successfully.\",\n                to: \"team@example.com\"\n        }\n        failure {\n            emailext subject: \"Pipeline Failed: ${BUILD_NUMBER}\",\n                body: \"Wanderlust pipeline failed. Check Jenkins.\",\n                to: \"team@example.com\"\n        }\n    }\n}"} />
       </DocSection>
 
-      <DocSection id="security-scanning" title="Security & Vulnerability Scanning" index={7}>
+      <DocSection id="security-scanning" title="Security & Vulnerability Scanning" index={16}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>OWASP Dependency Check:</strong> Scans all project dependencies for known CVEs before build</li>
           <li><strong>SonarQube:</strong> Static code analysis for bugs, vulnerabilities, code smells, and security hotspots</li>
@@ -202,7 +211,7 @@ autoscaling:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="gitops" title="GitOps Deployment with ArgoCD" index={8}>
+      <DocSection id="gitops" title="GitOps Deployment with ArgoCD" index={17}>
         <p>ArgoCD continuously monitors the Git repository and automatically syncs Kubernetes manifests to the EKS cluster:</p>
         <CodeBlock title="ArgoCD Application" language="yaml" code={`apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -238,7 +247,7 @@ spec:
         </ul>
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring Stack" index={9}>
+      <DocSection id="monitoring" title="Monitoring Stack" index={18}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>Prometheus:</strong> Cluster-wide metrics collection with ServiceMonitor discovery</li>
           <li><strong>Grafana:</strong> Pre-configured dashboards for cluster health, application performance, and CI/CD metrics</li>
@@ -264,7 +273,7 @@ spec:
       - wanderlust`} />
       </DocSection>
 
-      <DocSection id="scaling" title="Scaling Strategy" index={10}>
+      <DocSection id="scaling" title="Scaling Strategy" index={19}>
         <ul className="list-disc pl-5 space-y-2">
           <li>EKS Cluster Autoscaler adjusts worker node count (2-5 nodes) based on pending pod demand</li>
           <li>HPA scales application pods (3-10) based on CPU/memory utilization</li>
@@ -274,7 +283,7 @@ spec:
         </ul>
       </DocSection>
 
-      <DocSection id="reliability" title="Production Reliability" index={11}>
+      <DocSection id="reliability" title="Production Reliability" index={20}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Zero-downtime deployments:</strong> Rolling updates with readiness probes and PDB</li>
           <li><strong>Self-healing:</strong> ArgoCD auto-corrects drift, Kubernetes restarts failed pods</li>
@@ -284,7 +293,7 @@ spec:
         </ul>
       </DocSection>
 
-      <DocSection id="best-practices" title="DevOps Best Practices Applied" index={12}>
+      <DocSection id="best-practices" title="DevOps Best Practices Applied" index={21}>
         <div className="flex flex-wrap gap-2">
           {[
             "Infrastructure as Code", "GitOps", "Shift-Left Security", "Immutable Infrastructure",
@@ -299,7 +308,7 @@ spec:
         </div>
       </DocSection>
 
-      <DocSection id="business-impact" title="Business Impact" index={13}>
+      <DocSection id="business-impact" title="Business Impact" index={22}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>80% reduction</strong> in deployment time — from hours to minutes with automated CI/CD + GitOps</li>
           <li><strong>99.95% uptime</strong> with multi-AZ EKS, self-healing, and automated rollbacks</li>
@@ -310,7 +319,7 @@ spec:
         </ul>
       </DocSection>
 
-      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={14}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={23}>
         <ProductionMetrics metrics={[
           { label: "CI/CD Automation", value: 98 },
           { label: "Security Scanning", value: 95 },
@@ -321,11 +330,11 @@ spec:
         ]} />
       </DocSection>
 
-      <DocSection id="project-impact" title="Project Impact" index={15}>
+      <DocSection id="project-impact" title="Project Impact" index={24}>
         <ProjectImpact />
       </DocSection>
 
-      <DocSection id="author" title="Author" index={16}>
+      <DocSection id="author" title="Author" index={25}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>

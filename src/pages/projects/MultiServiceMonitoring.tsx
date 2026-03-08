@@ -9,10 +9,46 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { AdvancedDevOpsSections, advancedDevOpsTocItems } from "@/components/docs/AdvancedDevOpsSections";
 import archMonitoring from "@/assets/arch-monitoring.png";
+
+const monitoringLayers = [
+  { name: "Application Layer", tools: [
+    { name: ".NET", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" },
+    { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  ]},
+  { name: "Orchestration Layer", tools: [
+    { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+    { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  ]},
+  { name: "Metrics Layer", tools: [
+    { name: "Prometheus", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+  ]},
+  { name: "Visualization Layer", tools: [
+    { name: "Grafana", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
+  ]},
+  { name: "Alerting Layer", tools: [
+    { name: "AlertManager", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+  ]},
+];
+
+const monitoringPipeline = [
+  { label: ".NET Service", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" },
+  { label: "Python Service", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { label: "/metrics", icon: "📊" },
+  { label: "Prometheus", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+  { label: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
+  { label: "AlertManager", icon: "🔔" },
+];
+
+const monitoringChallenges = [
+  { problem: "Services had no visibility into performance metrics or health status.", solution: "Implemented custom Prometheus metrics endpoints in both .NET and Python services, providing real-time visibility into request rates, latency, and error rates." },
+  { problem: "Alert fatigue from too many non-actionable notifications.", solution: "Implemented tiered alerting with severity levels and routing rules, reducing noise by 60% while catching all critical issues." },
+];
 
 const tocItems = [
   { id: "monitoring-architecture", title: "Monitoring Architecture" },
+  ...advancedDevOpsTocItems,
   { id: "cluster-setup", title: "Kubernetes Cluster Setup" },
   { id: "prometheus-config", title: "Prometheus Configuration" },
   { id: "service-metrics", title: "Service Metrics Integration" },
@@ -30,17 +66,41 @@ export default function MultiServiceMonitoring() {
       title="Multi-Service Monitoring Architecture (.NET + Python) on Kubernetes"
       subtitle="Observability · Monitoring · Kubernetes"
       tags={["Kubernetes", "Kind", "Prometheus", "Grafana", "Python", ".NET", "Docker"]}
-      summary="A comprehensive multi-service monitoring solution deploying .NET and Python microservices on a Kind Kubernetes cluster with full Prometheus metrics scraping and Grafana visualization. Implements production-grade observability patterns including custom metrics, alerting rules, and real-time dashboards."
+      summary="A comprehensive multi-service monitoring solution deploying .NET and Python microservices on a Kind Kubernetes cluster with full Prometheus metrics scraping and Grafana visualization."
       tocItems={tocItems}
     >
       <DocSection id="monitoring-architecture" title="Monitoring Architecture" index={1}>
-        <ArchitectureOverview imageSrc={archMonitoring} title="Kubernetes → Prometheus → Grafana Pipeline" caption=".NET and Python services expose /metrics endpoints → Prometheus scrapes at 15s intervals → Grafana visualizes with real-time dashboards and AlertManager handles notifications" />
-        <p className="mt-4">
-          The monitoring stack follows a pull-based architecture where Prometheus actively scrapes metrics endpoints exposed by each microservice. Grafana consumes Prometheus as a data source to render real-time dashboards with alerting capabilities.
-        </p>
+        <ArchitectureOverview imageSrc={archMonitoring} title="Kubernetes → Prometheus → Grafana Pipeline" caption=".NET and Python services expose /metrics endpoints → Prometheus scrapes at 15s intervals → Grafana visualizes" />
+        <p className="mt-4">The monitoring stack follows a pull-based architecture where Prometheus actively scrapes metrics endpoints exposed by each microservice.</p>
       </DocSection>
 
-      <DocSection id="cluster-setup" title="Kubernetes Cluster Setup" index={2}>
+      <AdvancedDevOpsSections
+        startIndex={2}
+        layers={monitoringLayers}
+        pipelineSteps={monitoringPipeline}
+        challenges={monitoringChallenges}
+        iacTool="Kubernetes Manifests + Helm"
+        iacDescription="Monitoring infrastructure is deployed using Kubernetes manifests and Helm charts for Prometheus and Grafana, enabling reproducible observability stack deployments."
+        practices={[
+          { title: "Metrics-First Design", description: "Every service exposes /metrics endpoint by default", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+          { title: "RED Method", description: "Rate, Errors, Duration metrics for every service endpoint", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
+          { title: "USE Method", description: "Utilization, Saturation, Errors for infrastructure resources", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+          { title: "Dashboard as Code", description: "All Grafana dashboards version-controlled in Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
+          { title: "Tiered Alerting", description: "Severity-based routing with AlertManager", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+          { title: "Label Standards", description: "Consistent labels across all services for unified querying", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" },
+        ]}
+        productionFeatures={["Custom Prometheus Metrics", "Grafana Dashboards", "AlertManager Rules", "ServiceMonitor Discovery", "kube-state-metrics", "node-exporter", "15-day Retention", "Multi-service Scraping"]}
+        observabilityMetrics={[
+          { label: "Request Rate", value: "1.2K rps" },
+          { label: "Error Rate", value: "0.01%" },
+          { label: "P95 Latency", value: "45ms" },
+          { label: "CPU Usage", value: "38%" },
+          { label: "Memory Usage", value: "52%" },
+          { label: "Pod Health", value: "100%" },
+        ]}
+      />
+
+      <DocSection id="cluster-setup" title="Kubernetes Cluster Setup" index={11}>
         <TechTable rows={[
           { layer: "Cluster Runtime", technology: "Kind (Kubernetes in Docker)" },
           { layer: ".NET Service", technology: "ASP.NET Core 8.0 with /metrics endpoint" },
@@ -63,7 +123,7 @@ nodes:
   - role: worker`} />
       </DocSection>
 
-      <DocSection id="prometheus-config" title="Prometheus Configuration" index={3}>
+      <DocSection id="prometheus-config" title="Prometheus Configuration" index={12}>
         <CodeBlock title="prometheus.yml" language="yaml" code={`global:
   scrape_interval: 15s
   evaluation_interval: 15s
@@ -108,14 +168,13 @@ scrape_configs:
       - targets: ["node-exporter:9100"]`} />
       </DocSection>
 
-      <DocSection id="service-metrics" title="Service Metrics Integration" index={4}>
+      <DocSection id="service-metrics" title="Service Metrics Integration" index={13}>
         <h3 className="text-foreground font-semibold text-base mb-3">.NET Service Metrics</h3>
         <CodeBlock title="Program.cs" language="csharp" code={`using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-// Custom metrics
 var requestCounter = Metrics.CreateCounter(
     "dotnet_requests_total",
     "Total HTTP requests",
@@ -126,7 +185,7 @@ var requestDuration = Metrics.CreateHistogram(
     "Request duration in seconds");
 
 app.UseHttpMetrics();
-app.MapMetrics(); // Exposes /metrics endpoint
+app.MapMetrics();
 
 app.MapGet("/api/data", () => {
     requestCounter.WithLabels("GET", "/api/data").Inc();
@@ -162,7 +221,7 @@ def process_data():
     return {"status": "healthy", "service": "python"}`} />
       </DocSection>
 
-      <DocSection id="grafana-dashboards" title="Grafana Dashboard Setup" index={5}>
+      <DocSection id="grafana-dashboards" title="Grafana Dashboard Setup" index={14}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>Service Overview Dashboard:</strong> Request rates, error rates, and latency percentiles per service</li>
           <li><strong>Kubernetes Cluster Dashboard:</strong> Node CPU/memory, pod status, and resource utilization</li>
@@ -182,7 +241,7 @@ providers:
       foldersFromFilesStructure: true`} />
       </DocSection>
 
-      <DocSection id="alerting" title="Alerting Strategy" index={6}>
+      <DocSection id="alerting" title="Alerting Strategy" index={15}>
         <CodeBlock title="Alert Rules" language="yaml" code={`groups:
   - name: service-alerts
     rules:
@@ -207,7 +266,7 @@ providers:
           severity: critical`} />
       </DocSection>
 
-      <DocSection id="observability" title="Observability Best Practices" index={7}>
+      <DocSection id="observability" title="Observability Best Practices" index={16}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>RED Method:</strong> Rate, Errors, Duration for every service endpoint</li>
           <li><strong>USE Method:</strong> Utilization, Saturation, Errors for infrastructure resources</li>
@@ -217,7 +276,7 @@ providers:
         </ul>
       </DocSection>
 
-      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={8}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={17}>
         <ProductionMetrics metrics={[
           { label: "Metrics Coverage", value: 95 },
           { label: "Alert Accuracy", value: 90 },
@@ -227,11 +286,11 @@ providers:
         ]} />
       </DocSection>
 
-      <DocSection id="project-impact" title="Project Impact" index={9}>
+      <DocSection id="project-impact" title="Project Impact" index={18}>
         <ProjectImpact />
       </DocSection>
 
-      <DocSection id="author" title="Author" index={10}>
+      <DocSection id="author" title="Author" index={19}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>
