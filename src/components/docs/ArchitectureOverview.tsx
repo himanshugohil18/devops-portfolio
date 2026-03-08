@@ -22,9 +22,9 @@ export function ArchitectureOverview({ diagram, title = "Architecture Diagram" }
           <Maximize2 className="w-4 h-4 text-primary" />
         </div>
         <div className="p-6 md:p-8 group-hover:scale-[1.01] transition-transform duration-500 origin-center">
-          <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">{title}</h4>
-          <div className="overflow-hidden max-w-full">
-            <pre className="text-xs md:text-sm text-muted-foreground font-mono leading-relaxed whitespace-pre-wrap break-words max-w-full">{diagram}</pre>
+          <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-6">{title}</h4>
+          <div className="flex justify-center overflow-x-auto bg-muted/30 rounded-xl border border-border/30 p-6 md:p-8">
+            <pre className="text-xs md:text-sm text-muted-foreground font-mono leading-[1.4] whitespace-pre flex-shrink-0" style={{ minWidth: 'fit-content' }}>{diagram}</pre>
           </div>
         </div>
       </div>
@@ -53,8 +53,10 @@ export function ArchitectureOverview({ diagram, title = "Architecture Diagram" }
                 >
                   <X className="w-5 h-5 text-foreground" />
                 </button>
-                <h3 className="text-xl font-display font-bold mb-6 gradient-text">{title}</h3>
-                <pre className="text-sm md:text-base text-muted-foreground font-mono leading-relaxed whitespace-pre overflow-x-auto">{diagram}</pre>
+                <h3 className="text-xl font-display font-bold mb-8 gradient-text">{title}</h3>
+                <div className="flex justify-center overflow-x-auto bg-muted/30 rounded-xl border border-border/30 p-6 md:p-8">
+                  <pre className="text-sm md:text-base text-muted-foreground font-mono leading-[1.4] whitespace-pre flex-shrink-0" style={{ minWidth: 'fit-content' }}>{diagram}</pre>
+                </div>
               </div>
             </motion.div>
           </>
