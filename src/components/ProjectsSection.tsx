@@ -176,20 +176,15 @@ export function ProjectsSection() {
               {featured.isMegaProject && <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />}
 
               <div className="relative p-8 md:p-12">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    {featured.isMegaProject && (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">
-                        ★ Mega Project
-                      </span>
-                    )}
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
-                      Case Study
+                <div className="flex items-center gap-3 mb-6">
+                  {featured.isMegaProject && (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30 animate-pulse">
+                      ★ Mega Project
                     </span>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                    <ArrowUpRight className="w-4 h-4 text-primary group-hover:text-primary-foreground transition-colors" />
-                  </div>
+                  )}
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
+                    Case Study
+                  </span>
                 </div>
 
                 {/* Title & Tag */}
