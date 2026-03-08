@@ -7,6 +7,7 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import archKubernetesChat from "@/assets/arch-kubernetes-chat.png";
 
@@ -55,7 +56,7 @@ export default function KubernetesChatApp() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={3}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Kubernetes 3-Tier Architecture" />
+        <ArchitectureOverview imageSrc={archKubernetesChat} title="Kubernetes 3-Tier Architecture" caption="Ingress Controller → Frontend (React) → Backend (Node.js) → Database (MongoDB) with ConfigMaps, Secrets, HPA, and PersistentVolumes" />
       </DocSection>
 
       <DocSection id="kubernetes-deployment" title="Kubernetes Deployment Architecture" index={4}>

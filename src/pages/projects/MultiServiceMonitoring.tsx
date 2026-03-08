@@ -9,46 +9,7 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
-
-const architectureDiagram = `┌─────────────────────────────────────────────────────────────────────┐
-│                    Kind Kubernetes Cluster                           │
-│                                                                     │
-│  ┌────────────────┐         ┌────────────────┐                     │
-│  │  .NET Service  │         │ Python Service  │                     │
-│  │  (Deployment)  │         │  (Deployment)   │                     │
-│  │                │         │                 │                     │
-│  │  /metrics      │         │  /metrics       │                     │
-│  │  :8080         │         │  :8000          │                     │
-│  └───────┬────────┘         └───────┬─────────┘                     │
-│          │                          │                               │
-│          │    metrics scraping      │                               │
-│          ▼                          ▼                               │
-│  ┌──────────────────────────────────────────┐                      │
-│  │           Prometheus Server              │                      │
-│  │                                          │                      │
-│  │  • ServiceMonitor discovery              │                      │
-│  │  • 15s scrape interval                   │                      │
-│  │  • Time-series storage                   │                      │
-│  │  • Alert rules engine                    │                      │
-│  │  :9090                                   │                      │
-│  └─────────────────┬────────────────────────┘                      │
-│                    │                                                │
-│                    │  data source                                   │
-│                    ▼                                                │
-│  ┌──────────────────────────────────────────┐                      │
-│  │           Grafana Dashboard              │                      │
-│  │                                          │                      │
-│  │  • Real-time visualization               │                      │
-│  │  • Custom dashboards per service         │                      │
-│  │  • Alerting rules & notifications        │                      │
-│  │  :3000                                   │                      │
-│  └──────────────────────────────────────────┘                      │
-│                                                                     │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │
-│  │ kube-state   │  │ node         │  │ AlertManager │             │
-│  │ -metrics     │  │ -exporter    │  │              │             │
-│  └──────────────┘  └──────────────┘  └──────────────┘             │
-└─────────────────────────────────────────────────────────────────────┘`;
+import archMonitoring from "@/assets/arch-monitoring.png";
 
 const tocItems = [
   { id: "monitoring-architecture", title: "Monitoring Architecture" },
@@ -73,7 +34,7 @@ export default function MultiServiceMonitoring() {
       tocItems={tocItems}
     >
       <DocSection id="monitoring-architecture" title="Monitoring Architecture" index={1}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Kubernetes → Prometheus → Grafana Pipeline" />
+        <ArchitectureOverview imageSrc={archMonitoring} title="Kubernetes → Prometheus → Grafana Pipeline" caption=".NET and Python services expose /metrics endpoints → Prometheus scrapes at 15s intervals → Grafana visualizes with real-time dashboards and AlertManager handles notifications" />
         <p className="mt-4">
           The monitoring stack follows a pull-based architecture where Prometheus actively scrapes metrics endpoints exposed by each microservice. Grafana consumes Prometheus as a data source to render real-time dashboards with alerting capabilities.
         </p>

@@ -7,6 +7,7 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import archWanderlust from "@/assets/arch-wanderlust.png";
 
@@ -54,10 +55,10 @@ export default function WanderlustMegaProject() {
       </DocSection>
 
       <DocSection id="system-architecture" title="System Architecture" index={2}>
-        <ArchitectureOverview diagram={systemArchitectureDiagram} title="Wanderlust Full System Architecture" />
+        <ArchitectureOverview imageSrc={archWanderlust} title="Wanderlust Full System Architecture" caption="Developer → GitHub → Jenkins CI (OWASP, SonarQube, Docker, Trivy) → ArgoCD GitOps → Amazon EKS → Prometheus + Grafana" />
         <div className="mt-6">
           <h4 className="text-foreground font-semibold text-base mb-3">CI/CD Pipeline Flow</h4>
-          <ArchitectureOverview diagram={cicdPipelineDiagram} title="DevOps Pipeline Visualization" />
+          <ArchitectureOverview imageSrc={archWanderlust} title="DevOps Pipeline Visualization" caption="End-to-end CI/CD pipeline from code commit to production deployment with security scanning at every stage" />
         </div>
       </DocSection>
 

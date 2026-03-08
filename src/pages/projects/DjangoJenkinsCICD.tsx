@@ -7,6 +7,7 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import archJenkinsCicd from "@/assets/arch-jenkins-cicd.png";
 
@@ -47,7 +48,7 @@ export default function DjangoJenkinsCICD() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Jenkins CI/CD Pipeline Architecture" />
+        <ArchitectureOverview imageSrc={archJenkinsCicd} title="Jenkins CI/CD Pipeline Architecture" caption="GitHub Push → Webhook → Jenkins CI → Code Checkout → Unit Tests → SonarQube → Docker Build → Push to Registry → Deploy" />
       </DocSection>
 
       <DocSection id="problem-statement" title="Problem Statement" index={3}>
@@ -78,9 +79,8 @@ export default function DjangoJenkinsCICD() {
         <CodeBlock
           title="Jenkins Pipeline Flow"
           language="text"
-          code={architectureDiagram}
+          code={"Pipeline Stages:\n  Stage 1: Clone Repository\n  Stage 2: Install Dependencies\n  Stage 3: Run Application Checks\n  Stage 4: Run Tests\n  Stage 5: Build Application\n  Stage 6: Deploy (if on main branch)\n  → Notification (Success/Fail)"}
         />
-      </DocSection>
 
       <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable

@@ -7,6 +7,7 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import archEcs from "@/assets/arch-ecs.png";
 
@@ -47,7 +48,7 @@ export default function AwsEcsDeployment() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
-        <ArchitectureOverview diagram={architectureDiagram} title="AWS ECS Deployment Architecture" />
+        <ArchitectureOverview imageSrc={archEcs} title="AWS ECS Deployment Architecture" caption="Developer → GitHub → AWS CodeBuild → Amazon ECR → ECS Fargate → ALB → CloudWatch" />
       </DocSection>
 
       <DocSection id="problem-statement" title="Problem Statement" index={3}>
@@ -64,12 +65,7 @@ export default function AwsEcsDeployment() {
       </DocSection>
 
       <DocSection id="architecture" title="High-Level Architecture" index={4}>
-        <CodeBlock
-          title="Architecture Diagram"
-          language="text"
-          code={architectureDiagram}
-        />
-      </DocSection>
+        <p>The deployment pipeline follows: Developer pushes code → GitHub triggers CodeBuild → Docker image built and pushed to ECR → ECS Fargate pulls and deploys → ALB routes traffic → CloudWatch monitors.</p>
 
       <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable
