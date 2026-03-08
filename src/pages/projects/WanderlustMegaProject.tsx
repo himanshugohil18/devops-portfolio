@@ -9,7 +9,7 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
-import archWanderlust from "@/assets/arch-wanderlust.png";
+import archWanderlust from "@/assets/arch-wanderlust-flow.png";
 
 
 const tocItems = [
@@ -54,13 +54,9 @@ export default function WanderlustMegaProject() {
         </div>
       </DocSection>
 
-      <DocSection id="system-architecture" title="System Architecture" index={2}>
-        <ArchitectureOverview imageSrc={archWanderlust} title="Wanderlust Full System Architecture" caption="Developer → GitHub → Jenkins CI (OWASP, SonarQube, Docker, Trivy) → ArgoCD GitOps → Amazon EKS → Prometheus + Grafana" />
-        <div className="mt-6">
-          <h4 className="text-foreground font-semibold text-base mb-3">CI/CD Pipeline Flow</h4>
-          <ArchitectureOverview imageSrc={archWanderlust} title="DevOps Pipeline Visualization" caption="End-to-end CI/CD pipeline from code commit to production deployment with security scanning at every stage" />
-        </div>
-      </DocSection>
+       <DocSection id="system-architecture" title="System Architecture" index={2}>
+         <ArchitectureOverview imageSrc={archWanderlust} title="Project Deployment Flow" caption="Complete CI/CD and GitOps pipeline with security scanning, code quality gates, containerization, and Kubernetes deployment" />
+       </DocSection>
 
       <DocSection id="terraform" title="Infrastructure Provisioning with Terraform" index={3}>
         <p>All AWS infrastructure is provisioned using Terraform with modular, reusable configurations:</p>
