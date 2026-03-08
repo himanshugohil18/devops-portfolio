@@ -7,88 +7,9 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archWanderlust from "@/assets/arch-wanderlust.png";
 
-const systemArchitectureDiagram = `┌──────────────────────────────────────────────────────────────────────────┐
-│                        WANDERLUST MEGA PROJECT                          │
-│                   Production DevOps Architecture on AWS EKS             │
-│                                                                          │
-│  ┌─────────────┐                                                        │
-│  │  Developer   │                                                        │
-│  │  Workstation │                                                        │
-│  └──────┬──────┘                                                        │
-│         │ git push                                                       │
-│         ▼                                                                │
-│  ┌─────────────┐     ┌──────────────────────────────────────────────┐   │
-│  │   GitHub     │────▶│            Jenkins CI Pipeline               │   │
-│  │  Repository  │     │                                              │   │
-│  └─────────────┘     │  ┌─────────┐  ┌──────────┐  ┌────────────┐  │   │
-│                       │  │  OWASP  │  │SonarQube │  │   Docker   │  │   │
-│                       │  │ Depend. │─▶│  Code    │─▶│   Build    │  │   │
-│                       │  │  Check  │  │ Analysis │  │  & Push    │  │   │
-│                       │  └─────────┘  └──────────┘  └─────┬──────┘  │   │
-│                       │                                    │         │   │
-│                       │                             ┌──────▼──────┐  │   │
-│                       │                             │   Trivy     │  │   │
-│                       │                             │  Container  │  │   │
-│                       │                             │   Scan      │  │   │
-│                       │                             └──────┬──────┘  │   │
-│                       └────────────────────────────────────┼─────────┘   │
-│                                                            │             │
-│                                                            ▼             │
-│  ┌──────────────────────────────────────────────────────────────────┐   │
-│  │                    GitOps Layer (ArgoCD)                          │   │
-│  │                                                                  │   │
-│  │  GitHub Manifests ──▶ ArgoCD Sync ──▶ Kubernetes Apply           │   │
-│  └────────────────────────────┬─────────────────────────────────────┘   │
-│                               │                                         │
-│                               ▼                                         │
-│  ┌──────────────────────────────────────────────────────────────────┐   │
-│  │                  Amazon EKS Cluster                               │   │
-│  │                                                                   │   │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐        │   │
-│  │  │ Frontend │  │ Backend  │  │ Database │  │  Helm    │        │   │
-│  │  │  Pods    │  │  Pods    │  │  Pods    │  │ Charts   │        │   │
-│  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘        │   │
-│  │                                                                   │   │
-│  │  ┌──────────────────────┐  ┌──────────────────────┐             │   │
-│  │  │  Worker Node 1       │  │  Worker Node 2       │             │   │
-│  │  └──────────────────────┘  └──────────────────────┘             │   │
-│  └──────────────────────────────────────────────────────────────────┘   │
-│                               │                                         │
-│                               ▼                                         │
-│  ┌──────────────────────────────────────────────────────────────────┐   │
-│  │                  Monitoring Layer                                 │   │
-│  │                                                                   │   │
-│  │  ┌──────────────┐         ┌──────────────┐                      │   │
-│  │  │  Prometheus   │────────▶│   Grafana    │                      │   │
-│  │  │  Metrics      │         │  Dashboards  │                      │   │
-│  │  └──────────────┘         └──────────────┘                      │   │
-│  │                                                                   │   │
-│  │  ┌──────────────────────────────────┐                            │   │
-│  │  │  Email Notifications (Alerts)    │                            │   │
-│  │  └──────────────────────────────────┘                            │   │
-│  └──────────────────────────────────────────────────────────────────┘   │
-│                                                                          │
-│  ┌──────────────────────────────────────────────────────────────────┐   │
-│  │              Infrastructure Layer (Terraform)                     │   │
-│  │                                                                   │   │
-│  │  AWS EC2 │ IAM Roles │ Security Groups │ Key Pairs │ VPC/Subnets │   │
-│  └──────────────────────────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────────────────────────────┘`;
-
-const cicdPipelineDiagram = `┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  GitHub  │───▶│  OWASP   │───▶│ SonarQube│───▶│  Docker  │───▶│  Trivy   │
-│  Push    │    │  Scan    │    │ Analysis │    │  Build   │    │  Scan    │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘    └─────┬────┘
-                                                                      │
-     ┌────────────────────────────────────────────────────────────────┘
-     ▼
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  Push    │───▶│  ArgoCD  │───▶│   EKS    │───▶│ Monitor  │
-│  Image   │    │  GitOps  │    │  Deploy  │    │ & Alert  │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },

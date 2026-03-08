@@ -7,33 +7,9 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archGitWorkflow from "@/assets/arch-git-workflow.png";
 
-const architectureDiagram = `                    main (protected)
-                      │
-                      ├── release/v1.2.0
-                      │     │
-                      │     └── hotfix/critical-fix
-                      │
-                      ├── develop
-                      │     │
-                      │     ├── feature/user-auth
-                      │     │     └── PR → develop (requires 2 approvals)
-                      │     │
-                      │     ├── feature/payment-api
-                      │     │     └── PR → develop (requires CI pass)
-                      │     │
-                      │     └── bugfix/login-error
-                      │           └── PR → develop
-                      │
-                      └── staging
-                            └── Auto-deploy from develop merges
-
-Branch Protection Rules:
-  main    → 2 approvals + CI pass + no force push
-  develop → 1 approval  + CI pass
-  staging → auto-deploy trigger`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },

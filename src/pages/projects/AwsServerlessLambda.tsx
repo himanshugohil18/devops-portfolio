@@ -7,21 +7,9 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archServerless from "@/assets/arch-serverless.png";
 
-const architectureDiagram = `┌──────────┐     ┌──────────────────┐     ┌──────────────┐
-│  Client  │────▶│  API Gateway     │────▶│  AWS Lambda   │
-│  (HTTP)  │     │  (REST API)      │     │  (Functions)  │
-└──────────┘     └──────────────────┘     └──────┬───────┘
-                                                  │
-                         ┌────────────────────────┼────────────────┐
-                         │                        │                │
-                         ▼                        ▼                ▼
-                  ┌──────────────┐     ┌──────────────┐   ┌──────────────┐
-                  │  DynamoDB    │     │  S3 Bucket   │   │  CloudWatch  │
-                  │  (Database)  │     │  (Storage)   │   │  (Logs)      │
-                  └──────────────┘     └──────────────┘   └──────────────┘`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },

@@ -7,29 +7,9 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archDjangoNginx from "@/assets/arch-django-nginx.png";
 
-const architectureDiagram = `┌─────────────────────────────────────────────────────┐
-│                 Docker Network                       │
-│                                                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────┐ │
-│  │    Nginx      │  │    Django     │  │   MySQL    │ │
-│  │  (Reverse     │──│  (WSGI App)  │──│ (Database) │ │
-│  │   Proxy)      │  │  Port: 8000  │  │ Port: 3306 │ │
-│  │  Port: 80     │  │              │  │            │ │
-│  └──────────────┘  └──────────────┘  └────────────┘ │
-│        │                                     │       │
-│        ▼                                     ▼       │
-│  ┌──────────────┐                   ┌────────────┐  │
-│  │ Static Files  │                   │  Data Vol  │  │
-│  │   Volume      │                   │ (Persist)  │  │
-│  └──────────────┘                   └────────────┘  │
-└─────────────────────────────────────────────────────┘
-         │
-    Host Port 80
-         ▼
-    End Users`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },

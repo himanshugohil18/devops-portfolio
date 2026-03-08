@@ -7,35 +7,9 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archJenkinsCicd from "@/assets/arch-jenkins-cicd.png";
 
-const architectureDiagram = `┌──────────┐     ┌──────────────┐     ┌──────────────────────┐
-│  GitHub  │────▶│   Webhook    │────▶│      Jenkins         │
-│  Push    │     │   Trigger    │     │    (CI Server)       │
-└──────────┘     └──────────────┘     └──────────┬───────────┘
-                                                  │
-                     Pipeline Stages:             │
-                                                  ▼
-                  ┌─────────────────────────────────────────┐
-                  │  Stage 1: Clone Repository              │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 2: Install Dependencies          │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 3: Run Application Checks        │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 4: Run Tests                     │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 5: Build Application             │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 6: Deploy (if on main branch)    │
-                  └─────────────────────────────────────────┘
-                                    │
-                                    ▼
-                          ┌──────────────────┐
-                          │  Notification    │
-                          │  (Success/Fail)  │
-                          └──────────────────┘`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },

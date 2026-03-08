@@ -7,45 +7,9 @@ import { AuthorSection } from "@/components/docs/AuthorSection";
 import { ArchitectureOverview } from "@/components/docs/ArchitectureOverview";
 import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archKubernetesChat from "@/assets/arch-kubernetes-chat.png";
 
-const architectureDiagram = `┌─────────────────────────────────────────────────────────────────┐
-│                    Minikube Kubernetes Cluster                   │
-│                                                                 │
-│  ┌───────────────┐    ┌───────────────┐    ┌───────────────┐   │
-│  │   Frontend    │    │   Backend     │    │   Database    │   │
-│  │   (React)     │───▶│   (Node.js)   │───▶│   (MongoDB)   │   │
-│  │               │    │               │    │               │   │
-│  │  Deployment   │    │  Deployment   │    │  StatefulSet  │   │
-│  │  replicas: 2  │    │  replicas: 3  │    │  replicas: 1  │   │
-│  └───────┬───────┘    └───────┬───────┘    └───────┬───────┘   │
-│          │                    │                    │            │
-│  ┌───────▼───────┐    ┌───────▼───────┐    ┌───────▼───────┐   │
-│  │  ClusterIP    │    │  ClusterIP    │    │  ClusterIP    │   │
-│  │  Service      │    │  Service      │    │  Service      │   │
-│  │  :3000        │    │  :5000        │    │  :27017       │   │
-│  └───────────────┘    └───────────────┘    └───────────────┘   │
-│                                                                 │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │              ConfigMaps & Secrets                        │   │
-│  │   DB_HOST, DB_PORT, API_URL, MONGO_URI (encrypted)      │   │
-│  └─────────────────────────────────────────────────────────┘   │
-│                                                                 │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐                     │
-│  │  HPA     │  │ PV/PVC   │  │ Network  │                     │
-│  │ (Auto    │  │ (Persist │  │ Policies │                     │
-│  │  Scale)  │  │  Data)   │  │          │                     │
-│  └──────────┘  └──────────┘  └──────────┘                     │
-└─────────────────────────────────────────────────────────────────┘
-         │
-         ▼
-┌─────────────────┐
-│  NodePort /      │
-│  Ingress         │
-│  (External       │
-│   Access)        │
-└─────────────────┘`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
