@@ -1,78 +1,125 @@
-<<<<<<< HEAD
-# Welcome to your Lovable project
+# 🚀 DevOps Portfolio
 
-## Project info
+A DevOps portfolio project demonstrating modern cloud-native practices including containerization, infrastructure as code, CI/CD automation, Kubernetes orchestration, GitOps workflows, and monitoring.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## 🧑‍💻 About The Project
 
-There are several ways of editing your application.
+This project showcases practical DevOps skills used in real-world production environments.  
+It demonstrates how applications are built, containerized, deployed, automated, and monitored using modern DevOps tools and cloud infrastructure.
 
-**Use Lovable**
+The goal of this project is to simulate a real DevOps workflow from development to deployment and monitoring.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠 Tech Stack
 
-**Use your preferred IDE**
+### Cloud
+- Amazon Web Services (AWS)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Containerization
+- Docker
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Container Orchestration
+- Kubernetes
 
-Follow these steps:
+### Infrastructure as Code
+- Terraform
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### CI/CD
+- GitHub Actions
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### GitOps
+- ArgoCD
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Monitoring & Observability
+- Prometheus  
+- Grafana
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Frontend
+- React  
+- TypeScript  
+- Tailwind CSS  
+
+---
+
+## 🏗 Architecture Overview
+
+Developer pushes code to GitHub → CI/CD pipeline builds Docker image → Image pushed to container registry → Kubernetes deploys the application → GitOps manages deployments → Monitoring tools collect metrics and visualize performance.
+
+---
+
+## 📂 Project Structure
+
+```
+devops-portfolio
+│
+├── src/                # Application source code
+├── public/             # Static files
+├── kubernetes/         # Kubernetes manifests
+├── terraform/          # Infrastructure as Code
+├── docker/             # Docker configuration
+├── monitoring/         # Prometheus & Grafana setup
+└── .github/workflows/  # CI/CD pipelines
+```
+
+---
+
+## ⚙️ Local Development Setup
+
+### Clone the Repository
+
+```
+git clone https://github.com/himanshugohil18/devops-portfolio.git
+```
+
+### Navigate to Project Directory
+
+```
+cd devops-portfolio
+```
+
+### Install Dependencies
+
+```
+npm install
+```
+
+### Start Development Server
+
+```
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🚀 DevOps Features
 
-**Use GitHub Codespaces**
+- Containerized application using Docker
+- Kubernetes deployment configuration
+- Infrastructure provisioning using Terraform
+- Automated CI/CD pipeline
+- GitOps deployment workflow
+- Monitoring and observability setup
+- Cloud deployment architecture
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 📈 Future Improvements
 
-This project is built with:
+- Helm charts for Kubernetes deployments
+- Multi-environment setup (Dev / Staging / Production)
+- Auto scaling with Kubernetes HPA
+- Security scanning in CI/CD pipeline
+- Blue/Green or Canary deployments
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 👨‍💻 Author
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Himanshu Gohil  
+DevOps Enthusiast | Cloud & Kubernetes Learner  
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
-=======
-# devops-portfolio
-🚀 DevOps Portfolio showcasing AWS ☁️, Kubernetes ☸️, CI/CD ⚙️, Terraform 🏗, Docker 🐳, GitOps 🔄 and Monitoring 📊
->>>>>>> 1035af4e434c8bbc3d5316c6eb5c182d6f49b9a3
+GitHub:  
+https://github.com/himanshugohil18
