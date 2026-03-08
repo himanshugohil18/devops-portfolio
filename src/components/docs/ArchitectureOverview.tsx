@@ -53,8 +53,10 @@ export function ArchitectureOverview({ diagram, title = "Architecture Diagram" }
                 >
                   <X className="w-5 h-5 text-foreground" />
                 </button>
-                <h3 className="text-xl font-display font-bold mb-6 gradient-text">{title}</h3>
-                <pre className="text-sm md:text-base text-muted-foreground font-mono leading-relaxed whitespace-pre overflow-x-auto">{diagram}</pre>
+                <h3 className="text-xl font-display font-bold mb-8 gradient-text">{title}</h3>
+                <div className="flex justify-center overflow-x-auto bg-muted/30 rounded-xl border border-border/30 p-6 md:p-8">
+                  <pre className="text-sm md:text-base text-muted-foreground font-mono leading-[1.4] whitespace-pre flex-shrink-0" style={{ minWidth: 'fit-content' }}>{diagram}</pre>
+                </div>
               </div>
             </motion.div>
           </>
