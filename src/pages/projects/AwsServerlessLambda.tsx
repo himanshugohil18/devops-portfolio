@@ -9,7 +9,7 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
-import archServerless from "@/assets/arch-serverless.png";
+import archServerless from "@/assets/arch-serverless-diagram.png";
 
 
 const tocItems = [
