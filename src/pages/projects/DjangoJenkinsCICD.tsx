@@ -81,6 +81,7 @@ export default function DjangoJenkinsCICD() {
           language="text"
           code={"Pipeline Stages:\n  Stage 1: Clone Repository\n  Stage 2: Install Dependencies\n  Stage 3: Run Application Checks\n  Stage 4: Run Tests\n  Stage 5: Build Application\n  Stage 6: Deploy (if on main branch)\n  → Notification (Success/Fail)"}
         />
+      </DocSection>
 
       <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable

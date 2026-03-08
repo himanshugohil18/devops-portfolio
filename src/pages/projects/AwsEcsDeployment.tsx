@@ -66,6 +66,7 @@ export default function AwsEcsDeployment() {
 
       <DocSection id="architecture" title="High-Level Architecture" index={4}>
         <p>The deployment pipeline follows: Developer pushes code → GitHub triggers CodeBuild → Docker image built and pushed to ECR → ECS Fargate pulls and deploys → ALB routes traffic → CloudWatch monitors.</p>
+      </DocSection>
 
       <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable

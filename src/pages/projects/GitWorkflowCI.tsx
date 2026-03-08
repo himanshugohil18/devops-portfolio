@@ -70,6 +70,7 @@ export default function GitWorkflowCI() {
           language="text"
           code={"main (protected)\n  ├── release/v1.2.0\n  │     └── hotfix/critical-fix\n  ├── develop\n  │     ├── feature/user-auth → PR (2 approvals)\n  │     ├── feature/payment-api → PR (CI pass)\n  │     └── bugfix/login-error → PR\n  └── staging → Auto-deploy from develop\n\nBranch Protection:\n  main    → 2 approvals + CI pass + no force push\n  develop → 1 approval  + CI pass\n  staging → auto-deploy trigger"}
         />
+      </DocSection>
 
       <DocSection id="tech-stack" title="Technology Stack" index={5}>
         <TechTable
