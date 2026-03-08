@@ -9,27 +9,8 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archDjangoNginx from "@/assets/arch-django-nginx.png";
 
-const architectureDiagram = `┌─────────────────────────────────────────────────────┐
-│                 Docker Network                       │
-│                                                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────┐ │
-│  │    Nginx      │  │    Django     │  │   MySQL    │ │
-│  │  (Reverse     │──│  (WSGI App)  │──│ (Database) │ │
-│  │   Proxy)      │  │  Port: 8000  │  │ Port: 3306 │ │
-│  │  Port: 80     │  │              │  │            │ │
-│  └──────────────┘  └──────────────┘  └────────────┘ │
-│        │                                     │       │
-│        ▼                                     ▼       │
-│  ┌──────────────┐                   ┌────────────┐  │
-│  │ Static Files  │                   │  Data Vol  │  │
-│  │   Volume      │                   │ (Persist)  │  │
-│  └──────────────┘                   └────────────┘  │
-└─────────────────────────────────────────────────────┘
-         │
-    Host Port 80
-         ▼
-    End Users`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
@@ -66,7 +47,7 @@ export default function DjangoNginxMysql() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Docker Multi-Container Architecture" />
+        <ArchitectureOverview imageSrc={archDjangoNginx} title="Docker Multi-Container Architecture" caption="Nginx Reverse Proxy → Django Application → MySQL Database with Docker Compose networking and persistent volumes" />
       </DocSection>
 
       <DocSection id="problem-statement" title="Problem Statement" index={3}>
@@ -82,12 +63,7 @@ export default function DjangoNginxMysql() {
       </DocSection>
 
       <DocSection id="architecture" title="High-Level Architecture" index={4}>
-        <CodeBlock
-          title="Architecture Diagram"
-          language="text"
-          code={architectureDiagram}
-        />
-        <h3 className="text-foreground font-semibold text-base mb-3 mt-6">Project Structure</h3>
+        <p className="mb-4">The architecture uses Docker Compose to orchestrate Nginx (reverse proxy on port 80), Django (WSGI app on port 8000), and MySQL (database on port 3306), connected via Docker networking with persistent volumes for static files and database data.</p>
         <CodeBlock
           title="Project Tree"
           language="text"

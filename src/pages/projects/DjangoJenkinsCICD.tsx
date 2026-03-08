@@ -9,33 +9,8 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archJenkinsCicd from "@/assets/arch-jenkins-cicd.png";
 
-const architectureDiagram = `┌──────────┐     ┌──────────────┐     ┌──────────────────────┐
-│  GitHub  │────▶│   Webhook    │────▶│      Jenkins         │
-│  Push    │     │   Trigger    │     │    (CI Server)       │
-└──────────┘     └──────────────┘     └──────────┬───────────┘
-                                                  │
-                     Pipeline Stages:             │
-                                                  ▼
-                  ┌─────────────────────────────────────────┐
-                  │  Stage 1: Clone Repository              │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 2: Install Dependencies          │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 3: Run Application Checks        │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 4: Run Tests                     │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 5: Build Application             │
-                  ├─────────────────────────────────────────┤
-                  │  Stage 6: Deploy (if on main branch)    │
-                  └─────────────────────────────────────────┘
-                                    │
-                                    ▼
-                          ┌──────────────────┐
-                          │  Notification    │
-                          │  (Success/Fail)  │
-                          └──────────────────┘`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
@@ -73,7 +48,7 @@ export default function DjangoJenkinsCICD() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Jenkins CI/CD Pipeline Architecture" />
+        <ArchitectureOverview imageSrc={archJenkinsCicd} title="Jenkins CI/CD Pipeline Architecture" caption="GitHub Push → Webhook → Jenkins CI → Code Checkout → Unit Tests → SonarQube → Docker Build → Push to Registry → Deploy" />
       </DocSection>
 
       <DocSection id="problem-statement" title="Problem Statement" index={3}>
@@ -104,7 +79,7 @@ export default function DjangoJenkinsCICD() {
         <CodeBlock
           title="Jenkins Pipeline Flow"
           language="text"
-          code={architectureDiagram}
+          code={"Pipeline Stages:\n  Stage 1: Clone Repository\n  Stage 2: Install Dependencies\n  Stage 3: Run Application Checks\n  Stage 4: Run Tests\n  Stage 5: Build Application\n  Stage 6: Deploy (if on main branch)\n  → Notification (Success/Fail)"}
         />
       </DocSection>
 

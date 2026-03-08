@@ -9,43 +9,8 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archKubernetesChat from "@/assets/arch-kubernetes-chat.png";
 
-const architectureDiagram = `┌─────────────────────────────────────────────────────────────────┐
-│                    Minikube Kubernetes Cluster                   │
-│                                                                 │
-│  ┌───────────────┐    ┌───────────────┐    ┌───────────────┐   │
-│  │   Frontend    │    │   Backend     │    │   Database    │   │
-│  │   (React)     │───▶│   (Node.js)   │───▶│   (MongoDB)   │   │
-│  │               │    │               │    │               │   │
-│  │  Deployment   │    │  Deployment   │    │  StatefulSet  │   │
-│  │  replicas: 2  │    │  replicas: 3  │    │  replicas: 1  │   │
-│  └───────┬───────┘    └───────┬───────┘    └───────┬───────┘   │
-│          │                    │                    │            │
-│  ┌───────▼───────┐    ┌───────▼───────┐    ┌───────▼───────┐   │
-│  │  ClusterIP    │    │  ClusterIP    │    │  ClusterIP    │   │
-│  │  Service      │    │  Service      │    │  Service      │   │
-│  │  :3000        │    │  :5000        │    │  :27017       │   │
-│  └───────────────┘    └───────────────┘    └───────────────┘   │
-│                                                                 │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │              ConfigMaps & Secrets                        │   │
-│  │   DB_HOST, DB_PORT, API_URL, MONGO_URI (encrypted)      │   │
-│  └─────────────────────────────────────────────────────────┘   │
-│                                                                 │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐                     │
-│  │  HPA     │  │ PV/PVC   │  │ Network  │                     │
-│  │ (Auto    │  │ (Persist │  │ Policies │                     │
-│  │  Scale)  │  │  Data)   │  │          │                     │
-│  └──────────┘  └──────────┘  └──────────┘                     │
-└─────────────────────────────────────────────────────────────────┘
-         │
-         ▼
-┌─────────────────┐
-│  NodePort /      │
-│  Ingress         │
-│  (External       │
-│   Access)        │
-└─────────────────┘`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
@@ -91,7 +56,7 @@ export default function KubernetesChatApp() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={3}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Kubernetes 3-Tier Architecture" />
+        <ArchitectureOverview imageSrc={archKubernetesChat} title="Kubernetes 3-Tier Architecture" caption="Ingress Controller → Frontend (React) → Backend (Node.js) → Database (MongoDB) with ConfigMaps, Secrets, HPA, and PersistentVolumes" />
       </DocSection>
 
       <DocSection id="kubernetes-deployment" title="Kubernetes Deployment Architecture" index={4}>

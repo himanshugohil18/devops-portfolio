@@ -9,31 +9,8 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archGitWorkflow from "@/assets/arch-git-workflow.png";
 
-const architectureDiagram = `                    main (protected)
-                      │
-                      ├── release/v1.2.0
-                      │     │
-                      │     └── hotfix/critical-fix
-                      │
-                      ├── develop
-                      │     │
-                      │     ├── feature/user-auth
-                      │     │     └── PR → develop (requires 2 approvals)
-                      │     │
-                      │     ├── feature/payment-api
-                      │     │     └── PR → develop (requires CI pass)
-                      │     │
-                      │     └── bugfix/login-error
-                      │           └── PR → develop
-                      │
-                      └── staging
-                            └── Auto-deploy from develop merges
-
-Branch Protection Rules:
-  main    → 2 approvals + CI pass + no force push
-  develop → 1 approval  + CI pass
-  staging → auto-deploy trigger`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
@@ -71,7 +48,7 @@ export default function GitWorkflowCI() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Git Branching Strategy" />
+        <ArchitectureOverview imageSrc={archGitWorkflow} title="Git Branching Strategy" caption="main (protected) → release branches → develop → feature branches → staging with automated CI validation" />
       </DocSection>
 
       <DocSection id="problem-statement" title="Problem Statement" index={3}>
@@ -91,7 +68,7 @@ export default function GitWorkflowCI() {
         <CodeBlock
           title="Git Branching Strategy"
           language="text"
-          code={architectureDiagram}
+          code={"main (protected)\n  ├── release/v1.2.0\n  │     └── hotfix/critical-fix\n  ├── develop\n  │     ├── feature/user-auth → PR (2 approvals)\n  │     ├── feature/payment-api → PR (CI pass)\n  │     └── bugfix/login-error → PR\n  └── staging → Auto-deploy from develop\n\nBranch Protection:\n  main    → 2 approvals + CI pass + no force push\n  develop → 1 approval  + CI pass\n  staging → auto-deploy trigger"}
         />
       </DocSection>
 

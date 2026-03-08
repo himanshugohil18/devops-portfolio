@@ -9,19 +9,8 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import archServerless from "@/assets/arch-serverless.png";
 
-const architectureDiagram = `┌──────────┐     ┌──────────────────┐     ┌──────────────┐
-│  Client  │────▶│  API Gateway     │────▶│  AWS Lambda   │
-│  (HTTP)  │     │  (REST API)      │     │  (Functions)  │
-└──────────┘     └──────────────────┘     └──────┬───────┘
-                                                  │
-                         ┌────────────────────────┼────────────────┐
-                         │                        │                │
-                         ▼                        ▼                ▼
-                  ┌──────────────┐     ┌──────────────┐   ┌──────────────┐
-                  │  DynamoDB    │     │  S3 Bucket   │   │  CloudWatch  │
-                  │  (Database)  │     │  (Storage)   │   │  (Logs)      │
-                  └──────────────┘     └──────────────┘   └──────────────┘`;
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
@@ -59,7 +48,7 @@ export default function AwsServerlessLambda() {
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
-        <ArchitectureOverview diagram={architectureDiagram} title="Serverless Architecture Overview" />
+        <ArchitectureOverview imageSrc={archServerless} title="Serverless Architecture Overview" caption="Client → API Gateway → AWS Lambda → DynamoDB / S3 / CloudWatch" />
       </DocSection>
 
       <DocSection id="problem-statement" title="Problem Statement" index={3}>
@@ -78,9 +67,7 @@ export default function AwsServerlessLambda() {
         <CodeBlock
           title="Serverless Architecture"
           language="text"
-          code={`${architectureDiagram}
-
-Request Flow:
+          code={`Request Flow:
   1. Client sends HTTP request
   2. API Gateway validates & routes request
   3. Lambda function processes business logic
