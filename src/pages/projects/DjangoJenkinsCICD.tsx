@@ -9,12 +9,45 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { AdvancedDevOpsSections, advancedDevOpsTocItems } from "@/components/docs/AdvancedDevOpsSections";
 import archJenkinsCicd from "@/assets/arch-jenkins-cicd.png";
 
+const cicdLayers = [
+  { name: "CI/CD Layer", tools: [
+    { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+    { name: "Jenkins", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
+  ]},
+  { name: "Application Layer", tools: [
+    { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+    { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  ]},
+  { name: "Testing Layer", tools: [
+    { name: "PyTest", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" },
+  ]},
+  { name: "Deployment Layer", tools: [
+    { name: "Linux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
+  ]},
+];
+
+const cicdPipeline = [
+  { label: "Developer", icon: "👨‍💻" },
+  { label: "GitHub Push", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { label: "Webhook", icon: "🔗" },
+  { label: "Jenkins CI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
+  { label: "Unit Tests", icon: "🧪" },
+  { label: "Build", icon: "📦" },
+  { label: "Deploy", icon: "🚀" },
+];
+
+const cicdChallenges = [
+  { problem: "Manual deployments took 30+ minutes and were error-prone.", solution: "Automated the entire pipeline with Jenkins, reducing deployment time to under 5 minutes with zero manual intervention." },
+  { problem: "No automated testing meant bugs reached production undetected.", solution: "Integrated Django test framework and PyTest into the pipeline, catching regressions before merge." },
+];
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
   { id: "architecture-overview", title: "Architecture Overview" },
+  ...advancedDevOpsTocItems,
   { id: "problem-statement", title: "Problem Statement" },
   { id: "architecture", title: "Pipeline Architecture" },
   { id: "tech-stack", title: "Technology Stack" },
@@ -38,23 +71,40 @@ export default function DjangoJenkinsCICD() {
       title="Django Notes App – CI/CD Automation with Jenkins"
       subtitle="CI/CD · Jenkins · Automation"
       tags={["Jenkins", "GitHub", "Django", "Python", "CI/CD Pipelines", "Linux", "Shell Scripting"]}
-      summary="Built a Django-based Notes application and implemented a complete CI/CD pipeline using Jenkins to automate build, test, and deployment workflows. The pipeline triggers on GitHub commits, installs dependencies, runs application checks, and prepares the application for deployment."
+      summary="Built a Django-based Notes application and implemented a complete CI/CD pipeline using Jenkins to automate build, test, and deployment workflows."
       tocItems={tocItems}
     >
       <DocSection id="executive-summary" title="Executive Summary" index={1}>
-        <p>
-          This project demonstrates end-to-end CI/CD automation for a Django web application using Jenkins. From code commit to deployment readiness, every stage is automated — dependency installation, code quality checks, testing, and build preparation. The pipeline integrates with GitHub webhooks for automatic triggering on every push.
-        </p>
+        <p>This project demonstrates end-to-end CI/CD automation for a Django web application using Jenkins. From code commit to deployment readiness, every stage is automated — dependency installation, code quality checks, testing, and build preparation.</p>
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={2}>
         <ArchitectureOverview imageSrc={archJenkinsCicd} title="Jenkins CI/CD Pipeline Architecture" caption="GitHub Push → Webhook → Jenkins CI → Code Checkout → Unit Tests → SonarQube → Docker Build → Push to Registry → Deploy" />
       </DocSection>
 
-      <DocSection id="problem-statement" title="Problem Statement" index={3}>
-        <p>
-          Manual deployment processes are slow, error-prone, and inconsistent. Developers spend hours on repetitive build and deployment tasks instead of writing code. Without automated testing, bugs slip into production undetected. There's a critical need for a reliable, repeatable CI/CD pipeline.
-        </p>
+      <AdvancedDevOpsSections
+        startIndex={3}
+        layers={cicdLayers}
+        pipelineSteps={cicdPipeline}
+        challenges={cicdChallenges}
+        iacTool="Jenkins Pipeline as Code"
+        iacDescription="CI/CD infrastructure is defined as code using Jenkinsfile, providing version-controlled, reproducible pipeline configurations."
+        practices={[
+          { title: "CI/CD Automation", description: "Fully automated build, test, and deploy with Jenkins", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
+          { title: "Pipeline as Code", description: "Jenkinsfile stored in Git for version-controlled pipelines", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+          { title: "Automated Testing", description: "Django test suite runs on every commit", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg" },
+          { title: "Webhook Integration", description: "GitHub webhooks trigger builds automatically", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+          { title: "Credential Management", description: "Secrets stored in Jenkins credential manager", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" },
+          { title: "Workspace Cleanup", description: "Build artifacts cleaned after every pipeline run", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
+        ]}
+        productionFeatures={["Automated Build Pipeline", "Unit Test Integration", "GitHub Webhook Triggers", "Credential Management", "Workspace Cleanup", "Email Notifications", "Build History Tracking", "Stage Duration Monitoring"]}
+        observabilityTools={[
+          { name: "Jenkins", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg", role: "Build Monitoring" },
+        ]}
+      />
+
+      <DocSection id="problem-statement" title="Problem Statement" index={12}>
+        <p>Manual deployment processes are slow, error-prone, and inconsistent.</p>
         <ul className="list-disc pl-5 space-y-2 mt-3">
           <li>Manual build and deployment taking 30+ minutes per release</li>
           <li>No automated testing gate — bugs reaching production</li>
@@ -62,47 +112,35 @@ export default function DjangoJenkinsCICD() {
           <li>No rollback mechanism for failed deployments</li>
           <li>Lack of visibility into build and deployment status</li>
         </ul>
-
         <h3 className="text-foreground font-semibold text-base mb-3 mt-6">Risk Comparison: Manual vs Automated</h3>
-        <TechTable
-          rows={[
-            { layer: "Deployment Time", technology: "30+ min manual → 5 min automated" },
-            { layer: "Human Error Rate", technology: "High → Near zero" },
-            { layer: "Rollback Time", technology: "Hours → Minutes" },
-            { layer: "Test Coverage", technology: "Inconsistent → Every build" },
-            { layer: "Audit Trail", technology: "None → Complete history" },
-          ]}
-        />
+        <TechTable rows={[
+          { layer: "Deployment Time", technology: "30+ min manual → 5 min automated" },
+          { layer: "Human Error Rate", technology: "High → Near zero" },
+          { layer: "Rollback Time", technology: "Hours → Minutes" },
+          { layer: "Test Coverage", technology: "Inconsistent → Every build" },
+          { layer: "Audit Trail", technology: "None → Complete history" },
+        ]} />
       </DocSection>
 
-      <DocSection id="architecture" title="Pipeline Architecture" index={4}>
-        <CodeBlock
-          title="Jenkins Pipeline Flow"
-          language="text"
-          code={"Pipeline Stages:\n  Stage 1: Clone Repository\n  Stage 2: Install Dependencies\n  Stage 3: Run Application Checks\n  Stage 4: Run Tests\n  Stage 5: Build Application\n  Stage 6: Deploy (if on main branch)\n  → Notification (Success/Fail)"}
-        />
+      <DocSection id="architecture" title="Pipeline Architecture" index={13}>
+        <CodeBlock title="Jenkins Pipeline Flow" language="text" code={"Pipeline Stages:\n  Stage 1: Clone Repository\n  Stage 2: Install Dependencies\n  Stage 3: Run Application Checks\n  Stage 4: Run Tests\n  Stage 5: Build Application\n  Stage 6: Deploy (if on main branch)\n  → Notification (Success/Fail)"} />
       </DocSection>
 
-      <DocSection id="tech-stack" title="Technology Stack" index={5}>
-        <TechTable
-          rows={[
-            { layer: "Application", technology: "Django (Python 3.11)" },
-            { layer: "CI/CD Server", technology: "Jenkins" },
-            { layer: "Version Control", technology: "GitHub" },
-            { layer: "Build Tool", technology: "pip + Shell Scripts" },
-            { layer: "Testing", technology: "Django Test Framework + PyTest" },
-            { layer: "Deployment", technology: "Linux Server (SSH)" },
-            { layer: "Scripting", technology: "Bash / Shell" },
-          ]}
-        />
+      <DocSection id="tech-stack" title="Technology Stack" index={14}>
+        <TechTable rows={[
+          { layer: "Application", technology: "Django (Python 3.11)" },
+          { layer: "CI/CD Server", technology: "Jenkins" },
+          { layer: "Version Control", technology: "GitHub" },
+          { layer: "Build Tool", technology: "pip + Shell Scripts" },
+          { layer: "Testing", technology: "Django Test Framework + PyTest" },
+          { layer: "Deployment", technology: "Linux Server (SSH)" },
+          { layer: "Scripting", technology: "Bash / Shell" },
+        ]} />
       </DocSection>
 
-      <DocSection id="implementation" title="Detailed Implementation Steps" index={6}>
+      <DocSection id="implementation" title="Detailed Implementation Steps" index={15}>
         <h3 className="text-foreground font-semibold text-base mb-3">Jenkinsfile</h3>
-        <CodeBlock
-          title="Jenkinsfile"
-          language="groovy"
-          code={`pipeline {
+        <CodeBlock title="Jenkinsfile" language="groovy" code={`pipeline {
     agent any
     
     environment {
@@ -180,11 +218,10 @@ export default function DjangoJenkinsCICD() {
             cleanWs()
         }
     }
-}`}
-        />
+}`} />
       </DocSection>
 
-      <DocSection id="security" title="Security Architecture" index={7}>
+      <DocSection id="security" title="Security Architecture" index={16}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Jenkins Credentials:</strong> All secrets stored in Jenkins credential manager, never in Jenkinsfile</li>
           <li><strong>Webhook Secret:</strong> GitHub webhook configured with shared secret for request verification</li>
@@ -195,13 +232,10 @@ export default function DjangoJenkinsCICD() {
         </ul>
       </DocSection>
 
-      <DocSection id="webhook" title="Webhook Integration" index={8}>
+      <DocSection id="webhook" title="Webhook Integration" index={17}>
         <h3 className="text-foreground font-semibold text-base mb-3">GitHub Webhook Setup</h3>
         <p className="mb-4">Configure GitHub webhooks to trigger Jenkins builds automatically on every push or pull request event.</p>
-        <CodeBlock
-          title="Webhook Configuration"
-          language="text"
-          code={`GitHub Repository Settings → Webhooks → Add Webhook
+        <CodeBlock title="Webhook Configuration" language="text" code={`GitHub Repository Settings → Webhooks → Add Webhook
 
 Payload URL: http://jenkins-server:8080/github-webhook/
 Content Type: application/json
@@ -209,12 +243,10 @@ Secret: <shared-secret>
 Events: Push events, Pull request events
 
 Jenkins Job Configuration:
-  Build Triggers → GitHub hook trigger for GITScm polling ✓`}
-        />
-        <p className="mt-4">The webhook ensures that every code push automatically triggers the CI pipeline, providing immediate feedback to developers on their changes.</p>
+  Build Triggers → GitHub hook trigger for GITScm polling ✓`} />
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring & Logging" index={9}>
+      <DocSection id="monitoring" title="Monitoring & Logging" index={18}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>Build History:</strong> Complete history of all builds with logs and artifacts</li>
           <li><strong>Console Output:</strong> Real-time build log streaming for each stage</li>
@@ -229,7 +261,7 @@ Jenkins Job Configuration:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="scalability" title="Scalability Strategy" index={10}>
+      <DocSection id="scalability" title="Scalability Strategy" index={19}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Jenkins distributed builds with master/agent architecture</li>
           <li>Multiple agents for parallel pipeline execution</li>
@@ -245,7 +277,7 @@ Jenkins Job Configuration:
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={11}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={20}>
         <ProductionMetrics metrics={[
           { label: "Deployment Automation", value: 90 },
           { label: "System Reliability", value: 88 },
@@ -255,11 +287,11 @@ Jenkins Job Configuration:
         ]} />
       </DocSection>
 
-      <DocSection id="project-impact" title="Project Impact" index={12}>
+      <DocSection id="project-impact" title="Project Impact" index={21}>
         <ProjectImpact />
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={13}>
+      <DocSection id="improvements" title="Production Improvements" index={22}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -280,7 +312,7 @@ Jenkins Job Configuration:
         </Collapsible>
       </DocSection>
 
-      <DocSection id="skills" title="DevOps Skills Demonstrated" index={14}>
+      <DocSection id="skills" title="DevOps Skills Demonstrated" index={23}>
         <div className="flex flex-wrap gap-2">
           {["Jenkins", "CI/CD", "Pipeline as Code", "GitHub Webhooks", "Django", "Python", "Shell Scripting", "Linux", "Build Automation", "Test Automation", "Deployment Automation"].map((skill) => (
             <span key={skill} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -290,25 +322,21 @@ Jenkins Job Configuration:
         </div>
       </DocSection>
 
-      <DocSection id="business-value" title="Business Value" index={15}>
-        <TechTable
-          rows={[
-            { layer: "Deployment Speed", technology: "30 min → 5 min (83% faster)" },
-            { layer: "Bug Detection", technology: "Post-release → Pre-merge" },
-            { layer: "Developer Productivity", technology: "40% more time on features" },
-            { layer: "Deployment Confidence", technology: "Manual hope → Automated certainty" },
-            { layer: "Release Frequency", technology: "Weekly → Multiple daily deployments" },
-          ]}
-        />
+      <DocSection id="business-value" title="Business Value" index={24}>
+        <TechTable rows={[
+          { layer: "Deployment Speed", technology: "30 min → 5 min (83% faster)" },
+          { layer: "Bug Detection", technology: "Post-release → Pre-merge" },
+          { layer: "Developer Productivity", technology: "40% more time on features" },
+          { layer: "Deployment Confidence", technology: "Manual hope → Automated certainty" },
+          { layer: "Release Frequency", technology: "Weekly → Multiple daily deployments" },
+        ]} />
       </DocSection>
 
-      <DocSection id="impact" title="Real-World Impact" index={16}>
-        <p>
-          Jenkins remains one of the most widely used CI/CD tools in the industry. This project demonstrates the core patterns of automated software delivery — from commit to deployment. The pipeline automates repetitive tasks, catches bugs early, and enables rapid, reliable releases. These practices are fundamental to modern DevOps culture and are used by organizations of all sizes.
-        </p>
+      <DocSection id="impact" title="Real-World Impact" index={25}>
+        <p>Jenkins remains one of the most widely used CI/CD tools in the industry. This project demonstrates the core patterns of automated software delivery — from commit to deployment.</p>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={17}>
+      <DocSection id="author" title="Author" index={26}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>

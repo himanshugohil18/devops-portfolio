@@ -9,13 +9,45 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { AdvancedDevOpsSections, advancedDevOpsTocItems } from "@/components/docs/AdvancedDevOpsSections";
 import archKubernetesChat from "@/assets/arch-kubernetes-chat.png";
 
+const k8sLayers = [
+  { name: "Frontend Layer", tools: [
+    { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+    { name: "Nginx", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" },
+  ]},
+  { name: "Backend Layer", tools: [
+    { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+    { name: "Express", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+  ]},
+  { name: "Database Layer", tools: [
+    { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  ]},
+  { name: "Orchestration Layer", tools: [
+    { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+    { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+  ]},
+];
+
+const k8sPipeline = [
+  { label: "Ingress", icon: "🌐" },
+  { label: "React Frontend", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { label: "Node.js API", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+  { label: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+  { label: "PersistentVolume", icon: "💾" },
+];
+
+const k8sChallenges = [
+  { problem: "MongoDB data was lost when pods were rescheduled or restarted.", solution: "Implemented StatefulSet with PersistentVolumeClaims, ensuring data survives pod lifecycle events and node failures." },
+  { problem: "Frontend and backend pods couldn't discover each other reliably.", solution: "Configured ClusterIP services with DNS-based service discovery and environment variable injection via ConfigMaps." },
+];
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
   { id: "problem-statement", title: "Problem Statement" },
   { id: "architecture-overview", title: "Architecture Overview" },
+  ...advancedDevOpsTocItems,
   { id: "kubernetes-deployment", title: "Kubernetes Deployment Architecture" },
   { id: "containerization", title: "Containerization Strategy" },
   { id: "service-networking", title: "Service Networking" },
@@ -34,32 +66,53 @@ export default function KubernetesChatApp() {
       title="Chat Application – Kubernetes 3-Tier Architecture (Minikube)"
       subtitle="Kubernetes · Microservices · Container Orchestration"
       tags={["Kubernetes", "Docker", "Minikube", "Node.js", "React", "MongoDB"]}
-      summary="A real-time 3-tier chat application deployed on a Kubernetes cluster using Minikube. The architecture cleanly separates frontend, backend API, and database layers into independently containerized services, orchestrated with Kubernetes deployments, services, ConfigMaps, and Secrets for production-grade reliability."
+      summary="A real-time 3-tier chat application deployed on a Kubernetes cluster using Minikube. The architecture cleanly separates frontend, backend API, and database layers into independently containerized services."
       tocItems={tocItems}
     >
       <DocSection id="executive-summary" title="Executive Summary" index={1}>
-        <p>
-          This project demonstrates a microservices-based chat application deployed on Kubernetes using Minikube. The 3-tier architecture separates concerns across frontend, backend, and database layers — each running as independent containerized services with Kubernetes-native scaling, networking, and configuration management.
-        </p>
+        <p>This project demonstrates a microservices-based chat application deployed on Kubernetes using Minikube. The 3-tier architecture separates concerns across frontend, backend, and database layers.</p>
       </DocSection>
 
       <DocSection id="problem-statement" title="Problem Statement" index={2}>
-        <p>
-          Monolithic deployments create tight coupling between application tiers, making independent scaling impossible and increasing blast radius during failures. Teams need a microservices architecture that allows each tier to scale, update, and recover independently.
-        </p>
+        <p>Monolithic deployments create tight coupling between application tiers, making independent scaling impossible.</p>
         <ul className="list-disc pl-5 space-y-2 mt-3">
           <li>Monolithic deployments prevent independent tier scaling</li>
           <li>Database crashes take down entire application stack</li>
           <li>No service isolation or network policy enforcement</li>
-          <li>Configuration scattered across environments without centralized management</li>
+          <li>Configuration scattered across environments</li>
         </ul>
       </DocSection>
 
       <DocSection id="architecture-overview" title="Architecture Overview" index={3}>
-        <ArchitectureOverview imageSrc={archKubernetesChat} title="Kubernetes 3-Tier Architecture" caption="Ingress Controller → Frontend (React) → Backend (Node.js) → Database (MongoDB) with ConfigMaps, Secrets, HPA, and PersistentVolumes" />
+        <ArchitectureOverview imageSrc={archKubernetesChat} title="Kubernetes 3-Tier Architecture" caption="Ingress Controller → Frontend (React) → Backend (Node.js) → Database (MongoDB)" />
       </DocSection>
 
-      <DocSection id="kubernetes-deployment" title="Kubernetes Deployment Architecture" index={4}>
+      <AdvancedDevOpsSections
+        startIndex={4}
+        layers={k8sLayers}
+        pipelineSteps={k8sPipeline}
+        challenges={k8sChallenges}
+        iacTool="Kubernetes Manifests"
+        iacDescription="Infrastructure is defined declaratively using Kubernetes YAML manifests for deployments, services, ConfigMaps, secrets, and persistent volumes."
+        practices={[
+          { title: "Container Orchestration", description: "Kubernetes manages deployment, scaling, and networking of containers", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+          { title: "Microservices Architecture", description: "Independent frontend, backend, and database services", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+          { title: "StatefulSet for Data", description: "MongoDB persistence with PersistentVolumeClaims", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+          { title: "Service Discovery", description: "DNS-based service discovery with ClusterIP services", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+          { title: "Config Management", description: "ConfigMaps and Secrets for environment configuration", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+          { title: "Auto-scaling", description: "HPA scales pods based on CPU utilization thresholds", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+        ]}
+        productionFeatures={["Horizontal Pod Autoscaler", "StatefulSet Persistence", "Readiness Probes", "Resource Limits", "Network Policies", "ConfigMap Injection", "Secret Management", "Multi-replica Deployments"]}
+        scalingConcepts={[
+          { title: "HPA Backend Scaling", description: "Backend scales 3-10 pods at 70% CPU threshold" },
+          { title: "Frontend Scaling", description: "Frontend scales 2-6 replicas based on request load" },
+          { title: "StatefulSet Database", description: "MongoDB uses StatefulSet with persistent volumes" },
+          { title: "Resource Quotas", description: "CPU/memory limits enforce fair scheduling" },
+          { title: "Ingress Load Balancing", description: "Ingress controller distributes external traffic" },
+        ]}
+      />
+
+      <DocSection id="kubernetes-deployment" title="Kubernetes Deployment Architecture" index={13}>
         <TechTable rows={[
           { layer: "Frontend", technology: "React (Deployment, 2 replicas)" },
           { layer: "Backend API", technology: "Node.js Express (Deployment, 3 replicas)" },
@@ -111,7 +164,7 @@ spec:
             periodSeconds: 10`} />
       </DocSection>
 
-      <DocSection id="containerization" title="Containerization Strategy" index={5}>
+      <DocSection id="containerization" title="Containerization Strategy" index={14}>
         <p>Each tier uses multi-stage Docker builds to minimize image size and attack surface:</p>
         <CodeBlock title="Frontend Dockerfile" language="dockerfile" code={`FROM node:18-alpine AS build
 WORKDIR /app
@@ -127,8 +180,8 @@ EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]`} />
       </DocSection>
 
-      <DocSection id="service-networking" title="Service Networking" index={6}>
-        <p>Internal service communication uses Kubernetes ClusterIP services. External access is routed through NodePort or Ingress controller.</p>
+      <DocSection id="service-networking" title="Service Networking" index={15}>
+        <p>Internal service communication uses Kubernetes ClusterIP services.</p>
         <CodeBlock title="Backend Service" language="yaml" code={`apiVersion: v1
 kind: Service
 metadata:
@@ -142,7 +195,7 @@ spec:
   type: ClusterIP`} />
       </DocSection>
 
-      <DocSection id="scaling" title="Scaling Strategy" index={7}>
+      <DocSection id="scaling" title="Scaling Strategy" index={16}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>HPA scales backend pods from 3 to 10 based on CPU utilization (70% threshold)</li>
           <li>Frontend replicas scale from 2 to 6 based on request load</li>
@@ -169,9 +222,9 @@ spec:
           averageUtilization: 70`} />
       </DocSection>
 
-      <DocSection id="security" title="Security Configuration" index={8}>
+      <DocSection id="security" title="Security Configuration" index={17}>
         <ul className="list-disc pl-5 space-y-2">
-          <li><strong>Kubernetes Secrets:</strong> MongoDB credentials stored as base64-encoded secrets, never in plaintext</li>
+          <li><strong>Kubernetes Secrets:</strong> MongoDB credentials stored as base64-encoded secrets</li>
           <li><strong>Network Policies:</strong> Restrict inter-pod communication — only backend can reach database</li>
           <li><strong>Non-root containers:</strong> All containers run as non-root users</li>
           <li><strong>Resource limits:</strong> Prevent resource exhaustion attacks</li>
@@ -179,7 +232,7 @@ spec:
         </ul>
       </DocSection>
 
-      <DocSection id="deployment-steps" title="Deployment Steps" index={9}>
+      <DocSection id="deployment-steps" title="Deployment Steps" index={18}>
         <CodeBlock title="Deploy to Minikube" language="bash" code={`# Start Minikube cluster
 minikube start --cpus=4 --memory=4096
 
@@ -205,7 +258,7 @@ kubectl get services -n chat-app
 minikube service chat-frontend-svc -n chat-app`} />
       </DocSection>
 
-      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={10}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={19}>
         <ProductionMetrics metrics={[
           { label: "Container Orchestration", value: 95 },
           { label: "Service Isolation", value: 90 },
@@ -215,11 +268,11 @@ minikube service chat-frontend-svc -n chat-app`} />
         ]} />
       </DocSection>
 
-      <DocSection id="project-impact" title="Project Impact" index={11}>
+      <DocSection id="project-impact" title="Project Impact" index={20}>
         <ProjectImpact />
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={12}>
+      <DocSection id="improvements" title="Production Improvements" index={21}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -238,7 +291,7 @@ minikube service chat-frontend-svc -n chat-app`} />
         </Collapsible>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={13}>
+      <DocSection id="author" title="Author" index={22}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>

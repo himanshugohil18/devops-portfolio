@@ -9,12 +9,81 @@ import { ProductionMetrics } from "@/components/docs/ProductionMetrics";
 import { ProjectImpact } from "@/components/docs/ProjectImpact";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { AdvancedDevOpsSections, advancedDevOpsTocItems } from "@/components/docs/AdvancedDevOpsSections";
 import archServerless from "@/assets/arch-serverless-diagram.png";
 
+const serverlessLayers = [
+  {
+    name: "API Layer",
+    tools: [
+      { name: "API Gateway", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+    ],
+  },
+  {
+    name: "Compute Layer",
+    tools: [
+      { name: "AWS Lambda", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+    ],
+  },
+  {
+    name: "Data Layer",
+    tools: [
+      { name: "DynamoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dynamodb/dynamodb-original.svg" },
+      { name: "S3", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+    ],
+  },
+  {
+    name: "Observability Layer",
+    tools: [
+      { name: "CloudWatch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+    ],
+  },
+  {
+    name: "Security Layer",
+    tools: [
+      { name: "IAM", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+    ],
+  },
+];
+
+const serverlessPipeline = [
+  { label: "Client", icon: "🌐" },
+  { label: "API Gateway", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { label: "AWS Lambda", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { label: "DynamoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dynamodb/dynamodb-original.svg" },
+  { label: "S3 Storage", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { label: "CloudWatch", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+];
+
+const serverlessChallenges = [
+  { problem: "Cold starts caused 2-3 second latency spikes on first invocations.", solution: "Implemented provisioned concurrency for critical Lambda functions, reducing cold starts to under 100ms." },
+  { problem: "DynamoDB read costs were high due to frequent full table scans.", solution: "Implemented DynamoDB GSI indexes and query patterns to eliminate scans, reducing read costs by 60%." },
+];
+
+const serverlessPractices = [
+  { title: "Serverless Architecture", description: "Zero server management with AWS Lambda auto-scaling", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { title: "Event-Driven Design", description: "API Gateway triggers Lambda functions on HTTP events", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { title: "IAM Security", description: "Least-privilege policies for every Lambda function", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { title: "CloudWatch Monitoring", description: "Comprehensive logging and alerting for all functions", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { title: "Cost Optimization", description: "Pay-per-use pricing with zero idle costs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+  { title: "Infrastructure as Code", description: "AWS SAM/CloudFormation for reproducible deployments", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
+];
+
+const serverlessProductionFeatures = [
+  "Auto-scaling to 1000+ concurrent",
+  "Provisioned Concurrency",
+  "API Gateway Throttling",
+  "DynamoDB On-Demand",
+  "CloudWatch Alarms",
+  "X-Ray Distributed Tracing",
+  "Dead Letter Queues",
+  "Multi-AZ by Default",
+];
 
 const tocItems = [
   { id: "executive-summary", title: "Executive Summary" },
   { id: "architecture-overview", title: "Architecture Overview" },
+  ...advancedDevOpsTocItems,
   { id: "problem-statement", title: "Problem Statement" },
   { id: "architecture", title: "High-Level Architecture" },
   { id: "tech-stack", title: "Technology Stack" },
@@ -51,7 +120,22 @@ export default function AwsServerlessLambda() {
         <ArchitectureOverview imageSrc={archServerless} title="Serverless Architecture Overview" caption="Client → API Gateway → AWS Lambda → DynamoDB / S3 / CloudWatch" />
       </DocSection>
 
-      <DocSection id="problem-statement" title="Problem Statement" index={3}>
+      <AdvancedDevOpsSections
+        startIndex={3}
+        layers={serverlessLayers}
+        pipelineSteps={serverlessPipeline}
+        iacTool="AWS CloudFormation / SAM"
+        iacDescription="Infrastructure is defined using AWS SAM (Serverless Application Model) and CloudFormation for fully declarative, version-controlled serverless deployments."
+        practices={serverlessPractices}
+        productionFeatures={serverlessProductionFeatures}
+        challenges={serverlessChallenges}
+        observabilityTools={[
+          { name: "CloudWatch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg", role: "Metrics & Logs" },
+          { name: "X-Ray", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg", role: "Distributed Tracing" },
+        ]}
+      />
+
+      <DocSection id="problem-statement" title="Problem Statement" index={12}>
         <p>
           Traditional server-based backends require constant provisioning, patching, and capacity planning. Teams pay for idle servers during low-traffic periods and struggle to scale during traffic spikes. There's a need for a compute model that scales automatically and charges only for actual usage.
         </p>
@@ -63,40 +147,31 @@ export default function AwsServerlessLambda() {
         </ul>
       </DocSection>
 
-      <DocSection id="architecture" title="High-Level Architecture" index={4}>
-        <CodeBlock
-          title="Serverless Architecture"
-          language="text"
-          code={`Request Flow:
+      <DocSection id="architecture" title="High-Level Architecture" index={13}>
+        <CodeBlock title="Serverless Architecture" language="text" code={`Request Flow:
   1. Client sends HTTP request
   2. API Gateway validates & routes request
   3. Lambda function processes business logic
   4. Data persisted to DynamoDB / S3
   5. Response returned through API Gateway
-  6. All logs sent to CloudWatch`}
-        />
+  6. All logs sent to CloudWatch`} />
       </DocSection>
 
-      <DocSection id="tech-stack" title="Technology Stack" index={5}>
-        <TechTable
-          rows={[
-            { layer: "Compute", technology: "AWS Lambda (Python 3.11)" },
-            { layer: "API Layer", technology: "Amazon API Gateway (REST)" },
-            { layer: "Database", technology: "Amazon DynamoDB" },
-            { layer: "Storage", technology: "Amazon S3" },
-            { layer: "Monitoring", technology: "Amazon CloudWatch" },
-            { layer: "Security", technology: "AWS IAM" },
-            { layer: "Infrastructure", technology: "AWS CloudFormation / SAM" },
-          ]}
-        />
+      <DocSection id="tech-stack" title="Technology Stack" index={14}>
+        <TechTable rows={[
+          { layer: "Compute", technology: "AWS Lambda (Python 3.11)" },
+          { layer: "API Layer", technology: "Amazon API Gateway (REST)" },
+          { layer: "Database", technology: "Amazon DynamoDB" },
+          { layer: "Storage", technology: "Amazon S3" },
+          { layer: "Monitoring", technology: "Amazon CloudWatch" },
+          { layer: "Security", technology: "AWS IAM" },
+          { layer: "Infrastructure", technology: "AWS CloudFormation / SAM" },
+        ]} />
       </DocSection>
 
-      <DocSection id="implementation" title="Detailed Implementation Steps" index={6}>
+      <DocSection id="implementation" title="Detailed Implementation Steps" index={15}>
         <h3 className="text-foreground font-semibold text-base mb-3">Lambda Function Code</h3>
-        <CodeBlock
-          title="lambda_function.py"
-          language="python"
-          code={`import json
+        <CodeBlock title="lambda_function.py" language="python" code={`import json
 import boto3
 import os
 from datetime import datetime
@@ -152,24 +227,18 @@ def response(status_code, body):
             'Access-Control-Allow-Origin': '*',
         },
         'body': json.dumps(body, default=str),
-    }`}
-        />
+    }`} />
 
         <h3 className="text-foreground font-semibold text-base mb-3 mt-6">API Gateway Configuration</h3>
         <p className="mb-3">API Gateway is configured with the following endpoints:</p>
-        <TechTable
-          rows={[
-            { layer: "GET /items", technology: "List all items from DynamoDB" },
-            { layer: "POST /items", technology: "Create a new item" },
-            { layer: "GET /items/{id}", technology: "Get item by ID" },
-          ]}
-        />
+        <TechTable rows={[
+          { layer: "GET /items", technology: "List all items from DynamoDB" },
+          { layer: "POST /items", technology: "Create a new item" },
+          { layer: "GET /items/{id}", technology: "Get item by ID" },
+        ]} />
 
         <h3 className="text-foreground font-semibold text-base mb-3 mt-6">IAM Policy</h3>
-        <CodeBlock
-          title="Lambda Execution Role Policy"
-          language="json"
-          code={`{
+        <CodeBlock title="Lambda Execution Role Policy" language="json" code={`{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -192,11 +261,10 @@ def response(status_code, body):
       "Resource": "arn:aws:logs:*:*:*"
     }
   ]
-}`}
-        />
+}`} />
       </DocSection>
 
-      <DocSection id="security" title="Security Architecture" index={7}>
+      <DocSection id="security" title="Security Architecture" index={16}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Least Privilege IAM:</strong> Lambda role has only the permissions it needs — no wildcard policies</li>
           <li><strong>API Gateway Authorization:</strong> API keys and usage plans for rate limiting</li>
@@ -207,7 +275,7 @@ def response(status_code, body):
         </ul>
       </DocSection>
 
-      <DocSection id="monitoring" title="Monitoring & Logging" index={8}>
+      <DocSection id="monitoring" title="Monitoring & Logging" index={17}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li><strong>CloudWatch Logs:</strong> All Lambda invocations logged with execution details</li>
           <li><strong>CloudWatch Metrics:</strong> Duration, errors, throttles, concurrent executions</li>
@@ -222,7 +290,7 @@ def response(status_code, body):
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="scalability" title="Scalability Strategy" index={9}>
+      <DocSection id="scalability" title="Scalability Strategy" index={18}>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Lambda automatically scales from 0 to 1000+ concurrent executions</li>
           <li>API Gateway handles millions of API calls with built-in caching</li>
@@ -238,7 +306,7 @@ def response(status_code, body):
         </ProgressCard>
       </DocSection>
 
-      <DocSection id="cost" title="Cost Optimization" index={10}>
+      <DocSection id="cost" title="Cost Optimization" index={19}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Pay-per-use:</strong> Lambda charges only for actual execution time (per 1ms)</li>
           <li><strong>Free tier:</strong> 1M free requests and 400,000 GB-seconds per month</li>
@@ -249,7 +317,7 @@ def response(status_code, body):
         </ul>
       </DocSection>
 
-      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={11}>
+      <DocSection id="production-metrics" title="Production Metrics Dashboard" index={20}>
         <ProductionMetrics metrics={[
           { label: "Deployment Automation", value: 88 },
           { label: "System Reliability", value: 96 },
@@ -259,11 +327,11 @@ def response(status_code, body):
         ]} />
       </DocSection>
 
-      <DocSection id="project-impact" title="Project Impact" index={12}>
+      <DocSection id="project-impact" title="Project Impact" index={21}>
         <ProjectImpact />
       </DocSection>
 
-      <DocSection id="improvements" title="Production Improvements" index={13}>
+      <DocSection id="improvements" title="Production Improvements" index={22}>
         <Collapsible>
           <CollapsibleTrigger className="flex items-center gap-2 text-foreground font-medium text-sm hover:text-primary transition-colors w-full text-left py-2">
             <ChevronDown className="w-4 h-4" />
@@ -283,7 +351,7 @@ def response(status_code, body):
         </Collapsible>
       </DocSection>
 
-      <DocSection id="skills" title="DevOps Skills Demonstrated" index={14}>
+      <DocSection id="skills" title="DevOps Skills Demonstrated" index={23}>
         <div className="flex flex-wrap gap-2">
           {["AWS Lambda", "API Gateway", "DynamoDB", "IAM", "CloudWatch", "Serverless", "Python", "REST APIs", "Event-Driven Architecture", "Cost Optimization", "Infrastructure as Code"].map((skill) => (
             <span key={skill} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
@@ -293,7 +361,7 @@ def response(status_code, body):
         </div>
       </DocSection>
 
-      <DocSection id="business-value" title="Business Value" index={15}>
+      <DocSection id="business-value" title="Business Value" index={24}>
         <ul className="list-disc pl-5 space-y-2">
           <li><strong>Zero infrastructure management</strong> — focus entirely on business logic</li>
           <li><strong>60-80% cost reduction</strong> compared to always-on EC2 instances</li>
@@ -303,13 +371,13 @@ def response(status_code, body):
         </ul>
       </DocSection>
 
-      <DocSection id="impact" title="Real-World Impact" index={16}>
+      <DocSection id="impact" title="Real-World Impact" index={25}>
         <p>
           Serverless architecture is rapidly becoming the default for modern applications. AWS Lambda processes trillions of requests monthly across industries. This project demonstrates the patterns and practices used by companies like Netflix, Coca-Cola, and Capital One for building scalable, cost-efficient backends without server management.
         </p>
       </DocSection>
 
-      <DocSection id="author" title="Author" index={17}>
+      <DocSection id="author" title="Author" index={26}>
         <AuthorSection />
       </DocSection>
     </ProjectDocLayout>
