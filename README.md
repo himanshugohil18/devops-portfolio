@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Welcome to your Lovable project
 
 ## Project info
@@ -71,3 +72,7 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+=======
+# devops-portfolio
+🚀 DevOps Portfolio showcasing AWS ☁️, Kubernetes ☸️, CI/CD ⚙️, Terraform 🏗, Docker 🐳, GitOps 🔄 and Monitoring 📊
+>>>>>>> 1035af4e434c8bbc3d5316c6eb5c182d6f49b9a3
